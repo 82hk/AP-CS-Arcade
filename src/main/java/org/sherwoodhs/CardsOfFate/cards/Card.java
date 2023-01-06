@@ -1,4 +1,4 @@
-package CardsOfFate.cards;
+package org.sherwoodhs.CardsOfFate.cards;
 
 public abstract class Card {
     protected String name = "";
