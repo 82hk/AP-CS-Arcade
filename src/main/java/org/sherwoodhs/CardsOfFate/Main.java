@@ -10,17 +10,12 @@ public class Main {
         startUp();
     }
     public static void startUp(){
-        ArrayList<Card> startingDeck = new ArrayList<Card>();
-        startingDeck.add(new Test(1));
-        startingDeck.add(new Test(2));
-        startingDeck.add(new Test(3));
-        startingDeck.add(new Test(4));
-        startingDeck.add(new Test(5));
-        startingDeck.add(new Test(6));
-        startingDeck.add(new Test(7));
-        startingDeck.add(new Test(8));
+        Stack<Card> startingDeck = new Stack<Card>();
+        for(int i = 0; i < 20; i++){
+            startingDeck.push(new Test(i));
+        }
         Deck player = new Deck(startingDeck);
-        System.out.print(player.hand);
+        player.printHand();
 
     }
 }
