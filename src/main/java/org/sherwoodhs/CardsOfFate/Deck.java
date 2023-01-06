@@ -32,7 +32,7 @@ public class Deck {
         // Adds the top card from the deck to the hand n# of times
         public void drawCard (int n) {
             for(int i = 0; i < n; i++){
-                addHandCard(deck.pop(););
+                addHandCard(deck.pop());
             }
         }
 

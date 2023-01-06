@@ -4,7 +4,7 @@ public class Player extends Entity {
         super (name,deck);
 
     }
-    public static getInstance () {
+    public Player getInstance () {
         return (player);
     }
 }
