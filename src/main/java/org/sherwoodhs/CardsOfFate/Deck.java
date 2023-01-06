@@ -11,11 +11,11 @@ public class Deck {
         public Deck (Stack<Card> deck) {
             this.deck = deck;
             shuffleDeck();
-            drawCard(5);
+            initalDraw();
         }
 
         // Returns value of card on top of the deck
-        private Card getNext () {
+        public Card getNext () {
             return(deck.peek());
         }
 
@@ -36,6 +36,11 @@ public class Deck {
             }
         }
 
+        // This is the inital draw of 5 cards everytime a game initiates.
+        public void initalDraw() {
+            drawCard(5);
+        }
+
         // Shuffles the deck
         public void shuffleDeck() {
             Collections.shuffle(deck);
@@ -53,9 +58,14 @@ public class Deck {
         }
 */
 
-        // Prints Hand
-        public void printHand(){
-            System.out.println(hand);
+        // Returns Hand
+        public ArrayList<Card> getHand(){
+            return(hand);
+        }
+
+        // Returns Deck
+        public Stack<Card> getDeck(){
+            return(deck);
         }
     }
 
