@@ -1,13 +1,13 @@
 package org.sherwoodhs.CardsOfFate.Entities;
 
 import org.sherwoodhs.CardsOfFate.Deck;
-import org.sherwoodhs.CardsOfFate.cards.*;
+import org.sherwoodhs.CardsOfFate.Cards.*;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 public abstract class Person {
-    protected String name = "";
+    protected String name;
     protected Deck deck;
 
     public Person(String name, Card[] deck) {

@@ -1,6 +1,6 @@
 package org.sherwoodhs.CardsOfFate;
 
-import org.sherwoodhs.CardsOfFate.cards.Card;
+import org.sherwoodhs.CardsOfFate.Cards.Card;
 
 import java.util.*;
 
