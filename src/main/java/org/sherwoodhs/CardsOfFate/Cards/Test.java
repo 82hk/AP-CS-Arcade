@@ -1,7 +1,7 @@
-package CardsOfFate.cards;
+package org.sherwoodhs.CardsOfFate.Cards;
 
 public class Test extends Card{
     public Test(int number) {
-        name = "Test" + number;
+        super("Test" + number);
     }
 }

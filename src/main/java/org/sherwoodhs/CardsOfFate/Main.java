@@ -1,16 +1,14 @@
-package CardsOfFate;
+package org.sherwoodhs.CardsOfFate;
 
-import CardsOfFate.cards.Card;
-import CardsOfFate.cards.Test;
 
-import java.util.ArrayList;
+import org.sherwoodhs.CardsOfFate.Entities.Player;
 
 public class Main {
     public static void main(String[] args) {
         startUp();
     }
     public static void startUp(){
-        Player player;
+        Player player = Player.getInstance();
         player.printHand();
     }
 }

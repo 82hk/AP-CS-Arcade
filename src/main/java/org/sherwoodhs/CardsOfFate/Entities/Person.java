@@ -1,18 +1,26 @@
-public abstract class Entity {
-    protected String name = "";
+package org.sherwoodhs.CardsOfFate.Entities;
+
+import org.sherwoodhs.CardsOfFate.Deck;
+import org.sherwoodhs.CardsOfFate.Cards.*;
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+public abstract class Person {
+    protected String name;
     protected Deck deck;
 
-    public Entity (String name, Card... deck) {
+    public Person(String name, Card[] deck) {
         this.name = name;
-        
+
         // Puts Cards in a stack
-        Stack<Card> stack = new Stack<Card>();
-        for(int i = 0; i > deck.size(); i++){
+        Stack<Card> stack = new Stack<>();
+        for(int i = 0; i < deck.length; i++) {
             stack.push(deck[i]);
         }
-
         // Makes the stack of cards a deck
-        this.deck = new Deck(stack);    
+        this.deck = new Deck(stack);
+
     }
 
     // Returns Entity Name
