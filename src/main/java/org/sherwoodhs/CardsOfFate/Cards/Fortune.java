@@ -4,4 +4,6 @@ public class Fortune extends Card{
     public Fortune(){
         super("Wheel Of Fortune");
     }
+    public void effect(){
+    }
 }

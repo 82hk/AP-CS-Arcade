@@ -4,4 +4,6 @@ public class Temperance extends Card{
     public Temperance() {
         super("Temperance");
     }
+    public void effect(){
+    }
 }

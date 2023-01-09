@@ -4,4 +4,6 @@ public class Emperor extends Card{
     public Emperor() {
         super("The Emperor");
     }
+    public void effect(){
+    }
 }

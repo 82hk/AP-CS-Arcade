@@ -6,4 +6,6 @@ public class Criminal extends Card{
     public Criminal() {
         super("The Hanged Man");
     }
+    public void effect(){
+    }
 }

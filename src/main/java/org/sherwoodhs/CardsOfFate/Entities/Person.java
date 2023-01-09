@@ -40,6 +40,6 @@ public abstract class Person {
 
     // Prints Hand
     public void printHand(){
-        System.out.println(deck.getHand());
+        System.out.println(getHand());
     }
 }

@@ -4,4 +4,7 @@ public class Chariot extends Card{
     public Chariot() {
         super("The Chariot");
     }
+    public void effect(){
+    }
+
 }

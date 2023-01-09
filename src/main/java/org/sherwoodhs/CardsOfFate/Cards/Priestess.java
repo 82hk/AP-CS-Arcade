@@ -4,4 +4,6 @@ public class Priestess extends Card{
     public Priestess () {
         super("The High Priestess");
     }
+    public void effect(){
+    }
 }
