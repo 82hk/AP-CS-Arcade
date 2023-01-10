@@ -1,13 +1,11 @@
 package org.sherwoodhs.CardsOfFate.Entities;
 
-import org.sherwoodhs.CardsOfFate.Cards.Card;
-import org.sherwoodhs.CardsOfFate.Cards.Test;
+import org.sherwoodhs.CardsOfFate.Cards.*;
 
 public class Player extends Person {
-    private static Player player = new Player("Player", new Test(1), new Test(2), new Test(3), new Test(4), new Test(5), new Test (6), new Test(7),new Test(8));
+    private static Player player = new Player("Player", new Fool(), new Swords(1), new Swords(2), new Wands(1), new Wands(2) new Coins(1), new Coins(2), new Goblets(1), new Goblets(2));
     private Player (String name, Card... deck){
         super (name,deck);
-
     }
     public static Player getInstance () {
         return (player);

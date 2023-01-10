@@ -6,36 +6,18 @@ import org.sherwoodhs.CardsOfFate.Cards.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public abstract class Person {
+public abstract class Person extends Deck{
     protected String name;
     protected Deck deck;
 
     public Person(String name, Card[] deck) {
-        this.name = name;
-
-        // Puts Cards in a stack
-        Stack<Card> stack = new Stack<>();
-        for(int i = 0; i < deck.length; i++) {
-            stack.push(deck[i]);
-        }
-        // Makes the stack of cards a deck
-        this.deck = new Deck(stack);
-
+        super(deck);
+        this.name = name; 
     }
 
     // Returns Entity Name
     public String getName(){
         return(name);
-    }
-
-    // Gets the Deck
-    private Stack<Card> getDeck(){
-        return(deck.getDeck());
-    }
-
-    // Gets the Hand
-    private ArrayList<Card> getHand(){
-        return(deck.getHand());
     }
 
     // Prints Hand

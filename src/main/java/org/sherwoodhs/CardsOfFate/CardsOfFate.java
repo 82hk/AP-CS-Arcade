@@ -5,6 +5,7 @@ import org.sherwoodhs.Game;
 
 public class CardsOfFate extends Game {
     private Player player = Player.getInstance();
+    private Dialouge dialouge = Dialouge.getInstance();
     public CardsOfFate(){
 
     }
@@ -17,7 +18,7 @@ public class CardsOfFate extends Game {
     public void initializeGame(){
     }
     public void startGame() {
-
+        
     }
     public void endGame() {
 
