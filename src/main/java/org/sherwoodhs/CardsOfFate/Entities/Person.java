@@ -1,18 +1,17 @@
 package org.sherwoodhs.CardsOfFate.Entities;
 
-import org.sherwoodhs.CardsOfFate.Deck;
 import org.sherwoodhs.CardsOfFate.Cards.*;
 
-import java.util.ArrayList;
-import java.util.Stack;
 
-public abstract class Person extends Deck{
+public abstract class Person{
     protected String name;
-    protected Deck deck;
+    protected int health;
+    protected int maxHealth;
 
-    public Person(String name, Card[] deck) {
-        super(deck);
-        this.name = name; 
+    public Person(String name, int maxHealth) {
+        this.name = name;
+        this.maxHealth = maxHealth;
+        health = maxHealth;
     }
 
     // Returns Entity Name
@@ -20,8 +19,19 @@ public abstract class Person extends Deck{
         return(name);
     }
 
-    // Prints Hand
-    public void printHand(){
-        System.out.println(getHand());
+    public void changeHealth(int change){
+        health += change;
+        if (health < 0){
+            health = 0;
+        } else if(health > maxHealth){
+
+        }
+    }
+
+    public boolean isDead() {
+        if (health == 0){
+            return true;
+        }
+        return false;
     }
 }

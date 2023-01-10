@@ -9,6 +9,5 @@ public class Main {
     }
     public static void startUp(){
         Player player = Player.getInstance();
-        player.printHand();
     }
 }

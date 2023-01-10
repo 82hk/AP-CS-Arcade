@@ -5,12 +5,13 @@ import org.sherwoodhs.CardsOfFate.Cards.Card;
 import java.util.*;
 
 // Well, this is more aptly described as deck, hand, and discard 
-public class Deck {
+public abstract class Deck extends Person{
         private Stack<Card> deck;
         private ArrayList<Card> hand = new ArrayList<Card>();
         private ArrayList<Card> discard = new ArrayList<Card>();
         
-        public Deck (Card[] deck) {
+        public Deck (String name, int hp, Card[] deck) {
+            super(name,hp);
            // Puts Cards in a stack
             Stack<Card> stack = new Stack<>();
             for(int i = 0; i < deck.length; i++) {
@@ -42,6 +43,7 @@ public class Deck {
         public void drawCard (int n) {
             for(int i = 0; i < n; i++){
                 addHandCard(deck.pop());
+                restock();
             }
         }
 
@@ -81,6 +83,17 @@ public class Deck {
             hand.remove(card);
             discard.add(card);
         }
-        
+
+        private void restock(){
+            if (deck.size() == 0) {
+                int a = discard.size();
+                for (int i = 0; i < a; i++) {
+                    Card card = discard.get(0);
+                    discard.remove(0);
+                    deck.push(card);
+                }
+                shuffleDeck();
+            }
+        }
     }
 
