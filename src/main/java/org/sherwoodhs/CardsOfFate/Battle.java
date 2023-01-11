@@ -21,16 +21,20 @@ public class Battle {
 
     public void combat() {
         while (!player.isDead() && !enemy.isDead()){
-            // Enemy moveset
-            int a = r.nextInt();
-            if (a == 0){ //Attacks
-                enemyMove[0] = enemy.getAtk();
-            } else { //Defends
-                enemyMove[1] = enemy.getDfn();
-            }
+            enemyMove();
 
             // Player move
             player.drawCard(3);
+        }
+    }
+    
+    private void enemyMove() {
+        // Enemy moveset
+        int a = r.nextInt();
+        if (a == 0){ //Attacks
+           enemyMove[0] = enemy.getAtk();
+        } else { //Defends
+            enemyMove[1] = enemy.getDfn();
         }
     }
 }

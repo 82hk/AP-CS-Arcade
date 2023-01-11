@@ -21,7 +21,6 @@ public abstract class Deck extends Person{
             this.deck = stack;
 
             shuffleDeck();
-            initalDraw();
         }
 
         // Returns value of card on top of the deck
@@ -79,11 +78,24 @@ public abstract class Deck extends Person{
             return(deck);
         }
 
+        //Returns Discard Pile
+        public ArrayList<Card> getDiscard() {
+            return(discard);
+        }
+
+        //Moves a specific Card from hand to discard
         public void discardCard(Card card){
             hand.remove(card);
             discard.add(card);
         }
 
+        //Moves a specific card from discard to hand
+        public void revive(Card card){
+            discard.remove(card);
+            addHandCard(card);
+        }
+
+        // Moves cards in discard to deck and shuffles deck
         private void restock(){
             if (deck.size() == 0) {
                 int a = discard.size();
