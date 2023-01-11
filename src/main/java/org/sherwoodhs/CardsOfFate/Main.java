@@ -8,6 +8,6 @@ public class Main {
         startUp();
     }
     public static void startUp(){
-        Player player = Player.getInstance();
+        Window window = new Window();
     }
 }

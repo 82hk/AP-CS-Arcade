@@ -5,8 +5,9 @@ import org.sherwoodhs.CardsOfFate.Entities.Player;
 
 import java.util.Random;
 
-public class Battle {
+public class Battle extends Menu{
     private Player player = Player.getInstance();
+    private Encyclopedia encyclopedia = Encyclopedia.getInstance();
     private Enemy enemy;
 
     private Random r = new Random();
@@ -36,5 +37,9 @@ public class Battle {
         } else { //Defends
             enemyMove[1] = enemy.getDfn();
         }
+    }
+
+    private void checkDiscard(){
+        System.out.println("Discard Pile:\n" + player.getDiscard());
     }
 }

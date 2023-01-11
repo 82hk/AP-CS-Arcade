@@ -10,6 +10,6 @@ public class Dialouge{
     }
 
     public String tutorialOne() {
-        return("Welcome to the tutorial ");
+        return("Welcome to the tutorial. At any time,enter \"menu\" or \"m\" to access the pause menu. Press enter or anything else to advance through text.");
     };
 }
