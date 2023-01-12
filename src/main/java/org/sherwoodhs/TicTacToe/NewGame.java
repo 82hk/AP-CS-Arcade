@@ -29,41 +29,53 @@ public class NewGame implements ActionListener {
 
     NewGame() {
 
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setVisible(true);
-        window.setSize(800,900);
-        window.setResizable(false);
-
-        title.setText(currentPlayer + "'s turn");
-        titleField.add(title);
-        grid.setLayout(new GridLayout(3,3));
-
         bingo = false;
         currentPlayer = "X";
         otherPlayer = "O";
 
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setTitle("Tic Tac Toe");
+        window.setResizable(true);
+        window.setVisible(true);
+        window.setSize(new Dimension(600,700));
+        window.setLayout(new GridLayout(2,1));
 
-        window.add(grid);
+        grid.setLayout(new GridLayout(3,3));
+        //grid.setPreferredSize(new Dimension(600,600));
+
+        title.setText(currentPlayer + "'s turn");
+        title.setFont(new Font("Lato", Font.BOLD, 120));
+        //titleField.setPreferredSize(new Dimension(600,100));
+        titleField.add(title);
+
         window.add(titleField);
+        window.add(grid);
 
 
         for (int i = 0; i < 9; i++) {
             gridSquare[i] = new JButton();
             gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
-            grid.add(gridSquare[i]);
             gridSquare[i].setBackground(Color.LIGHT_GRAY);
             gridSquare[i].setForeground(Color.black);
             gridSquare[i].addActionListener(this::actionPerformed);
+            grid.add(gridSquare[i]);
         }
+
 
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        try { Thread.sleep(10); } catch (InterruptedException ex) { throw new RuntimeException(ex); }
+
         if (bingo == false) {
             for (int i = 0; i < 9; i++) {
                 if (e.getSource() == gridSquare[i] && gridSquare[i].getText() != "X" && gridSquare[i].getText() != "O") {
+
+                    try { Thread.sleep(15); } catch (InterruptedException ex) { throw new RuntimeException(ex); }
+
                     gridSquare[i].setText(currentPlayer);
                     temp = currentPlayer;
                     currentPlayer = otherPlayer;
@@ -80,17 +92,18 @@ public class NewGame implements ActionListener {
             }
 
             for (int i = 0; i < winComboList.length; i++) {
-
                 if ( (gridSquare[winComboList[i][0]].getText() == otherPlayer) && (gridSquare[winComboList[i][1]].getText() == otherPlayer) && (gridSquare[winComboList[i][2]].getText() == otherPlayer) ) {
-
                     bingo = true;
-
-                    gridSquare[winComboList[i][0]].setBorderPainted(false);
-                    gridSquare[winComboList[i][1]].setBorderPainted(false);
-                    gridSquare[winComboList[i][2]].setBorderPainted(false);
-
+                    try { Thread.sleep(10); } catch (InterruptedException ex) { throw new RuntimeException(ex); }
                 }
             }
+
+            if (bingo == true) {
+                title.setText(otherPlayer + " wins!");
+            } else {
+                title.setText(currentPlayer + "'s turn");
+            }
+
         }
     }
 }
