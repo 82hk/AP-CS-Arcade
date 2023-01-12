@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 public class Run {
     CardsOfFate game;
-    Scanner in = new Scanner(System.in);
     private Dialouge dialouge = Dialouge.getInstance();
-    Menu menu = new Menu();
 
     public Run(CardsOfFate game){
         this.game = game;
@@ -14,11 +12,10 @@ public class Run {
     }
 
     private void initiate(){
-
+        tutorial();
     }
     private void tutorial(){
-        for(int i = 1; i >= 3; i++){
             dialouge.runText(1);
-        }
+
     }
 }

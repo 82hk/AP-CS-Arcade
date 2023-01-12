@@ -8,6 +8,7 @@ public class Main {
         startUp();
     }
     public static void startUp(){
-        Window window = new Window();
+        new Window();
+        new Run(new CardsOfFate());
     }
 }

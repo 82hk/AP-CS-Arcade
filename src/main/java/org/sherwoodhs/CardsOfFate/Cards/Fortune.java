@@ -8,6 +8,6 @@ public class Fortune extends Card{
     }
     public void effect(Deck deck){
         deck.drawCard(2);
-        //deck.discardCard(Fortune());
+        //deck.discardCard(new Fortune());
     }
 }
