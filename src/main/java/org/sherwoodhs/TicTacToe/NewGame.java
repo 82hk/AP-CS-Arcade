@@ -8,7 +8,8 @@ public class NewGame implements ActionListener {
 
     JFrame window = new JFrame();
     JPanel grid = new JPanel();
-    JLabel titleField = new JLabel();
+    JPanel titleField = new JPanel();
+    JLabel title = new JLabel();
     JButton[] gridSquare = new JButton[9];
     String currentPlayer, otherPlayer, temp;
     boolean bingo;
@@ -30,16 +31,20 @@ public class NewGame implements ActionListener {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
-        window.setSize(800,800);
+        window.setSize(800,900);
         window.setResizable(false);
-        window.add(grid);
 
-
+        title.setText(currentPlayer + "'s turn");
+        titleField.add(title);
         grid.setLayout(new GridLayout(3,3));
 
         bingo = false;
         currentPlayer = "X";
         otherPlayer = "O";
+
+
+        window.add(grid);
+        window.add(titleField);
 
 
         for (int i = 0; i < 9; i++) {
