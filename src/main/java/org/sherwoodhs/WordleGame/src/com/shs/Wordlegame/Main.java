@@ -1,4 +1,4 @@
-package com.shs.Wordlegame;
+package org.sherwoodhs.WordleGame.src.com.shs.Wordlegame;
 
 import javax.swing.*;
 
