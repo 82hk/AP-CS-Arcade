@@ -4,6 +4,6 @@ public class Reaper extends Card{
     public Reaper() {
         super("The Grim Reaper");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }

@@ -4,6 +4,6 @@ public class Star extends Card{
     public Star() {
         super("The Star");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }

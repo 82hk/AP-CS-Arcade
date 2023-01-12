@@ -4,6 +4,6 @@ public class Tower extends Card{
     public Tower() {
         super("The Tower");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }

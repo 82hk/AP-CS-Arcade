@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 import static org.sherwoodhs.CardsOfFate.Encyclopedia.encyclopedia;
 
+//The pause menu
 public class Menu {
     Scanner in = new Scanner(System.in);
     public void menu() {
-        System.out.println("Game Paused.\n\n(1)Encyclopedia\n\n(0)Quit?\n\nEnter the Corresponding Number");
+        System.out.println("Game Paused.\n\n(1)Resume\n(2)Encyclopedia\n(0)Quit?\n\nEnter the Corresponding Number");
         boolean loop = true;
         int number = 0;
         while (loop){
@@ -23,8 +24,9 @@ public class Menu {
     }
     public boolean selectOption(int number){
         switch (number){
-            case 0: encyclopedia(); return(true);
-            case 1: quit(); return(true);
+            case 0: quit(); return(true);
+            case 1: return(true);
+            case 2: encyclopedia(); return(true);
             default: return(false);
         }
 

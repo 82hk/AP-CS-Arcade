@@ -42,4 +42,13 @@ public class Battle extends Menu{
     private void checkDiscard(){
         System.out.println("Discard Pile:\n" + player.getDiscard());
     }
+    private void checkCombos(){
+
+    }
+    private void checkHand(){
+        
+    }
+    private void useCard(Card card){
+
+    }
 }

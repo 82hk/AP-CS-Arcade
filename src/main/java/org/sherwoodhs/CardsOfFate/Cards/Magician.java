@@ -4,6 +4,6 @@ public class Magician extends Card{
     public Magician(){
         super("The Magician");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }

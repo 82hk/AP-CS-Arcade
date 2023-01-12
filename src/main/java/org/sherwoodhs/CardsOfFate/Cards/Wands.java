@@ -4,6 +4,6 @@ public class Wands extends Cards{
     public Wands(int number) {
         super(number, "Wands");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }

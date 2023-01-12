@@ -4,6 +4,6 @@ public class Swords extends Cards{
     public Swords(int number) {
         super(number, "Swords");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }

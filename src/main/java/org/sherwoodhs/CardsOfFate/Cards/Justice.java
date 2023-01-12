@@ -4,6 +4,6 @@ public class Justice extends Card{
     public Justice() {
         super("Justice");
     }
-    public void effect(){
+    public void effect(Deck deck){
     }
 }
