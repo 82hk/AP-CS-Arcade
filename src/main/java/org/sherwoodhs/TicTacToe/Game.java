@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.logging.Logger;
 import java.util.*;
 
 public class Game implements ActionListener {
@@ -25,7 +24,7 @@ public class Game implements ActionListener {
     Game() {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
+        frame.setSize(800, 900);
         frame.getContentPane().setBackground(new Color(50, 50, 50));
         frame.setTitle("Tic Tac Toe");
         frame.setLayout(new BorderLayout());
@@ -42,7 +41,7 @@ public class Game implements ActionListener {
         textPanel.setLayout(new BorderLayout());
         textPanel.setBounds(0, 0, 800, 100);
         buttonPanel.setLayout(new GridLayout(3, 3));// setting layout of bt_pannel as gridlayout
-        buttonPanel.setBackground(new Color(255, 0, 0, 169));
+        buttonPanel.setBackground(new Color(255, 0, 0, 255));
         for (int i = 0; i < 9; i++) {
             button[i] = new JButton();// creating object for each button element of array
             buttonPanel.add(button[i]);// adding each button to the pannel for buttons
