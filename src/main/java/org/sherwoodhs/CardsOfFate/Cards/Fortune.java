@@ -1,5 +1,7 @@
 package org.sherwoodhs.CardsOfFate.Cards;
 
+import org.sherwoodhs.CardsOfFate.Entities.Deck;
+
 public class Fortune extends Card{
     public Fortune(){
         super("Wheel Of Fortune");

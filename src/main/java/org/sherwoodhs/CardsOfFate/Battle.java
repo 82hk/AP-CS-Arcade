@@ -1,5 +1,6 @@
 package org.sherwoodhs.CardsOfFate;
 
+import org.sherwoodhs.CardsOfFate.Cards.Card;
 import org.sherwoodhs.CardsOfFate.Entities.Enemy;
 import org.sherwoodhs.CardsOfFate.Entities.Player;
 

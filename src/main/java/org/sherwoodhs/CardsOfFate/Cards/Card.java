@@ -1,5 +1,7 @@
 package org.sherwoodhs.CardsOfFate.Cards;
 
+import org.sherwoodhs.CardsOfFate.Entities.Deck;
+
 public abstract class Card {
     protected String name;
 

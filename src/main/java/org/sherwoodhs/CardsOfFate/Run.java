@@ -1,5 +1,7 @@
 package org.sherwoodhs.CardsOfFate;
 
+import java.util.Scanner;
+
 public class Run {
     CardsOfFate game;
     Scanner in = new Scanner(System.in);

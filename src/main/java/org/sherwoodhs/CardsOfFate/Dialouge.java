@@ -1,7 +1,11 @@
 package org.sherwoodhs.CardsOfFate;
 
+import java.util.Scanner;
+import org.sherwoodhs.CardsOfFate.Menu;
 public class Dialouge{
     public static Dialouge dialouge = new Dialouge();
+    Scanner in = new Scanner(System.in);
+    Menu menu = new Menu();
     private Dialouge (){
 
     }

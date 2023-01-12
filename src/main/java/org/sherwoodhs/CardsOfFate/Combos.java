@@ -1,8 +1,11 @@
 package org.sherwoodhs.CardsOfFate;
 
+import org.sherwoodhs.CardsOfFate.Cards.Card;
+import java.util.ArrayList;
+
 public class Combos{
-    Arraylist<Card> hand;
-    public Combos (Arraylist<Card> hand) {
+    ArrayList<Card> hand;
+    public Combos (ArrayList<Card> hand) {
         this.hand = hand;
         checkCombos();
     }
