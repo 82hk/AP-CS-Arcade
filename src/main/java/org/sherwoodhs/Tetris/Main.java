@@ -12,7 +12,7 @@ public class Main extends JFrame {
     }
     public void createUI() {
         setTitle("Tetris");
-        setSize(200, 400);
+        setSize(300, 600);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

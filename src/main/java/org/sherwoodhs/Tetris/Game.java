@@ -192,6 +192,9 @@ public class Game extends JPanel {
             if (cpiece.getPiece() == Tetromino.NONE) {
                 return;
             }
+            if (isPaused && e.getKeyCode() != KeyEvent.VK_P) {
+                return;
+            }
             // introduce ability to hold key in the future
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_P:
