@@ -14,7 +14,7 @@ public class Piece {
         setPiece(Tetromino.NONE);
 
     }
-    private void setPiece(Tetromino piece) {
+    public void setPiece(Tetromino piece) {
         int[][][] coords_table = new int[][][]{
                 {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
                 {{0, -1}, {0, 0}, {-1, 0}, {-1, 1}},
@@ -64,7 +64,7 @@ public class Piece {
         if (piece == Tetromino.O_MINO) {
             return this;
         }
-        var res = new Piece();
+        Piece res = new Piece();
         res.piece = piece;
         for (int i = 0; i < 4; i++) {
             res.setX(i, -getY(i));
