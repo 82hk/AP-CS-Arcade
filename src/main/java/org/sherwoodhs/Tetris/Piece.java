@@ -65,10 +65,6 @@ public class Piece {
             for (int i = 0; i < 4; i++) {
                 Game.pieces.add(tpieces.get(i));
             }
-            for (int i = 0; i < Game.pieces.size(); i++) {
-                System.out.println(Game.pieces.get(i));
-            }
-            System.out.println("---------------------");
         }
         setPiece(Game.pieces.get(0));
         Game.pieces.remove(0);
