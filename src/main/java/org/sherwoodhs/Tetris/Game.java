@@ -5,6 +5,7 @@ import org.sherwoodhs.Tetris.Piece.Tetromino;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Game extends JPanel {
     private final int WIDTH = 10;
@@ -20,6 +21,7 @@ public class Game extends JPanel {
     private JLabel status;
     private Piece cpiece;
     private Tetromino[] board;
+    public static ArrayList<Tetromino> pieces = new ArrayList<Piece.Tetromino>();
     public Game(Main m) {
         setBackground(new Color(20, 20, 30));
         createBoard(m);

@@ -1,5 +1,8 @@
 package org.sherwoodhs.Tetris;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class Piece {
@@ -45,12 +48,20 @@ public class Piece {
     public Tetromino getPiece() {
         return piece;
     }
-    // change this to a better system in the future
     public void setRandomPiece() {
-        Random r = new Random();
-        int x = Math.abs(r.nextInt()) % 7 + 1;
-        Tetromino[] values = Tetromino.values();
-        setPiece(values[x]);
+        if (Game.pieces.isEmpty()) {
+            Game.pieces = new ArrayList<Tetromino>(Arrays.asList(Tetromino.values()));
+            Game.pieces.remove(Tetromino.NONE);
+            Collections.shuffle(Game.pieces);
+            ArrayList<Tetromino> tpieces = new ArrayList<Tetromino>(Arrays.asList(Tetromino.values()));
+            tpieces.remove(Tetromino.NONE);
+            Collections.shuffle(tpieces);
+            for (int i = 0; i < 4; i++) {
+                Game.pieces.add(tpieces.get(i));
+            }
+        }
+        setPiece(Game.pieces.get(0));
+        Game.pieces.remove(0);
     }
     public int minY() {
         int y = coords[0][1];
