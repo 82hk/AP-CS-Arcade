@@ -201,12 +201,16 @@ public class Game extends JPanel {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_P:
                     pause(); break;
+                case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_A:
                     move(cpiece, cx - 1, cy); break;
+                case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_D:
                     move(cpiece, cx + 1, cy); break;
+                case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
                     move(cpiece.rotate(), cx, cy); break;
+                case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_S:
                     softDropPiece(); break;
                 case KeyEvent.VK_SPACE:
