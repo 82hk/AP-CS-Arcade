@@ -10,7 +10,7 @@ public class Game extends JPanel {
     private final int WIDTH = 10;
     private final int HEIGHT = 20;
     // ms per update
-    private final int INTERVAL = 300;
+    private final int INTERVAL = 650;
     private Timer TIMER;
     private boolean isFalling = true;
     private boolean isPaused = false;
