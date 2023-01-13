@@ -1,4 +1,4 @@
-/* package org.sherwoodhs.Tetris;
+package org.sherwoodhs.Tetris;
 
 import org.sherwoodhs.Tetris.Piece.Tetromino;
 
@@ -229,5 +229,3 @@ public class Game extends JPanel {
         }
     }
 }
-
- */

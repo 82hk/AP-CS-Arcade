@@ -1,4 +1,4 @@
-/* package org.sherwoodhs.Tetris;
+package org.sherwoodhs.Tetris;
 
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
@@ -33,4 +33,3 @@ public class Main extends JFrame {
         });
     }
 }
-*/

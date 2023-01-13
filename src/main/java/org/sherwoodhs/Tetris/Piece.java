@@ -1,4 +1,4 @@
-/* package org.sherwoodhs.Tetris;
+package org.sherwoodhs.Tetris;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,4 +84,3 @@ public class Piece {
         return res;
     }
 }
-*/
