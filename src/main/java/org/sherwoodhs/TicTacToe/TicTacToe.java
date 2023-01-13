@@ -5,12 +5,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TicTacToe implements ActionListener {
-
     JFrame window = new JFrame();
-    JPanel grid, titleField = new JPanel();
-    JLabel title = new JLabel();
-    JButton playAgain = new JButton();
+    JPanel grid = new JPanel();
     JButton[] gridSquare = new JButton[9];
+    JPanel headerField = new JPanel();
+    JTextField currentPlayerText = new JTextField();
+    JPanel optionField = new JPanel();
+    JButton playAgainButton = new JButton();
+    JButton exitButton = new JButton();
     String currentPlayer, otherPlayer, temp;
     boolean bingo;
     final int[][] winComboList = new int[][] {
@@ -27,7 +29,7 @@ public class TicTacToe implements ActionListener {
             {2, 4, 6}  // 7
     };
 
-    protected void DrawWindow() {
+    private void DrawWindow() {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
         window.setResizable(false);
@@ -37,35 +39,40 @@ public class TicTacToe implements ActionListener {
 
         grid.setLayout(new GridLayout(3,3));
 
-        playAgain.setFont(new Font("Lato", Font.BOLD,10));
-        playAgain.setText("Play again");
+        playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
+        playAgainButton.setText("Play again");
 
-        title.setText(currentPlayer + "'s turn");
-        title.setFont(new Font("Lato", Font.BOLD, 80));
+        exitButton.setFont(new Font("Lato", Font.BOLD,30));
+        exitButton.setText("Exit");
 
-        titleField.setLayout(new GridLayout(1,2));
-        titleField.add(playAgain, BorderLayout.WEST);
-        titleField.add(title);
+        currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
 
-        window.add(titleField, BorderLayout.NORTH);
+        headerField.setLayout(new BorderLayout());
+
+        optionField.setLayout(new BorderLayout());
+        optionField.add(playAgainButton, BorderLayout.NORTH);
+        optionField.add(exitButton, BorderLayout.SOUTH);
+
+        headerField.add(optionField, BorderLayout.EAST);
+        headerField.add(currentPlayerText, BorderLayout.CENTER);
+
+        window.add(headerField, BorderLayout.NORTH);
         window.add(grid);
 
 
         for (int i = 0; i < 9; i++) { // create tic-tac-toe grid buttons
             gridSquare[i] = new JButton();
             gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
-            gridSquare[i].setBackground(Color.LIGHT_GRAY);
-            gridSquare[i].setForeground(Color.black);
             gridSquare[i].addActionListener(this::actionPerformed);
             grid.add(gridSquare[i]);
         }
     }
 
-    protected void SmallPause() {
+    private void SmallPause() {
         try { Thread.sleep(10); } catch (InterruptedException ex) { throw new RuntimeException(ex); }
     }
 
-    protected void ClaimSquare(int i) {
+    private void ClaimSquare(int i) {
         gridSquare[i].setText(currentPlayer);
         temp = currentPlayer;
         currentPlayer = otherPlayer;
@@ -80,7 +87,7 @@ public class TicTacToe implements ActionListener {
         }
     }
 
-    protected void CheckForWin() {
+    private void CheckForWin() {
         for (int i = 0; i < winComboList.length; i++) {
             if ( (gridSquare[winComboList[i][0]].getText() == otherPlayer) && (gridSquare[winComboList[i][1]].getText() == otherPlayer) && (gridSquare[winComboList[i][2]].getText() == otherPlayer) ) {
                 bingo = true;
@@ -88,15 +95,15 @@ public class TicTacToe implements ActionListener {
         }
     }
 
-    protected void UpdateTitle() {
+    private void UpdateTitle() {
         if (bingo == true) {
-            title.setText(otherPlayer + " wins!");
+            currentPlayerText.setText(otherPlayer + " wins!");
         } else {
-            title.setText(currentPlayer + "'s turn");
+            currentPlayerText.setText(currentPlayer + "'s turn");
         }
     }
 
-    protected void ResetGrid() {
+    private void ResetGrid() {
         bingo = false;
         currentPlayer = "X";
         otherPlayer = "O";
@@ -105,17 +112,13 @@ public class TicTacToe implements ActionListener {
             gridSquare[i].setForeground(Color.black);
             gridSquare[i].setText("");
         }
-    }
-
-    protected void IntitializeGame() {
-        DrawWindow();
+        currentPlayerText.setText(currentPlayer + "'s turn");
 
     }
 
-    public TicTacToe() {
+    public TicTacToe() { // MAIN METHOD
         DrawWindow();
         ResetGrid();
-
     }
 
 
@@ -124,10 +127,9 @@ public class TicTacToe implements ActionListener {
 
         SmallPause();
 
-        if (e.getSource() == playAgain) {
-            System.out.println("here!");
-        }
-        if (bingo == false && e.getSource() != playAgain) {
+
+
+        if (bingo == false) {
 
             for (int i = 0; i < 9; i++) {
                 if (e.getSource() == gridSquare[i] && gridSquare[i].getText() != "X" && gridSquare[i].getText() != "O") {
