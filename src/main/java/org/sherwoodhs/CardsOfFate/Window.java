@@ -2,6 +2,8 @@ package org.sherwoodhs.CardsOfFate;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -9,39 +11,50 @@ public class Window {
     private static JFrame frame;
 
     private JPanel text;
-    private JPanel pause;
-    private JPanel superMain;
-
     private static JLabel words;
     private JButton button;
+    private JMenuBar menuBar = new JMenuBar();
+    private MenuItem menuItem;
+    private JMenu pauseMenu;
 
     public Window() {
         frame = new JFrame("Cards Of Fate");
         frame.getContentPane();
         frame.setDefaultLookAndFeelDecorated(true);
             text = new JPanel();
-            pause = new JPanel();
-            superMain = new JPanel();
+            pauseMenu = new JMenu("Access");
             text.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
                 words = new JLabel("Welcome to Cards of Fate!");
                 Dimension size = words.getPreferredSize();
-                words.setBounds(10, 20, size.width, size.height);
-            pause.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-                button = new JButton("☰");
-                button.setBounds(1130,10,60,60);
-            text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
-            pause.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
-                button.setAlignmentX(Component.RIGHT_ALIGNMENT);
-            superMain.setLayout(new BoxLayout(text, BoxLayout.X_AXIS));
-                words.setAlignmentX(Component.LEFT_ALIGNMENT);
-            text.add(words);
-            superMain.add(text);
-            superMain.add(pause);
+                words.setBounds(10, 20, 900, size.height);
+
+/*
+                    menuItem = new MenuItem("Encyclopedia");
+                    pauseMenu.add(menuItem);
+                    menuItem = new MenuItem("Quit?");
+                    pauseMenu.add(menuItem);
+
+ */
+                menuBar.add(pauseMenu);
+                button = new JButton("X");
+                button.setBounds(1140,10,30,30);
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                });
+
+        frame.add(words);
+        frame.add(button);
         frame.add(text);
+        frame.addKeyListener(new enterKey());
+        frame.setJMenuBar(menuBar);
 
         frame.setSize(1200,800);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setFocusable(true);
     }
     public static void setLabel(String string){
         words.setText(string);
@@ -52,7 +65,9 @@ public class Window {
 
         }
         public void keyPressed(KeyEvent e){
+
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
+
                 Dialouge.advanceText();
             }
         }
