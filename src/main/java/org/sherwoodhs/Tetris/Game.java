@@ -21,7 +21,7 @@ public class Game extends JPanel {
     private Piece cpiece;
     private Tetromino[] board;
     public Game(Main m) {
-        setBackground(new Color(20, 20, 25));
+        setBackground(new Color(20, 20, 30));
         createBoard(m);
     }
     private void createBoard(Main m) {
@@ -41,6 +41,7 @@ public class Game extends JPanel {
         return (int) getSize().getHeight() / HEIGHT;
     }
     private void drawGridUnit(Graphics g, int x, int y, Tetromino piece) {
+        // themes?
         Color colors[] = {
                 Color.BLACK, Color.RED,
                 Color.GREEN, Color.CYAN,
@@ -191,6 +192,7 @@ public class Game extends JPanel {
             if (cpiece.getPiece() == Tetromino.NONE) {
                 return;
             }
+            // introduce ability to hold key in the future
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_P:
                     pause(); break;
