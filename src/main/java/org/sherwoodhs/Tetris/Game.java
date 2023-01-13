@@ -45,10 +45,10 @@ public class Game extends JPanel {
     private void drawGridUnit(Graphics g, int x, int y, Tetromino piece) {
         // themes?
         Color colors[] = {
-                Color.BLACK, Color.RED,
+                Color.BLACK, new Color(240, 50, 100),
                 Color.GREEN, Color.CYAN,
-                Color.MAGENTA, Color.YELLOW,
-                Color.BLUE, Color.ORANGE
+                new Color(250, 70, 150), Color.YELLOW,
+                new Color(50, 100, 240), new Color(240, 140, 0)
         };
         Color color = colors[piece.ordinal()];
         g.setColor(color);
