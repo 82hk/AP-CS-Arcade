@@ -24,21 +24,13 @@ public class Dialouge{
             default: text = "error"; break;
         }
         Window.setLabel(text + " ➤");
-        //prompt();
     }
     public static void advanceText(){
-        runText(num++);
-    }
-    private void prompt(){
-        String input = in.nextLine();
-        switch (input){
-            case "menu":
-            case "m": menu.menu(); break;
-            default: break;
-        }
+        num++;
+        runText(num);
     }
     private static String tutorialOne() {
-        return("Welcome to the tutorial. At any time, enter \"menu\" or \"m\" to access the pause menu. Press enter or anything else to advance through text.");
+        return("Welcome to the tutorial. At any time, use the top-right button to access the pause menu. Press enter or anything else to advance through text.");
     };
     private static String tutorialTwo() {
         return("The pause menu contains the encyclopedia of all card effects. You can also quit the game from there.");
