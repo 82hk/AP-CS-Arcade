@@ -17,10 +17,17 @@ public abstract class Enemy extends Person{
     }
 
     public int getAtk(){
-        return (r.nextInt(atkRange) + minAtk);
+        if (atkRange > 0) {
+            return (r.nextInt(atkRange) + minAtk);
+        }
+        return(minAtk);
     }
 
     public int getDfn(){
-        return (r.nextInt(dfnRange) + minDfn);
+        if (dfnRange > 0) {
+            return (r.nextInt(dfnRange) + minDfn);
+        }
+        return minDfn;
     }
+
 }

@@ -8,4 +8,7 @@ public class Moon extends Card{
     }
     public void effect(Deck deck){
     }
+    public String entry(){
+        return("");
+    }
 }

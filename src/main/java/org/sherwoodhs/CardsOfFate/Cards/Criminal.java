@@ -10,4 +10,7 @@ public class Criminal extends Card{
     }
     public void effect(Deck deck){
     }
+    public String entry(){
+        return("");
+    }
 }

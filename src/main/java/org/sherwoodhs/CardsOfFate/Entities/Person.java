@@ -34,4 +34,7 @@ public abstract class Person{
         }
         return false;
     }
+    public int getHp(){
+        return health;
+    }
 }

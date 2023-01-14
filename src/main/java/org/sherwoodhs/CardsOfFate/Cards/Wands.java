@@ -8,4 +8,7 @@ public class Wands extends Cards{
     }
     public void effect(Deck deck){
     }
+    public String entry(){
+        return("");
+    }
 }
