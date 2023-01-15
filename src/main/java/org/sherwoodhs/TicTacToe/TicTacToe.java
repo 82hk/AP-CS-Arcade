@@ -41,9 +41,11 @@ public class TicTacToe implements ActionListener {
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
         playAgainButton.setText("Play again");
+        playAgainButton.addActionListener(this::actionPerformed); // GITHUB REPO CHANGES, CHECK IF WORK
 
         exitButton.setFont(new Font("Lato", Font.BOLD,30));
         exitButton.setText("Exit");
+        exitButton.addActionListener(this::actionPerformed); // GITHUB REPO CHANGES, CHECK IF WORK
 
         currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
 
