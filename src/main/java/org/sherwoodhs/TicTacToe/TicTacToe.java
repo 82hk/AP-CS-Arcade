@@ -83,7 +83,7 @@ public class TicTacToe implements ActionListener {
         if (otherPlayer == "O") {
             gridSquare[i].setBackground(Color.CYAN);
             gridSquare[i].setForeground(Color.BLUE);
-        } else {
+        } else if (otherPlayer == "X") {
             gridSquare[i].setBackground(Color.PINK);
             gridSquare[i].setForeground(Color.RED);
         }
