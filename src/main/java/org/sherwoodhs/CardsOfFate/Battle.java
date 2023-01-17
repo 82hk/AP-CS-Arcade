@@ -23,7 +23,7 @@ public class Battle{
 
     public Battle (Enemy enemy){
         this.enemy = enemy;
-        updateText(" ");
+        updateText("It's your turn");
         //battle();
 
     }

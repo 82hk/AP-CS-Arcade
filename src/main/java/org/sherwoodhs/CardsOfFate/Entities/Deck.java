@@ -21,6 +21,7 @@ public abstract class Deck extends Person{
             this.deck = stack;
 
             shuffleDeck();
+            initalDraw();
         }
 
         // Returns value of card on top of the deck
@@ -48,7 +49,7 @@ public abstract class Deck extends Person{
 
         // This is the inital draw of 5 cards everytime a game initiates.
         public void initalDraw() {
-            drawCard(5);
+            drawCard(3);
         }
 
         // Shuffles the deck
@@ -71,6 +72,15 @@ public abstract class Deck extends Person{
         // Returns Hand
         public ArrayList<Card> getHand(){
             return(hand);
+        }
+
+        //Returns Hand in Array
+        public Card[] getHand2(){
+            Card[] array = new Card[hand.size()];
+            for (int i = 0; i < hand.size(); i++) {
+                array[i] = hand.get(i);
+            }
+            return (array);
         }
 
         // Returns Deck

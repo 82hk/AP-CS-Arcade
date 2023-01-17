@@ -56,7 +56,7 @@ public class DebugTicTacToe implements ActionListener {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        grid.add(picLabel);
+        //grid.add(picLabel);
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
         playAgainButton.setText("Play again");
