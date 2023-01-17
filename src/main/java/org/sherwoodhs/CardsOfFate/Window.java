@@ -14,7 +14,7 @@ public class Window {
     private static JLabel words;
     private JButton button;
     private JMenuBar menuBar = new JMenuBar();
-    private MenuItem menuItem;
+    private MenuItem menuItem1 = new MenuItem("Encyclopedia"); menuItem2 = new MenuItem("Quit?");
     private JMenu pauseMenu;
 
     public Window() {
@@ -27,26 +27,14 @@ public class Window {
                 words = new JLabel("Welcome to Cards of Fate!");
                 Dimension size = words.getPreferredSize();
                 words.setBounds(10, 20, 900, size.height);
-
-/*
-                    menuItem = new MenuItem("Encyclopedia");
+                
                     pauseMenu.add(menuItem);
-                    menuItem = new MenuItem("Quit?");
-                    pauseMenu.add(menuItem);
+                    pauseMenu.add(menuItem2);
+                    menuBar.add(pauseMenu);
 
- */
-                menuBar.add(pauseMenu);
-                button = new JButton("X");
-                button.setBounds(1140,10,30,30);
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                    }
-                });
-
+                
         frame.add(words);
-        frame.add(button);
+
         frame.add(text);
         frame.addKeyListener(new enterKey());
         frame.setJMenuBar(menuBar);

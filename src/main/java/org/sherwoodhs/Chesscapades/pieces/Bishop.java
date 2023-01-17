@@ -1,5 +1,8 @@
 package org.sherwoodhs.Chesscapades.pieces;
 
+import org.sherwoodhs.Chesscapades.Game.Board;
+import org.sherwoodhs.Chesscapades.Game.Tile;
+
 import javax.swing.*;
 
 public class Bishop extends Piece {
@@ -16,5 +19,27 @@ public class Bishop extends Piece {
         } else {
             return null;
         }
+    }
+    @Override
+    public boolean isLegalMove(int x, int y, int newX, int newY, Board board, boolean forReal){
+        int yoffset = newY - y;
+        int xoffset = newX - x;
+        if (Math.abs(xoffset) == Math.abs(yoffset)){
+            for (int i = 1; i < Math.abs(yoffset); i++){
+                if (board.getTile(Board.getLocationFromCords((int)(x + (i * Math.signum(xoffset))), (int)(y + (i * Math.signum(yoffset))))).getPiece() != null){
+                    return false;
+                }
+            }
+            Tile destination = board.getTile(Board.getLocationFromCords(newX, newY));
+            if(destination.isOccupied())
+            {
+                if(destination.getPiece().getColor() == getColor())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

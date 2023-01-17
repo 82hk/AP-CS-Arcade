@@ -41,9 +41,11 @@ public class TicTacToe implements ActionListener {
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
         playAgainButton.setText("Play again");
+        playAgainButton.addActionListener(this::actionPerformed); // GITHUB REPO CHANGES, CHECK IF WORK
 
         exitButton.setFont(new Font("Lato", Font.BOLD,30));
         exitButton.setText("Exit");
+        exitButton.addActionListener(this::actionPerformed); // GITHUB REPO CHANGES, CHECK IF WORK
 
         currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
 
@@ -81,7 +83,7 @@ public class TicTacToe implements ActionListener {
         if (otherPlayer == "O") {
             gridSquare[i].setBackground(Color.CYAN);
             gridSquare[i].setForeground(Color.BLUE);
-        } else {
+        } else if (otherPlayer == "X") {
             gridSquare[i].setBackground(Color.PINK);
             gridSquare[i].setForeground(Color.RED);
         }
