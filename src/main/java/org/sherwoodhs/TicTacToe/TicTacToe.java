@@ -29,7 +29,10 @@ public class TicTacToe implements ActionListener {
             {2, 4, 6}  // 7
     };
 
-    private void DrawWindow() {
+    private void DrawWindow(Main main) {
+
+        ImageIcon octothorpe = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/Octothorpe.png");
+
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
         window.setResizable(false);
@@ -59,7 +62,6 @@ public class TicTacToe implements ActionListener {
         currentPlayerText.setHorizontalAlignment(currentPlayerText.CENTER);
         currentPlayerText.setOpaque(false);
 
-
         headerField.setLayout(new BorderLayout());
         headerField.setOpaque(false);
         //headerField.setBackground(Color.BLACK);
@@ -85,6 +87,8 @@ public class TicTacToe implements ActionListener {
             //gridSquare[i].setOpaque(true);
             grid.add(gridSquare[i]);
         }
+
+
     }
 
     private void SmallPause() {
@@ -136,7 +140,8 @@ public class TicTacToe implements ActionListener {
     }
 
     public TicTacToe() { // MAIN METHOD
-        DrawWindow();
+        Main main = new Main();
+        SwingUtilities.invokeLater(new Runnable() { public void run() { DrawWindow(main); } } );
         ResetGame();
     }
 
