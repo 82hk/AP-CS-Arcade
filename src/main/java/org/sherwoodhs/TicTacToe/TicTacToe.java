@@ -36,22 +36,36 @@ public class TicTacToe implements ActionListener {
         window.setVisible(true);
         window.setSize(new Dimension(600,700));
         window.setLayout(new BorderLayout());
+        window.setBackground(Color.BLACK);
 
         grid.setLayout(new GridLayout(3,3));
+        grid.setOpaque(false);
+        //grid.setBackground(Color.BLACK);
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
         playAgainButton.setText("Play again");
-        playAgainButton.addActionListener(this::actionPerformed); // GITHUB REPO CHANGES, CHECK IF WORK
+        playAgainButton.addActionListener(this::actionPerformed);
+        //playAgainButton.setBorderPainted(false);
+        //playAgainButton.setOpaque(false);
 
         exitButton.setFont(new Font("Lato", Font.BOLD,30));
         exitButton.setText("Exit");
-        exitButton.addActionListener(this::actionPerformed); // GITHUB REPO CHANGES, CHECK IF WORK
+        exitButton.addActionListener(this::actionPerformed);
+        //exitButton.setBorderPainted(false);
+        exitButton.setOpaque(false);
 
         currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
+        currentPlayerText.setEditable(false);
+        currentPlayerText.setHorizontalAlignment(currentPlayerText.CENTER);
+        currentPlayerText.setOpaque(false);
+
 
         headerField.setLayout(new BorderLayout());
+        headerField.setOpaque(false);
+        //headerField.setBackground(Color.BLACK);
 
         optionField.setLayout(new BorderLayout());
+        optionField.setOpaque(false);
         optionField.add(playAgainButton, BorderLayout.NORTH);
         optionField.add(exitButton, BorderLayout.SOUTH);
 
@@ -66,6 +80,9 @@ public class TicTacToe implements ActionListener {
             gridSquare[i] = new JButton();
             gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
             gridSquare[i].addActionListener(this::actionPerformed);
+            gridSquare[i].setBorderPainted(false);
+            //gridSquare[i].setContentAreaFilled(false);
+            //gridSquare[i].setOpaque(true);
             grid.add(gridSquare[i]);
         }
     }
@@ -81,11 +98,11 @@ public class TicTacToe implements ActionListener {
         otherPlayer = temp;
 
         if (otherPlayer == "O") {
-            gridSquare[i].setBackground(Color.CYAN);
-            gridSquare[i].setForeground(Color.BLUE);
+            gridSquare[i].setBackground(Color.BLACK);
+            gridSquare[i].setForeground(Color.WHITE);
         } else if (otherPlayer == "X") {
-            gridSquare[i].setBackground(Color.PINK);
-            gridSquare[i].setForeground(Color.RED);
+            gridSquare[i].setBackground(Color.BLACK);
+            gridSquare[i].setForeground(Color.WHITE);
         }
     }
 
@@ -101,26 +118,26 @@ public class TicTacToe implements ActionListener {
         if (bingo == true) {
             currentPlayerText.setText(otherPlayer + " wins!");
         } else {
-            currentPlayerText.setText(currentPlayer + "'s turn");
+            currentPlayerText.setText(currentPlayer + " turn");
         }
     }
 
-    private void ResetGrid() {
+    private void ResetGame() {
         bingo = false;
         currentPlayer = "X";
         otherPlayer = "O";
         for (int i = 0; i < 9; i++) {
-            gridSquare[i].setBackground(Color.LIGHT_GRAY);
-            gridSquare[i].setForeground(Color.black);
+            gridSquare[i].setBackground(Color.BLACK);
+            gridSquare[i].setForeground(Color.WHITE);
             gridSquare[i].setText("");
         }
-        currentPlayerText.setText(currentPlayer + "'s turn");
+        currentPlayerText.setText(currentPlayer + " turn");
 
     }
 
     public TicTacToe() { // MAIN METHOD
         DrawWindow();
-        ResetGrid();
+        ResetGame();
     }
 
 
@@ -129,9 +146,11 @@ public class TicTacToe implements ActionListener {
 
         SmallPause();
 
-
-
-        if (bingo == false) {
+        if (e.getSource() == exitButton) {
+            System.exit(0);
+        } else if (e.getSource() == playAgainButton) {
+            ResetGame();
+        } else if (bingo == false) {
 
             for (int i = 0; i < 9; i++) {
                 if (e.getSource() == gridSquare[i] && gridSquare[i].getText() != "X" && gridSquare[i].getText() != "O") {

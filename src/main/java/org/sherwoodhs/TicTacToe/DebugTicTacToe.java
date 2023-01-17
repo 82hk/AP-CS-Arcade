@@ -1,8 +1,12 @@
 package org.sherwoodhs.TicTacToe;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class DebugTicTacToe implements ActionListener {
 
@@ -36,15 +40,23 @@ public class DebugTicTacToe implements ActionListener {
             {2, 4, 6}  // 7
     };
 
-    private void DrawWindow() {
+    private void DrawWindow() throws IOException {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
-        window.setResizable(false);
+        window.setResizable(true);
         window.setVisible(true);
         window.setSize(new Dimension(600,700));
         window.setLayout(new BorderLayout());
 
-        grid.setLayout(new GridLayout(3,3));
+        BufferedImage Octothorpe = ImageIO.read(new File("src/main/java/org/sherwoodhs/TicTacToe/resources/Octothorpe.png"));
+        JButton button = new JButton();
+        try {
+            Image img = ImageIO.read(getClass().getResource("src/main/java/org/sherwoodhs/TicTacToe/resources/Octothorpe.png"));
+            button.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        grid.add(picLabel);
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
         playAgainButton.setText("Play again");
@@ -66,12 +78,6 @@ public class DebugTicTacToe implements ActionListener {
         window.add(optionField);
 
 
-        for (int i = 0; i < 9; i++) { // create tic-tac-toe grid buttons
-            gridSquare[i] = new JButton();
-            gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
-            gridSquare[i].addActionListener(this::actionPerformed);
-            grid.add(gridSquare[i]);
-        }
     }
 
     private void SmallPause() {
@@ -122,7 +128,7 @@ public class DebugTicTacToe implements ActionListener {
 
     }
 
-    public DebugTicTacToe() { // MAIN METHOD
+    public DebugTicTacToe() throws IOException { // MAIN METHOD
         DrawWindow();
         ResetGrid();
     }
