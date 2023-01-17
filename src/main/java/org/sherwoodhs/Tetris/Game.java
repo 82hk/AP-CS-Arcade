@@ -19,7 +19,13 @@ public class Game extends JPanel {
     private int linesCleared = 0;
     private int cx = 0;
     private int cy = 0;
-    private JLabel status;
+    private Color colors[] = {
+            Color.BLACK, new Color(240, 50, 100),
+            Color.GREEN, Color.CYAN,
+            new Color(255, 55, 210), Color.YELLOW,
+            new Color(50, 100, 240), new Color(240, 140, 0)
+    };
+    private JLabel status, hold;
     private Piece cpiece, hpiece;
     private Tetromino[] board;
     public static ArrayList<Tetromino> pieces = new ArrayList<Tetromino>();
@@ -30,6 +36,10 @@ public class Game extends JPanel {
     private void createBoard(Main m) {
         setFocusable(true);
         status = m.getStatus();
+        hold = m.getHold();
+        hold.setOpaque(true);
+        hold.setForeground(Color.WHITE);
+        hold.setBackground(new Color(20, 20, 30));
         addKeyListener(new Adapter());
     }
     @Override
@@ -44,13 +54,6 @@ public class Game extends JPanel {
         return (int) getSize().getHeight() / HEIGHT;
     }
     private void drawGridUnit(Graphics g, int x, int y, Tetromino piece) {
-        // themes?
-        Color colors[] = {
-                Color.BLACK, new Color(240, 50, 100),
-                Color.GREEN, Color.CYAN,
-                new Color(255, 55, 210), Color.YELLOW,
-                new Color(50, 100, 240), new Color(240, 140, 0)
-        };
         Color color = colors[piece.ordinal()];
         g.setColor(color);
         g.fillRect(x + 1, y + 1, getGridUnitWidth() - 2, getGridUnitHeight() - 2);
@@ -155,6 +158,8 @@ public class Game extends JPanel {
             hpiece.setPiece(cpiece.getPiece());
             newPiece(temp);
         }
+        hold.setForeground(colors[hpiece.getPiece().ordinal()]);
+        hold.setText("Hold: " + hpiece.getPiece());
         // only be able to hold a piece once per drop
         isHeld = true;
     }
