@@ -12,4 +12,5 @@ public abstract class Card {
     public String toString(){
         return(name);
     }
+    abstract String entry();
 }
