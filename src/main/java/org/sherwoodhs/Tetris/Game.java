@@ -15,11 +15,12 @@ public class Game extends JPanel {
     private Timer TIMER;
     private boolean isFalling = true;
     private boolean isPaused = false;
+    private boolean isHeld = false;
     private int linesCleared = 0;
     private int cx = 0;
     private int cy = 0;
     private JLabel status;
-    private Piece cpiece;
+    private Piece cpiece, hpiece;
     private Tetromino[] board;
     public static ArrayList<Tetromino> pieces = new ArrayList<Tetromino>();
     public Game(Main m) {
@@ -47,7 +48,7 @@ public class Game extends JPanel {
         Color colors[] = {
                 Color.BLACK, new Color(240, 50, 100),
                 Color.GREEN, Color.CYAN,
-                new Color(250, 70, 150), Color.YELLOW,
+                new Color(255, 55, 210), Color.YELLOW,
                 new Color(50, 100, 240), new Color(240, 140, 0)
         };
         Color color = colors[piece.ordinal()];
@@ -59,6 +60,7 @@ public class Game extends JPanel {
     }
     public void start() {
         cpiece = new Piece();
+        hpiece = new Piece();
         board = new Tetromino[WIDTH * HEIGHT];
         clearBoard();
         newPiece();
@@ -116,6 +118,7 @@ public class Game extends JPanel {
             board[(y * WIDTH) + x] = cpiece.getPiece();
         }
         removeLines();
+        isHeld = false;
         if (isFalling) {
             newPiece();
         }
@@ -129,6 +132,31 @@ public class Game extends JPanel {
             TIMER.stop();
             status.setText(String.format("Game over! Lines: %d", linesCleared));
         }
+    }
+    private void newPiece(Tetromino piece) {
+        cpiece.setPiece(piece);
+        cx = WIDTH / 2 + 1;
+        cy = HEIGHT - 1 + cpiece.minY();
+        if (!move(cpiece, cx, cy)) {
+            cpiece.setPiece(Tetromino.NONE);
+            TIMER.stop();
+            status.setText(String.format("Game over! Lines: %d", linesCleared));
+        }
+    }
+    private void holdPiece() {
+        if (isHeld) {
+            return;
+        }
+        if (hpiece.getPiece() == Tetromino.NONE) {
+            hpiece.setPiece(cpiece.getPiece());
+            newPiece();
+        } else {
+            Tetromino temp = hpiece.getPiece();
+            hpiece.setPiece(cpiece.getPiece());
+            newPiece(temp);
+        }
+        // only be able to hold a piece once per drop
+        isHeld = true;
     }
     private void softDropPiece() {
         if (!move(cpiece, cx, cy - 1)) {
@@ -213,6 +241,8 @@ public class Game extends JPanel {
                 case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_S:
                     softDropPiece(); break;
+                case KeyEvent.VK_C:
+                    holdPiece(); break;
                 case KeyEvent.VK_SPACE:
                     hardDropPiece(); break;
             }

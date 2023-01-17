@@ -15,7 +15,6 @@ public class Piece {
     public Piece() {
         coords = new int[4][2];
         setPiece(Tetromino.NONE);
-
     }
     public void setPiece(Tetromino piece) {
         int[][][] coords_table = new int[][][]{
