@@ -1,12 +1,13 @@
-package org.sherwoodhs.Chesscapades.pieces;
-
-import org.sherwoodhs.Chesscapades.Game.Board;
+package pieces;
 
 import javax.swing.*;
 
+import Game.Board;
+import Game.Tile;
 
 public abstract class Piece {
     public final int color;
+
     public Piece(int color) {
         this.color = color;
     }
@@ -27,10 +28,6 @@ public abstract class Piece {
         return false;
     }
 
-    public boolean isLegalMove(int x, int y, int newX, int newY, Board board) {return true;}
+    public abstract boolean isLegalMove(int x, int y, int newX, int newY, Board board, boolean forReal);
 
-    private static boolean isLegalBoardState(Board board, int turn)
-    {
-        return true;
-    }
 }
