@@ -2462,6 +2462,7 @@ farrow
 fasces
 fascia
 fasten
+faster
 father
 fathom
 fatras
@@ -2785,6 +2786,7 @@ gambit
 gamble
 gambol
 gamely
+gamers
 gamete
 gaming
 gammer
@@ -5757,6 +5759,7 @@ rouged
 rouges
 rounds
 rouser
+router
 roving
 rowing
 rubber
@@ -6655,6 +6658,7 @@ tailed
 tailor
 taipan
 taipei
+taiwan
 tajiki
 taking
 talcum
@@ -6766,7 +6770,6 @@ tetrad
 tetrao
 tetter
 teuton
-thtre
 thalia
 thames
 thanks
