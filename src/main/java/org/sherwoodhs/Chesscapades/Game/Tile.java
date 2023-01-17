@@ -1,10 +1,11 @@
-package Game;
+package org.sherwoodhs.Chesscapades.Game;
 
-import pieces.*;
+import org.sherwoodhs.Chesscapades.pieces.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+
 
 public class Tile extends JPanel {
     private Piece piece;

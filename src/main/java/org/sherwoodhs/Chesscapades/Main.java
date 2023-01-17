@@ -1,4 +1,6 @@
-import Game.ChessGame;
+package org.sherwoodhs.Chesscapades;
+
+import org.sherwoodhs.Chesscapades.Game.ChessGame;
 
 import javax.swing.*;
 import java.awt.*;

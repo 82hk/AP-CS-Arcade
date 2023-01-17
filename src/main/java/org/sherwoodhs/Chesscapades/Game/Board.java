@@ -1,6 +1,6 @@
-package Game;
+package org.sherwoodhs.Chesscapades.Game;
 
-import pieces.King;
+import org.sherwoodhs.Chesscapades.pieces.King;
 
 import javax.swing.*;
 import java.awt.*;

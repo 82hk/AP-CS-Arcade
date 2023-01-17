@@ -1,9 +1,9 @@
-package pieces;
+package org.sherwoodhs.Chesscapades.pieces;
 
 import javax.swing.*;
 
-import Game.Board;
-import Game.Tile;
+import org.sherwoodhs.Chesscapades.Game.Board;
+import org.sherwoodhs.Chesscapades.Game.Tile;
 
 public abstract class Piece {
     public final int color;
