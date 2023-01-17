@@ -223,6 +223,7 @@ public class Game extends JPanel {
     }
     private class Adapter extends KeyAdapter {
         private boolean isHeld = false;
+        private boolean hasRotated = false, hasDropped = false, hasPaused = false;
         @Override
         public void keyPressed(KeyEvent e) {
             if (cpiece.getPiece() == Tetromino.NONE) {
@@ -235,7 +236,10 @@ public class Game extends JPanel {
             // introduce ability to hold key in the future
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_P:
-                    pause(); break;
+                    if (!hasPaused)
+                        pause();
+                    hasPaused = true;
+                    break;
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_A:
                     if (isHeld)
@@ -248,8 +252,9 @@ public class Game extends JPanel {
                     break;
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
-                    if (isHeld)
+                    if (!hasRotated)
                         move(cpiece.rotate(), cx, cy);
+                    hasRotated = true;
                     break;
                 case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_S:
@@ -259,12 +264,18 @@ public class Game extends JPanel {
                 case KeyEvent.VK_C:
                     holdPiece(); break;
                 case KeyEvent.VK_SPACE:
-                    hardDropPiece(); break;
+                    if (!hasDropped)
+                        hardDropPiece();
+                    hasDropped = true;
+                    break;
             }
         }
         @Override
         public void keyReleased(KeyEvent e) {
             isHeld = false;
+            hasRotated = false;
+            hasPaused = false;
+            hasDropped = false;
         }
     }
     private void paintCycle() {
