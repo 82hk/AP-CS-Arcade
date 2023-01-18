@@ -1,35 +1,38 @@
 package org.sherwoodhs.CardsOfFate;
 
 import org.sherwoodhs.CardsOfFate.Entities.Enemy;
+import org.sherwoodhs.CardsOfFate.Entities.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
-public class Window implements ActionListener{
+public class Window implements ActionListener, ItemListener{
+    private Player player = Player.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
+    private static CardLayout crd2 = new CardLayout();
+    //
     private static JPanel superPanel = new JPanel(crd);
     private JPanel text = new JPanel();
-    private JPanel battle = new JPanel();
     private static JLabel words = new JLabel("Welcome to Cards of Fate!");
+    //
+    private JPanel battle = new JPanel();
     private static JLabel battleText = new JLabel("text");
     private static JLabel battleText2 = new JLabel("text");
     private static JLabel battleText3 = new JLabel("text");
-    private static JLabel battleText4 = new JLabel(" ");
+    private static JLabel battleText4 = new JLabel("text");
     private static JLabel battleText5 = new JLabel("text");
     private static JLabel battleText6 = new JLabel("text");
-    private static JLabel battleText7 = new JLabel(" ");
-    private static JLabel battleText8 = new JLabel("text");
+    private static String[] choices = {"Use Card", "Use Combo"};
+    private JComboBox battleChoices = new JComboBox(choices);
+    private JComboBox options = new JComboBox(player.getHand2());
+    private JLabel description = new JLabel("This is a description");
 
-
+    //
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
     private JMenu pauseMenu = new JMenu("⚙");
-    private JMenu enMenu = new JMenu("Encyclopedia");
 
     private static Battle fight;
 
@@ -57,20 +60,32 @@ public class Window implements ActionListener{
                 text.setAlignmentX(Component.LEFT_ALIGNMENT);
                 text.add(words);
 
+                    battleChoices.setSelectedIndex(0);
+                    battleChoices.addItemListener(this);
+                    battleChoices.setEditable(false);
 
-                battle.setLayout(new BoxLayout(battle, BoxLayout.Y_AXIS));
-                battle.setAlignmentX(Component.LEFT_ALIGNMENT);
+                battle.setLayout(null);
+                    battleText.setBounds(10,10,400,15);
                 battle.add(battleText);
+                    battleText2.setBounds(10,25,400,15);
                 battle.add(battleText2);
+                    battleText3.setBounds(10,40,400,15);
                 battle.add(battleText3);
+                    battleText4.setBounds(10,70,400,15);
                 battle.add(battleText4);
+                     battleText5.setBounds(10,85,400,15);
                 battle.add(battleText5);
+                    battleText6.setBounds(10,115,400,15);
                 battle.add(battleText6);
-                battle.add(battleText7);
-                battle.add(battleText8);
-
+                    battleChoices.setBounds(10,145,150,20);
+                battle.add(battleChoices);
+                options.setBounds(10,180,150,20);
+                battle.add(options);
+                description.setBounds(10,200,400,20);
+                battle.add(description);
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battle);
+
         frame.add(superPanel);
         frame.addKeyListener(new enterKey());
         frame.setJMenuBar(menuBar);
@@ -85,6 +100,16 @@ public class Window implements ActionListener{
 
         }
     }
+    public void itemStateChanged (ItemEvent e){
+        String choice = (String) battleChoices.getSelectedItem();
+        if (choice == "Use Card"){
+            options = new JComboBox(player.getHand2());
+            String card = (String) options.getSelectedItem();
+            if (card == "The Fool"){
+                description.setText("You");
+            }
+        }
+    }
     public static void setLabel(String string){
         words.setText(string);
     }
@@ -92,9 +117,9 @@ public class Window implements ActionListener{
         battleText.setText("You are fighting a " + enemyName + ".");
         battleText2.setText("It has " + enemyHP + " hp remaining.");
         battleText3.setText("On it's next turn, it'll attack for " + enemyAtk + " and defend for " + enemyDfn + ".");
-        battleText5.setText("You have " + playerHP + " hp remaining.");
-        battleText6.setText("Next turn, you'll attack for " + playerAtk + " and defend for " + playerDfn + ".");
-        battleText8.setText(otherText);
+        battleText4.setText("You have " + playerHP + " hp remaining.");
+        battleText5.setText("Next turn, you'll attack for " + playerAtk + " and defend for " + playerDfn + ".");
+        battleText6.setText(otherText);
     }
     public static void changeCard(String string) {
         crd.show(superPanel, string);
