@@ -31,7 +31,9 @@ public class TicTacToe implements ActionListener {
 
     private void DrawWindow(Main main) {
 
-        ImageIcon octothorpe = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Octothorpe.png");
+        ImageIcon hashIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Octothorpe.png");
+        ImageIcon exitIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Exit Icon.png");
+        ImageIcon replayIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Replay Icon.png");
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
@@ -42,34 +44,34 @@ public class TicTacToe implements ActionListener {
         window.setBackground(Color.BLACK);
 
         grid.setLayout(new GridLayout(3,3));
+        grid.setBackground(Color.BLACK);
         grid.setOpaque(false);
-        //grid.setBackground(Color.BLACK);
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
-        playAgainButton.setText("Play again");
         playAgainButton.addActionListener(this::actionPerformed);
-        //playAgainButton.setBorderPainted(false);
-        //playAgainButton.setOpaque(false);
+        playAgainButton.setBackground(Color.BLACK);
+        playAgainButton.setForeground(Color.WHITE);
+        playAgainButton.setIcon(replayIcon);
 
         exitButton.setFont(new Font("Lato", Font.BOLD,30));
-        exitButton.setText("Exit");
         exitButton.addActionListener(this::actionPerformed);
-        //exitButton.setBorderPainted(false);
-        //exitButton.setOpaque(false);
+        exitButton.setBackground(Color.BLACK);
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setIcon(exitIcon);
 
         currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
         currentPlayerText.setEditable(false);
+        currentPlayerText.setBackground(Color.BLACK);
+        currentPlayerText.setForeground(Color.WHITE);
         currentPlayerText.setHorizontalAlignment(currentPlayerText.CENTER);
-        //currentPlayerText.setOpaque(false);
 
         headerField.setLayout(new BorderLayout());
-        //headerField.setOpaque(false);
-        //headerField.setBackground(Color.BLACK);
+        headerField.setBackground(Color.BLACK);
 
         optionField.setLayout(new BorderLayout());
-        //optionField.setOpaque(false);
-        optionField.add(playAgainButton, BorderLayout.NORTH);
-        optionField.add(exitButton, BorderLayout.SOUTH);
+        optionField.setBackground(Color.BLACK);
+        optionField.add(playAgainButton, BorderLayout.WEST);
+        optionField.add(exitButton, BorderLayout.EAST);
 
         headerField.add(optionField, BorderLayout.EAST);
         headerField.add(currentPlayerText, BorderLayout.CENTER);
@@ -78,16 +80,18 @@ public class TicTacToe implements ActionListener {
         window.add(grid);
 
 
-        for (int i = 0; i < 9; i++) { // create tic-tac-toe grid buttons
+        for (int i = 0; i < 9; i++) {
             gridSquare[i] = new JButton();
             gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
             gridSquare[i].addActionListener(this::actionPerformed);
-            gridSquare[i].setBorderPainted(false);
+            //gridSquare[i].setBorderPainted(false);
             grid.add(gridSquare[i]);
         }
+
         bingo = false;
         currentPlayer = "X";
         otherPlayer = "O";
+
         for (int i = 0; i < 9; i++) {
             gridSquare[i].setBackground(Color.BLACK);
             gridSquare[i].setForeground(Color.WHITE);
@@ -110,10 +114,10 @@ public class TicTacToe implements ActionListener {
 
         if (otherPlayer == "O") {
             gridSquare[i].setBackground(Color.BLACK);
-            gridSquare[i].setForeground(Color.WHITE);
+            gridSquare[i].setForeground(Color.CYAN);
         } else if (otherPlayer == "X") {
             gridSquare[i].setBackground(Color.BLACK);
-            gridSquare[i].setForeground(Color.WHITE);
+            gridSquare[i].setForeground(Color.PINK);
         }
     }
 
