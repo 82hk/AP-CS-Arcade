@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-
 public class Tile extends JPanel {
     private Piece piece;
     private int location;

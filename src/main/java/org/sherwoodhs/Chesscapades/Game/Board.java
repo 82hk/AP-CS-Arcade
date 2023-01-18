@@ -1,6 +1,6 @@
 package org.sherwoodhs.Chesscapades.Game;
 
-import org.sherwoodhs.Chesscapades.pieces.King;
+import org.sherwoodhs.Chesscapades.pieces.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,5 +93,149 @@ public class Board extends JPanel {
             }
         }
         throw new IllegalStateException("Board is missing a king!");
+    }
+
+    public String computeFen(int turn)
+    {
+        StringBuilder fen = new StringBuilder();
+        int empty = 0;
+        for (int i = 0; i < 64; i++)
+        {
+            Piece piece = getTile(i).getPiece();
+            if (i%8 == 0 && i > 0)
+            {
+                if (empty > 0)
+                {
+                    fen.append(empty);
+                    empty = 0;
+                }
+                fen.append('/');
+            }
+            if (piece == null)
+            {
+                empty++;
+                continue;
+            }
+            else
+            {
+                if (empty > 0)
+                {
+                    fen.append(empty);
+                    empty = 0;
+                }
+                if (piece instanceof King)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('K');
+                    }
+                    else
+                    {
+                        fen.append('k');
+                    }
+                }
+                else if (piece instanceof Queen)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('Q');
+                    }
+                    else
+                    {
+                        fen.append('q');
+                    }
+                }
+                else if (piece instanceof Bishop)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('B');
+                    }
+                    else
+                    {
+                        fen.append('b');
+                    }
+                }
+                else if (piece instanceof Knight)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('N');
+                    }
+                    else
+                    {
+                        fen.append('n');
+                    }
+                }
+                else if (piece instanceof Rook)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('R');
+                    }
+                    else
+                    {
+                        fen.append('r');
+                    }
+                }
+                else if (piece instanceof Pawn)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('P');
+                    }
+                    else
+                    {
+                        fen.append('p');
+                    }
+                }
+                else if (false /*piece instanceof EnPson*/)
+                {
+                    if (piece.getColor() == 1)
+                    {
+                        fen.append('F');
+                    }
+                    else
+                    {
+                        fen.append('f');
+                    }
+                }
+            }
+        }
+        if (turn == 0)
+        {
+            fen.append(" b ");
+        }
+        else
+        {
+            fen.append(" w ");
+        }
+        if (getKing(1).isCastleable())
+        {
+            if(getTile(63).isCastleable())
+            {
+                fen.append("K");
+            }
+            if(getTile(56).isCastleable())
+            {
+                fen.append("Q");
+            }
+        }
+        if (getKing(0).isCastleable())
+        {
+            if(getTile(7).isCastleable())
+            {
+                fen.append("k");
+            }
+            if(getTile(0).isCastleable())
+            {
+                fen.append("q");
+            }
+        }
+        if (fen.charAt(fen.length() - 1) == ' ')
+        {
+            fen.append('-');
+        }
+        return fen.toString();
     }
 }
