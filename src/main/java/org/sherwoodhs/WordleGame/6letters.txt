@@ -5309,7 +5309,6 @@ proquo
 proser
 prosit
 protea
-protg
 proton
 proust
 proved
@@ -6636,7 +6635,6 @@ syrtis
 syrupy
 system
 syzygy
-ttons
 tabard
 tabble
 tabita
