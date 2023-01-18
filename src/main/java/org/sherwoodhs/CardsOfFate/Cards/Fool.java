@@ -9,6 +9,6 @@ public class Fool extends Card{
     public void effect(Deck deck){
     }
     public String entry(){
-        return("");
+        return("An idiot. Useless by itself.");
     }
 }

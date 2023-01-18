@@ -1,11 +1,13 @@
 package org.sherwoodhs.CardsOfFate;
 
+import org.sherwoodhs.CardsOfFate.Cards.Card;
 import org.sherwoodhs.CardsOfFate.Entities.Enemy;
 import org.sherwoodhs.CardsOfFate.Entities.Player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 
 public class Window implements ActionListener, ItemListener{
     private Player player = Player.getInstance();
@@ -24,10 +26,13 @@ public class Window implements ActionListener, ItemListener{
     private static JLabel battleText4 = new JLabel("text");
     private static JLabel battleText5 = new JLabel("text");
     private static JLabel battleText6 = new JLabel("text");
-    private static String[] choices = {"Use Card", "Use Combo"};
+    private static String[] choices = {"Use Card", "Use Combo", "End Turn"};
     private JComboBox battleChoices = new JComboBox(choices);
     private JComboBox options = new JComboBox(player.getHand2());
-    private JLabel description = new JLabel("This is a description");
+    private JButton use = new JButton("GO");
+
+    Card c = player.getHand().get(0);
+    private JLabel description = new JLabel(c.entry());
 
     //
     private JMenuBar menuBar = new JMenuBar();
@@ -36,6 +41,7 @@ public class Window implements ActionListener, ItemListener{
 
     private static Battle fight;
 
+    private int box = 0;
     public Window() {
         //tutorial box
         int n = JOptionPane.showConfirmDialog(frame, "Do you want to skip the Tutorial?", " Starting Game", JOptionPane.YES_NO_OPTION);
@@ -63,6 +69,9 @@ public class Window implements ActionListener, ItemListener{
                     battleChoices.setSelectedIndex(0);
                     battleChoices.addItemListener(this);
                     battleChoices.setEditable(false);
+                    options.setSelectedIndex(0);
+                    options.addItemListener(this);
+                    options.setEditable(false);
 
                 battle.setLayout(null);
                     battleText.setBounds(10,10,400,15);
@@ -79,10 +88,15 @@ public class Window implements ActionListener, ItemListener{
                 battle.add(battleText6);
                     battleChoices.setBounds(10,145,150,20);
                 battle.add(battleChoices);
-                options.setBounds(10,180,150,20);
+                    options.setBounds(180,145,150,20);
                 battle.add(options);
-                description.setBounds(10,200,400,20);
+                    use.setBounds(350, 145,60,20);
+                    use.setFont(new Font("Arial", Font.BOLD,15));
+                    use.setBackground(Color.RED);
+                battle.add(use);
+                    description.setBounds(10,180,400,20);
                 battle.add(description);
+
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battle);
 
@@ -103,11 +117,12 @@ public class Window implements ActionListener, ItemListener{
     public void itemStateChanged (ItemEvent e){
         String choice = (String) battleChoices.getSelectedItem();
         if (choice == "Use Card"){
-            options = new JComboBox(player.getHand2());
-            String card = (String) options.getSelectedItem();
-            if (card == "The Fool"){
-                description.setText("You");
-            }
+            options.setVisible(true);
+            int a = options.getSelectedIndex();
+            Card cards = player.getHand().get(a);
+            description.setText(cards.entry());
+        } else if (choice == "Use Combo"){
+            options.setVisible(false);
         }
     }
     public static void setLabel(String string){
@@ -125,7 +140,9 @@ public class Window implements ActionListener, ItemListener{
         crd.show(superPanel, string);
     }
     public static void setBattle(Enemy enemy) {
-            changeCard("BATTLE");
+        Battle battle = new Battle(enemy);
+        battle.endTurn();
+        changeCard("BATTLE");
 
     }
     class enterKey implements KeyListener{

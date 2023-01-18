@@ -45,8 +45,7 @@ public class Dialouge{
     private static String tutorialFour() {
         Enemy enemy = new Dummy();
         Window.setBattle(enemy);
-        Battle battle = new Battle(enemy);
-        //battle.battle();
+
         return("");
     }
 }

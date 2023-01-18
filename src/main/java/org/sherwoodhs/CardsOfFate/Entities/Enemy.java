@@ -10,10 +10,12 @@ public abstract class Enemy extends Person{
     protected int dfnRange;
     Random r = new Random();
 
-    public Enemy(String name, int hp, int minAtk, int atkRange){
+    public Enemy(String name, int hp, int minAtk, int atkRange, int minDfn, int dfnRange){
         super(name,hp);
         this.atkRange = atkRange;
         this.minAtk = minAtk;
+        this.minDfn = minDfn;
+        this.dfnRange = dfnRange;
     }
 
     public int getAtk(){

@@ -27,20 +27,10 @@ public class Battle{
         //battle();
 
     }
-    public void battle(){
-        while(!player.isDead() && !enemy.isDead()) {
-            enemyMove();
-            // Player move
-            player.drawCard(3);
-
-            while (!turned) {
-                while (!actioned) { //Wait for One action to be made
-                    Thread.yield();
-                }
-                actioned = false;
-            } // Wait for turn to be completed
-            turned = false;
-        } // Wait until One side is dead
+    public void endTurn(){
+        enemy.changeHealth(playerMove[0] - enemyMove[1]);
+        player.changeHealth(enemyMove[0] - playerMove[1]);
+        enemyMove();
     }
     private void updateText(String text) {
         Window.changeBattleText(enemy.getName(), enemy.getHp(), enemyMove[0],enemyMove[1],player.getHp(),playerMove[0],playerMove[1],text);
@@ -49,12 +39,8 @@ public class Battle{
     
     private void enemyMove() {
         // Enemy moveset
-        int a = r.nextInt();
-        if (a == 0){ //Attacks
            enemyMove[0] = enemy.getAtk();
-        } else { //Defends
-            enemyMove[1] = enemy.getDfn();
-        }
+           enemyMove[1] = enemy.getDfn();
     }
 
     private void checkDiscard(){

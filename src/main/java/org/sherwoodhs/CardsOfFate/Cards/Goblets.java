@@ -9,6 +9,6 @@ public class Goblets extends Cards{
     public void effect(Deck deck){
     }
     public String entry(){
-        return("");
+        return("Gain " + number + " hp.");
     }
 }
