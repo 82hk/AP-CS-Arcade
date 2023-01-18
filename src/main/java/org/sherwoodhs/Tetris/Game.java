@@ -15,11 +15,18 @@ public class Game extends JPanel {
     private Timer TIMER;
     private boolean isFalling = true;
     private boolean isPaused = false;
+    private boolean isHeld = false;
     private int linesCleared = 0;
     private int cx = 0;
     private int cy = 0;
-    private JLabel status;
-    private Piece cpiece;
+    private Color colors[] = {
+            Color.BLACK, new Color(240, 50, 100),
+            Color.GREEN, Color.CYAN,
+            new Color(255, 55, 210), Color.YELLOW,
+            new Color(50, 100, 240), new Color(240, 140, 0)
+    };
+    private JLabel status, hold;
+    private Piece cpiece, hpiece;
     private Tetromino[] board;
     public static ArrayList<Tetromino> pieces = new ArrayList<Tetromino>();
     public Game(Main m) {
@@ -29,6 +36,10 @@ public class Game extends JPanel {
     private void createBoard(Main m) {
         setFocusable(true);
         status = m.getStatus();
+        hold = m.getHold();
+        hold.setOpaque(true);
+        hold.setForeground(Color.WHITE);
+        hold.setBackground(new Color(20, 20, 30));
         addKeyListener(new Adapter());
     }
     @Override
@@ -43,13 +54,6 @@ public class Game extends JPanel {
         return (int) getSize().getHeight() / HEIGHT;
     }
     private void drawGridUnit(Graphics g, int x, int y, Tetromino piece) {
-        // themes?
-        Color colors[] = {
-                Color.BLACK, new Color(240, 50, 100),
-                Color.GREEN, Color.CYAN,
-                new Color(250, 70, 150), Color.YELLOW,
-                new Color(50, 100, 240), new Color(240, 140, 0)
-        };
         Color color = colors[piece.ordinal()];
         g.setColor(color);
         g.fillRect(x + 1, y + 1, getGridUnitWidth() - 2, getGridUnitHeight() - 2);
@@ -59,6 +63,7 @@ public class Game extends JPanel {
     }
     public void start() {
         cpiece = new Piece();
+        hpiece = new Piece();
         board = new Tetromino[WIDTH * HEIGHT];
         clearBoard();
         newPiece();
@@ -116,6 +121,7 @@ public class Game extends JPanel {
             board[(y * WIDTH) + x] = cpiece.getPiece();
         }
         removeLines();
+        isHeld = false;
         if (isFalling) {
             newPiece();
         }
@@ -129,6 +135,33 @@ public class Game extends JPanel {
             TIMER.stop();
             status.setText(String.format("Game over! Lines: %d", linesCleared));
         }
+    }
+    private void newPiece(Tetromino piece) {
+        cpiece.setPiece(piece);
+        cx = WIDTH / 2 + 1;
+        cy = HEIGHT - 1 + cpiece.minY();
+        if (!move(cpiece, cx, cy)) {
+            cpiece.setPiece(Tetromino.NONE);
+            TIMER.stop();
+            status.setText(String.format("Game over! Lines: %d", linesCleared));
+        }
+    }
+    private void holdPiece() {
+        if (isHeld) {
+            return;
+        }
+        if (hpiece.getPiece() == Tetromino.NONE) {
+            hpiece.setPiece(cpiece.getPiece());
+            newPiece();
+        } else {
+            Tetromino temp = hpiece.getPiece();
+            hpiece.setPiece(cpiece.getPiece());
+            newPiece(temp);
+        }
+        hold.setForeground(colors[hpiece.getPiece().ordinal()]);
+        hold.setText("Hold: " + hpiece.getPiece());
+        // only be able to hold a piece once per drop
+        isHeld = true;
     }
     private void softDropPiece() {
         if (!move(cpiece, cx, cy - 1)) {
@@ -189,6 +222,8 @@ public class Game extends JPanel {
         }
     }
     private class Adapter extends KeyAdapter {
+        private boolean isHeld = false;
+        private boolean hasRotated = false, hasDropped = false, hasPaused = false;
         @Override
         public void keyPressed(KeyEvent e) {
             if (cpiece.getPiece() == Tetromino.NONE) {
@@ -197,25 +232,50 @@ public class Game extends JPanel {
             if (isPaused && e.getKeyCode() != KeyEvent.VK_P) {
                 return;
             }
+            isHeld = true;
             // introduce ability to hold key in the future
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_P:
-                    pause(); break;
+                    if (!hasPaused)
+                        pause();
+                    hasPaused = true;
+                    break;
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_A:
-                    move(cpiece, cx - 1, cy); break;
+                    if (isHeld)
+                        move(cpiece, cx - 1, cy);
+                    break;
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_D:
-                    move(cpiece, cx + 1, cy); break;
+                    if (isHeld)
+                        move(cpiece, cx + 1, cy);
+                    break;
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
-                    move(cpiece.rotate(), cx, cy); break;
+                    if (!hasRotated)
+                        move(cpiece.rotate(), cx, cy);
+                    hasRotated = true;
+                    break;
                 case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_S:
-                    softDropPiece(); break;
+                    if (isHeld)
+                        softDropPiece();
+                    break;
+                case KeyEvent.VK_C:
+                    holdPiece(); break;
                 case KeyEvent.VK_SPACE:
-                    hardDropPiece(); break;
+                    if (!hasDropped)
+                        hardDropPiece();
+                    hasDropped = true;
+                    break;
             }
+        }
+        @Override
+        public void keyReleased(KeyEvent e) {
+            isHeld = false;
+            hasRotated = false;
+            hasPaused = false;
+            hasDropped = false;
         }
     }
     private void paintCycle() {

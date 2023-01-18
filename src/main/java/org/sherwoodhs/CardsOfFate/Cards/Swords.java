@@ -8,4 +8,7 @@ public class Swords extends Cards{
     }
     public void effect(Deck deck){
     }
+    public String entry(){
+        return("Attacks for " + number + ".");
+    }
 }
