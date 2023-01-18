@@ -5309,7 +5309,6 @@ proquo
 proser
 prosit
 protea
-protg
 proton
 proust
 proved
