@@ -31,7 +31,7 @@ public class TicTacToe implements ActionListener {
 
     private void DrawWindow(Main main) {
 
-        ImageIcon octothorpe = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/Octothorpe.png");
+        ImageIcon octothorpe = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Octothorpe.png");
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
@@ -55,19 +55,19 @@ public class TicTacToe implements ActionListener {
         exitButton.setText("Exit");
         exitButton.addActionListener(this::actionPerformed);
         //exitButton.setBorderPainted(false);
-        exitButton.setOpaque(false);
+        //exitButton.setOpaque(false);
 
         currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
         currentPlayerText.setEditable(false);
         currentPlayerText.setHorizontalAlignment(currentPlayerText.CENTER);
-        currentPlayerText.setOpaque(false);
+        //currentPlayerText.setOpaque(false);
 
         headerField.setLayout(new BorderLayout());
-        headerField.setOpaque(false);
+        //headerField.setOpaque(false);
         //headerField.setBackground(Color.BLACK);
 
         optionField.setLayout(new BorderLayout());
-        optionField.setOpaque(false);
+        //optionField.setOpaque(false);
         optionField.add(playAgainButton, BorderLayout.NORTH);
         optionField.add(exitButton, BorderLayout.SOUTH);
 
