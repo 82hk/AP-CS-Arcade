@@ -204,7 +204,7 @@ public class WordleGame {
 
         JLabel w = new JLabel("The word was " + "\"" + word + "\"");
         w.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        w.setFont(new Font("Serif", Font.BOLD, sz.width/30));
+        w.setFont(new Font("SansSerif", Font.BOLD, sz.width/30));
         JDialog d = new JDialog(f , s, true);
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 
@@ -217,7 +217,7 @@ public class WordleGame {
             frame.dispose();
         });
         b.setPreferredSize(new Dimension(800, 300));
-        b.setFont(new Font("Serif", Font.BOLD, sz.width/20));
+        b.setFont(new Font("SansSerif", Font.BOLD, sz.width/50));
 
         JButton p = new JButton ("Close");
         p.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -228,11 +228,12 @@ public class WordleGame {
             System.exit(0);
         });
         p.setPreferredSize(new Dimension(800, 300));
-        p.setFont(new Font("Serif", Font.BOLD, sz.width/20));
+        p.setFont(new Font("SansSerif", Font.BOLD, sz.width/50));
 
 
         pane.add(l);
         pane.add(w);
+        pane.add(Box.createVerticalGlue());
         pane.add(Box.createVerticalGlue());
         pane.add(b);
         pane.add(p);
