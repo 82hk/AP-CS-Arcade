@@ -83,10 +83,17 @@ public class TicTacToe implements ActionListener {
             gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
             gridSquare[i].addActionListener(this::actionPerformed);
             gridSquare[i].setBorderPainted(false);
-            //gridSquare[i].setContentAreaFilled(false);
-            //gridSquare[i].setOpaque(true);
             grid.add(gridSquare[i]);
         }
+        bingo = false;
+        currentPlayer = "X";
+        otherPlayer = "O";
+        for (int i = 0; i < 9; i++) {
+            gridSquare[i].setBackground(Color.BLACK);
+            gridSquare[i].setForeground(Color.WHITE);
+            gridSquare[i].setText("");
+        }
+        currentPlayerText.setText(currentPlayer + " turn");
 
 
     }
@@ -142,7 +149,6 @@ public class TicTacToe implements ActionListener {
     public TicTacToe() { // MAIN METHOD
         Main main = new Main();
         SwingUtilities.invokeLater(new Runnable() { public void run() { DrawWindow(main); } } );
-        ResetGame();
     }
 
 
