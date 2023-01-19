@@ -1,4 +1,4 @@
-package Game;
+package org.sherwoodhs.Chesscapades.Game;
 
 import java.io.*;
 import javax.sound.sampled.*;
