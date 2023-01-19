@@ -9,14 +9,9 @@ public class Battle{
     private static Player player = Player.getInstance();
     private static Enemy enemy;
 
-    private Random r = new Random();
-
     // Atk / Dfn per turn
     private static int[] enemyMove = {0,0};
     private static int[] playerMove = {0,0};
-
-    public boolean actioned = false;
-    public boolean turned = false;
 
     public Battle (Enemy enemy){
         this.enemy = enemy;
@@ -25,11 +20,11 @@ public class Battle{
     public void endTurn(){
         int a = playerMove[0] - enemyMove[1];
         if (a > 0) {
-            enemy.changeHealth(a);
+            enemy.changeHealth(-1 * a);
         }
         a = enemyMove[0] - playerMove[1];
         if (a > 0) {
-            player.changeHealth(a);
+            player.changeHealth(-1 * a);
         }
         player.drawCard(1);
         start();
@@ -56,7 +51,7 @@ public class Battle{
         playerMove[1] += change;
     }
 
-    public void checkDead(){
+    public static void checkDead(){
         if (player.getHp() == 0){
             Window.setLoss(enemy);
         } if (enemy.getHp() == 0){

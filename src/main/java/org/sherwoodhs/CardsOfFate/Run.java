@@ -3,11 +3,9 @@ package org.sherwoodhs.CardsOfFate;
 import java.util.Scanner;
 
 public class Run {
-    CardsOfFate game;
     private static Dialouge dialouge = Dialouge.getInstance();
 
-    public Run(CardsOfFate game){
-        this.game = game;
+    public Run(){
     }
 
     public static void tutorial(){
