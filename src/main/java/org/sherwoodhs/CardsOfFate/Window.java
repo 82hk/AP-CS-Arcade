@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.util.Objects;
 
 public class Window implements ActionListener, ItemListener{
+    private Battle battle;
     private Player player = Player.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
@@ -33,6 +34,7 @@ public class Window implements ActionListener, ItemListener{
 
     Card c = player.getHand().get(0);
     private JLabel description = new JLabel(c.entry());
+    private JLabel description2 = new JLabel(" ");
 
     //
     private JMenuBar menuBar = new JMenuBar();
@@ -93,9 +95,12 @@ public class Window implements ActionListener, ItemListener{
                     use.setBounds(350, 145,60,20);
                     use.setFont(new Font("Arial", Font.BOLD,15));
                     use.setBackground(Color.RED);
+                    use.addActionListener(this);
                 battle.add(use);
-                    description.setBounds(10,180,400,20);
+                    description.setBounds(10,180,400,15);
                 battle.add(description);
+                    description2.setBounds(10,195,400,15);
+                battle.add(description2);
 
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battle);
@@ -112,6 +117,13 @@ public class Window implements ActionListener, ItemListener{
     public void actionPerformed (ActionEvent e){
         if (e.getSource() == menuItem1){
 
+        } else if (e.getSource() == use){
+            String choice = (String) battleChoices.getSelectedItem();
+            if (choice == "Use Card"){
+                int a = options.getSelectedIndex();
+                Card cards = player.getHand().get(a);
+                player.useCard(cards);
+            }
         }
     }
     public void itemStateChanged (ItemEvent e){
@@ -121,6 +133,7 @@ public class Window implements ActionListener, ItemListener{
             int a = options.getSelectedIndex();
             Card cards = player.getHand().get(a);
             description.setText(cards.entry());
+            description2.setText(" ");
         } else if (choice == "Use Combo"){
             options.setVisible(false);
         }
@@ -140,7 +153,7 @@ public class Window implements ActionListener, ItemListener{
         crd.show(superPanel, string);
     }
     public static void setBattle(Enemy enemy) {
-        Battle battle = new Battle(enemy);
+        battle = new Battle(enemy);
         battle.endTurn();
         changeCard("BATTLE");
 

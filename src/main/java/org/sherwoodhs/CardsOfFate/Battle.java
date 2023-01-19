@@ -23,18 +23,17 @@ public class Battle{
 
     public Battle (Enemy enemy){
         this.enemy = enemy;
-        updateText("It's your turn");
-        //battle();
 
     }
     public void endTurn(){
         enemy.changeHealth(playerMove[0] - enemyMove[1]);
         player.changeHealth(enemyMove[0] - playerMove[1]);
         enemyMove();
+        player.drawCard();
+        updateText("It's your turn.");
     }
-    private void updateText(String text) {
+    public static void updateText(String text) {
         Window.changeBattleText(enemy.getName(), enemy.getHp(), enemyMove[0],enemyMove[1],player.getHp(),playerMove[0],playerMove[1],text);
-        System.out.println(2);
     }
     
     private void enemyMove() {
@@ -43,17 +42,12 @@ public class Battle{
            enemyMove[1] = enemy.getDfn();
     }
 
-    private void checkDiscard(){
-        System.out.println("Discard Pile:\n" + player.getDiscard());
+    public void changePlayerAtk(int change){
+        playerMove[0] += change;
     }
-    private void checkCombos(){
+    public void changePlayerDfn(int change){
+        playerMove[1] += change;
+    }
 
-    }
-    private void checkHand(){
-        
-    }
-    private void useCard(Card card){
-
-    }
 }
 

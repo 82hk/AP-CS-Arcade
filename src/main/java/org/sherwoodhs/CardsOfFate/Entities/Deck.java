@@ -99,6 +99,12 @@ public abstract class Deck extends Person{
             discard.add(card);
         }
 
+        public void useCard(Card card, Battle battle){
+            card.effect(this, battle);
+            discardCard(card);
+            updateText(card.entry());
+        }
+
         //Moves a specific card from discard to hand
         public void revive(Card card){
             discard.remove(card);
