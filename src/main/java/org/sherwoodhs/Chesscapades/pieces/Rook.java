@@ -16,9 +16,9 @@ public class Rook extends Piece {
     @Override
     public ImageIcon getImageIcon() {
         if(color == 0) {
-            return(new ImageIcon("src/main/java/org/sherwoodhs/Chesscapades/resources/bRook.png"));
+            return(new ImageIcon("src/resources/bRook.png"));
         } else if(color == 1) {
-            return(new ImageIcon("src/main/java/org/sherwoodhs/Chesscapades/resources/wRook.png"));
+            return(new ImageIcon("src/resources/wRook.png"));
         } else {
             return null;
         }

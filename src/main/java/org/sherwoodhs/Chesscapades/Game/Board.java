@@ -114,7 +114,6 @@ public class Board extends JPanel {
             if (piece == null)
             {
                 empty++;
-                continue;
             }
             else
             {
@@ -187,17 +186,6 @@ public class Board extends JPanel {
                     else
                     {
                         fen.append('p');
-                    }
-                }
-                else if (false /*piece instanceof EnPson*/)
-                {
-                    if (piece.getColor() == 1)
-                    {
-                        fen.append('F');
-                    }
-                    else
-                    {
-                        fen.append('f');
                     }
                 }
             }
