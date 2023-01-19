@@ -4,7 +4,7 @@ import org.sherwoodhs.CardsOfFate.Entities.Deck;
 import org.sherwoodhs.CardsOfFate.Battle;
 
 public class Fool extends Card{
-    private Fool fool = new Fool();
+    private static Fool fool = new Fool();
     private Fool(){
         super("The Fool");
     }
@@ -13,7 +13,7 @@ public class Fool extends Card{
     public String entry(){
         return("You. Useless by itself.");
     }
-    public Fool getInstance(){
+    public static Fool getInstance(){
         return(fool);
     }
     public String used(){

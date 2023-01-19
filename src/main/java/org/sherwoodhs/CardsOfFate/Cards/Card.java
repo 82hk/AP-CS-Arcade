@@ -9,7 +9,7 @@ public abstract class Card {
     public Card (String name) {
         this.name = name;
     }
-    abstract void effect(Deck deck, Battle battle);
+    public abstract void effect(Deck deck, Battle battle);
     public String toString(){
         return(name);
     }

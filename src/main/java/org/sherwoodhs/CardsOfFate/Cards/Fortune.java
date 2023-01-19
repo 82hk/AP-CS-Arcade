@@ -12,12 +12,12 @@ public class Fortune extends Card{
         deck.drawCard(2);
     }
     public String entry(){
-        return("");
+        return("Allows you to draw 2 cards when used.");
     }
-    public Fortune getInstance(){
+    public static Fortune getInstance(){
         return (fortune);
     }
     public String used(){
-        return(" ");
+        return("You drew 2 cards.");
     }
 }

@@ -1,8 +1,11 @@
 package org.sherwoodhs.CardsOfFate.Entities;
 
+import org.sherwoodhs.CardsOfFate.Battle;
 import org.sherwoodhs.CardsOfFate.Cards.Card;
 
 import java.util.*;
+
+import static org.sherwoodhs.CardsOfFate.Battle.updateText;
 
 // Well, this is more aptly described as deck, hand, and discard 
 public abstract class Deck extends Person{
