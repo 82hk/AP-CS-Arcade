@@ -9,4 +9,5 @@ public class Main {
         CardsOfFate c = new CardsOfFate();
         c.startGame();
     }
+
 }

@@ -10,6 +10,8 @@ import java.awt.event.*;
 
 public class Window implements ActionListener, ItemListener{
     private static Battle battle;
+
+    private static int currentCard = 0;
     private Player player = Player.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
@@ -42,12 +44,14 @@ public class Window implements ActionListener, ItemListener{
     //
     private JPanel loss = new JPanel();
     private static JLabel lossLabel = new JLabel("You loss. Fool.");
+    private JButton tryAgain = new JButton("Try Again?");
     //
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
     private JMenu pauseMenu = new JMenu("⚙");
-
-    public Window() {
+    private CardsOfFate game;
+    public Window(CardsOfFate game) {
+        this.game = game;
         //tutorial box
         int n = JOptionPane.showConfirmDialog(frame, "Do you want to skip the Tutorial?", " Starting Game", JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.NO_OPTION){
@@ -115,14 +119,19 @@ public class Window implements ActionListener, ItemListener{
                     //listScroller.setPreferredSize(new Dimension(250, 80));
 
                 victory.add(vicLabel);
-
+                    lossLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 loss.add(lossLabel);
+                    tryAgain.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    tryAgain.addActionListener(this);
+                loss.add(tryAgain);
                 loss.setLayout(new BoxLayout(loss, BoxLayout.Y_AXIS));
-                loss.setAlignmentX(Component.CENTER_ALIGNMENT);
+
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battles);
             superPanel.add("VICTORY", victory);
             superPanel.add("LOSS", loss);
+            changeCard("TEXT");
+            currentCard = 0;
 
             Color back = new Color(220, 212, 191);
             text.setBackground(back);
@@ -137,6 +146,7 @@ public class Window implements ActionListener, ItemListener{
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setFocusable(true);
+        updateOptions();
     }
     public void actionPerformed (ActionEvent e){
         if (e.getSource() == menuItem1){
@@ -151,13 +161,15 @@ public class Window implements ActionListener, ItemListener{
                     updateOptions();
                 }
             } else if (choice == "End Turn"){
-                System.out.println(2);
                 battle.endTurn();
                 battleChoices.setSelectedIndex(0);
                 updateOptions();
                 options.setSelectedIndex(0);
             }
             battle.checkDead();
+        } else if (e.getSource() == tryAgain){
+            //game.endGame();
+            //game.startGame(); // temp
         }
 
     }
@@ -208,15 +220,21 @@ public class Window implements ActionListener, ItemListener{
         battle = new Battle(enemy);
         battle.start();
         changeCard("BATTLE");
-
+        currentCard = 1;
     }
     public static void setVictory(Enemy enemy){
         changeCard("VICTORY");
         vicLabel.setText("You beat a " + enemy.getName() + ". Good job.");
+        currentCard = 2;
     }
     public static void setLoss(Enemy enemy){
         changeCard("LOSS");
         lossLabel.setText("It's a very sad day. You lost to a " + enemy.getName() + ".");
+        currentCard = 3;
+    }
+    public static void setText(int a){
+        changeCard("TEXT");
+        Dialouge.runText(a);
     }
     class enterKey implements KeyListener{
         public void keyTyped(KeyEvent e){
@@ -224,7 +242,7 @@ public class Window implements ActionListener, ItemListener{
         }
         public void keyPressed(KeyEvent e){
 
-            if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            if(e.getKeyCode() == KeyEvent.VK_ENTER && currentCard == 0){
 
                 Dialouge.advanceText();
             }
@@ -232,5 +250,8 @@ public class Window implements ActionListener, ItemListener{
         public void keyReleased(KeyEvent e){
 
         }
+    }
+    public void closeFrame() {
+        frame.dispose();
     }
 }

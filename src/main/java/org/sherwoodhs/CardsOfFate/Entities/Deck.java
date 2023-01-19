@@ -9,9 +9,9 @@ import static org.sherwoodhs.CardsOfFate.Battle.updateText;
 
 // Well, this is more aptly described as deck, hand, and discard 
 public abstract class Deck extends Person{
-        private Stack<Card> deck;
-        private ArrayList<Card> hand = new ArrayList<Card>();
-        private ArrayList<Card> discard = new ArrayList<Card>();
+        protected Stack<Card> deck;
+        protected ArrayList<Card> hand = new ArrayList<Card>();
+        protected ArrayList<Card> discard = new ArrayList<Card>();
         
         public Deck (String name, int hp, Card[] deck) {
             super(name,hp);
