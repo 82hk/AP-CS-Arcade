@@ -4,6 +4,8 @@ import org.sherwoodhs.CardsOfFate.Entities.Player;
 import org.sherwoodhs.Game;
 
 public class CardsOfFate extends Game {
+    private Window window;
+    private Player player = Player.getInstance();
     public CardsOfFate(){
 
     }
@@ -16,10 +18,12 @@ public class CardsOfFate extends Game {
     public void initializeGame(){
     }
     public void startGame() {
-        new Window();
+        window = new Window(this);
+        player.resetPlayer();
         new Run();
     }
     public void endGame() {
-        // Quit Game
+        window.closeFrame();
+        // Return to main menu
     }
 }
