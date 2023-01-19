@@ -47,6 +47,7 @@ public class Connect4 extends JFrame { // window
                                 b.setEnabled(false);
                                 if (checkWin(row, column)) {
                                     JOptionPane.showMessageDialog(null, "Player " + currentPlayer + " wins!");
+                                    System.exit(0);
                                 } else {
                                     currentPlayer = currentPlayer == 1 ? 2 : 1;
                                 }

@@ -16,7 +16,7 @@ public class Window implements ActionListener, ItemListener{
     private static JPanel superPanel = new JPanel(crd);
     //
     private JPanel text = new JPanel();
-    private static JLabel words = new JLabel("Welcome to Cards of Fate!");
+    private static JLabel words = new JLabel("You've reached an area with no new content.");
     //
     private JPanel battles = new JPanel();
     private static JLabel battleText = new JLabel("text");
@@ -41,6 +41,7 @@ public class Window implements ActionListener, ItemListener{
     private static JLabel vicLabel = new JLabel("");
     //
     private JPanel loss = new JPanel();
+    private static JLabel lossLabel = new JLabel("You loss. Fool.");
     //
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
@@ -113,15 +114,21 @@ public class Window implements ActionListener, ItemListener{
                     //JScrollPane listScroller = new JScrollPane(discard);
                     //listScroller.setPreferredSize(new Dimension(250, 80));
 
-                    //vicLabel.setVerticalAlignment();
                 victory.add(vicLabel);
+
+                loss.add(lossLabel);
+                loss.setLayout(new BoxLayout(loss, BoxLayout.Y_AXIS));
+                loss.setAlignmentX(Component.CENTER_ALIGNMENT);
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battles);
             superPanel.add("VICTORY", victory);
             superPanel.add("LOSS", loss);
+
             Color back = new Color(220, 212, 191);
             text.setBackground(back);
             battles.setBackground(back);
+            victory.setBackground(back);
+            loss.setBackground(back);
         frame.add(superPanel);
         frame.addKeyListener(new enterKey());
         frame.setJMenuBar(menuBar);
@@ -133,7 +140,7 @@ public class Window implements ActionListener, ItemListener{
     }
     public void actionPerformed (ActionEvent e){
         if (e.getSource() == menuItem1){
-
+            // Quit Game
         } else if (e.getSource() == use){
             String choice = (String) battleChoices.getSelectedItem();
             if (choice == "Use Card"){
@@ -150,7 +157,9 @@ public class Window implements ActionListener, ItemListener{
                 updateOptions();
                 options.setSelectedIndex(0);
             }
+            battle.checkDead();
         }
+
     }
     private void updateOptions(){
         options.removeAllItems();
@@ -203,10 +212,11 @@ public class Window implements ActionListener, ItemListener{
     }
     public static void setVictory(Enemy enemy){
         changeCard("VICTORY");
-        vicLabel.setText("You beat a " + enemy.getName() + ". Good job");
+        vicLabel.setText("You beat a " + enemy.getName() + ". Good job.");
     }
     public static void setLoss(Enemy enemy){
         changeCard("LOSS");
+        lossLabel.setText("It's a very sad day. You lost to a " + enemy.getName() + ".");
     }
     class enterKey implements KeyListener{
         public void keyTyped(KeyEvent e){

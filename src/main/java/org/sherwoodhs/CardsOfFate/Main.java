@@ -6,7 +6,7 @@ public class Main {
         startUp();
     }
     public static void startUp(){
-        new Run(new CardsOfFate());
-        new Window();
+        CardsOfFate c = new CardsOfFate();
+        c.startGame();
     }
 }

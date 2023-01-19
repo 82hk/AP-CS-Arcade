@@ -16,9 +16,10 @@ public class CardsOfFate extends Game {
     public void initializeGame(){
     }
     public void startGame() {
-        
+        new Window();
+        new Run();
     }
     public void endGame() {
-        //Ends game. Closes
+        // Quit Game
     }
 }

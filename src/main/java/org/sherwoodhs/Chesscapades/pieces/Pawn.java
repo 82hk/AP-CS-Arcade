@@ -1,6 +1,7 @@
 package org.sherwoodhs.Chesscapades.pieces;
 
 import org.sherwoodhs.Chesscapades.Game.Board;
+import org.sherwoodhs.Chesscapades.Game.ChessGame;
 import org.sherwoodhs.Chesscapades.Game.Tile;
 
 import javax.swing.*;
@@ -36,7 +37,13 @@ public class Pawn extends Piece {
                     {
                         return true;
                     }
+                } else if ((board.getTile(Board.getLocationFromCords(newX, y)).isOccupied() && (dy == getForwardDirection()))){
+                     if (board.getTile(Board.getLocationFromCords(newX, y)).getPiece().moved2 != 0){
+                        return true;
+                    }
+                    return false;
                 }
+
             }
             return false;
         }
@@ -44,8 +51,11 @@ public class Pawn extends Piece {
         {
             return false;
         }
-        if(dy == getForwardDirection() || (isOnStartingSquare(y) && dy == getForwardDirection() * 2))
+        if(dy == getForwardDirection() || ((isOnStartingSquare(y) && dy == getForwardDirection() * 2)) && !board.getTile(Board.getLocationFromCords(newX, newY - getForwardDirection())).isOccupied())
         {
+            if (forReal) {
+                moved2 = 2;
+            }
             return true;
         }
         return false;

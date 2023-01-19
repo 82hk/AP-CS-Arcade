@@ -6,10 +6,12 @@ import org.sherwoodhs.Chesscapades.Game.Board;
 import org.sherwoodhs.Chesscapades.Game.Tile;
 
 public abstract class Piece {
+    public int moved2;
     public final int color;
 
     public Piece(int color) {
         this.color = color;
+        this.moved2 = 0;
     }
 
     public ImageIcon getImageIcon() {
