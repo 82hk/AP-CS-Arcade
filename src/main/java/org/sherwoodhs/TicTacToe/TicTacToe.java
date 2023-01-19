@@ -126,12 +126,10 @@ public class TicTacToe implements ActionListener {
             if ( (gridSquare[winComboList[i][0]].getText() == otherPlayer) && (gridSquare[winComboList[i][1]].getText() == otherPlayer) && (gridSquare[winComboList[i][2]].getText() == otherPlayer) ) {
                 bingo = true;
                 if (otherPlayer == "X") {
-                    currentPlayerText.setForeground(Color.RED);
                     gridSquare[winComboList[i][0]].setForeground(Color.RED);
                     gridSquare[winComboList[i][1]].setForeground(Color.RED);
                     gridSquare[winComboList[i][2]].setForeground(Color.RED);
                 } else if (otherPlayer == "O") {
-                    currentPlayerText.setForeground(Color.BLUE);
                     gridSquare[winComboList[i][0]].setForeground(Color.BLUE);
                     gridSquare[winComboList[i][1]].setForeground(Color.BLUE);
                     gridSquare[winComboList[i][2]].setForeground(Color.BLUE);
@@ -143,6 +141,11 @@ public class TicTacToe implements ActionListener {
     private void UpdateTitle() {
         if (bingo == true) {
             currentPlayerText.setText(otherPlayer + " wins!");
+            if (otherPlayer == "X") {
+              currentPlayerText.setForeground(Color.RED);
+            } else if (otherPlayer == "O") {
+              currentPlayerText.setForeground(Color.BLUE);
+            }
         } else {
             if (currentPlayer == "X") {
                 currentPlayerText.setForeground(Color.PINK);
@@ -163,6 +166,7 @@ public class TicTacToe implements ActionListener {
             gridSquare[i].setText("");
         }
         currentPlayerText.setText(currentPlayer + " turn");
+        UpdateTitle();
 
     }
 
