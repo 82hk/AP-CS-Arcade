@@ -46,7 +46,7 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
     }
 
     public void setupPieces() {
-        AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/startgame.wav");
+        Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/startgame.wav");
 
         //setup black pieces
         chessBoard.getTile(0).setPiece(new Rook(0));
@@ -123,7 +123,7 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
             selectedTile.setPiece(null);
             selectedTile.setBackground(selectedTile.getColor());
             selectedTile = null;
-            AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/move-self.wav");
+            Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/move-self.wav");
             turn = 1 - turn;
             for (int check = 0; check < 64; check++){
                 Piece checked = chessBoard.getTile(check).getPiece();
@@ -153,12 +153,12 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
             if (!canMove)
             {
                 if (king.isInCheck(chessBoard)) {
-                    AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/win.wav");
+                    Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/win.wav");
                     checkmate();
                 }
                 else
                 {
-                    AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/stalemate.wav");
+                    Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/stalemate.wav");
                     stalemate();
                 }
             }
