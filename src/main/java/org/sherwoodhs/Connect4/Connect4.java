@@ -3,35 +3,41 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Connect4 extends JFrame {
+public class Connect4 extends JFrame { // window
+    private JFrame frame;
     private JPanel panel;
     private JButton[] button;
     private int[][] board;
     private int currentPlayer;
 
     public Connect4() {
-        setTitle("Connect 4");
+        setTitle("Connect 4"); // set window properties
         setSize(700, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
 
-        panel = new JPanel();
+        panel = new JPanel(); // create JComponents
         panel.setLayout(new GridLayout(6, 7));
         button = new JButton[42];
         board = new int[6][7];
         currentPlayer = 1;
 
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < 42; i++) { // button creator
+
             button[i] = new JButton();
             button[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
                     JButton b = (JButton) e.getSource();
                     int column = -1;
-                    for (int j = 0; j < 42; j++) {
+
+                    for (int j = 0; j < 42; j++) { // column break
                         if (b == button[j]) {
                             column = j % 7;
                             break;
                         }
+
                     }
                     if (column != -1) {
                         for (int row = 5; row >= 0; row--) {
