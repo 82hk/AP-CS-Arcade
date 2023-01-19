@@ -1,6 +1,6 @@
 package org.sherwoodhs.Chesscapades;
 
-import Game.ChessGame;
+import org.sherwoodhs.Chesscapades.Game.ChessGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class Main {
 
         JFrame frame = new ChessGame(height-200);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/wKnight.png"));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/java/org/sherwoodhs/Chesscapades/resources/wKnight.png"));
         frame.pack();
         frame.setTitle("Chesscapades");
         frame.setResizable(false);
