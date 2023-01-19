@@ -1,22 +1,19 @@
-
 package org.sherwoodhs.CardsOfFate;
 
-import org.sherwoodhs.CardsOfFate.Cards.Card;
 import org.sherwoodhs.CardsOfFate.Entities.Enemy;
 import org.sherwoodhs.CardsOfFate.Entities.Player;
 
 import java.util.Random;
 
 public class Battle{
-    private Player player = Player.getInstance();
-    private Encyclopedia encyclopedia = Encyclopedia.getInstance();
-    private Enemy enemy;
+    private static Player player = Player.getInstance();
+    private static Enemy enemy;
 
     private Random r = new Random();
 
     // Atk / Dfn per turn
-    private int[] enemyMove = {0,0};
-    private int[] playerMove = {0,0};
+    private static int[] enemyMove = {0,0};
+    private static int[] playerMove = {0,0};
 
     public boolean actioned = false;
     public boolean turned = false;
@@ -26,11 +23,20 @@ public class Battle{
 
     }
     public void endTurn(){
-        enemy.changeHealth(playerMove[0] - enemyMove[1]);
-        player.changeHealth(enemyMove[0] - playerMove[1]);
+        int a = playerMove[0] - enemyMove[1];
+        if (a > 0) {
+            enemy.changeHealth(a);
+        }
+        a = enemyMove[0] - playerMove[1];
+        if (a > 0) {
+            player.changeHealth(a);
+        }
+        player.drawCard(1);
+        start();
+    }
+    public void start(){
         enemyMove();
-        player.drawCard();
-        updateText("It's your turn.");
+        updateText("It's your turn");
     }
     public static void updateText(String text) {
         Window.changeBattleText(enemy.getName(), enemy.getHp(), enemyMove[0],enemyMove[1],player.getHp(),playerMove[0],playerMove[1],text);

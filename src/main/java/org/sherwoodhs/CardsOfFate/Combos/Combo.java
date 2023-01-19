@@ -1,22 +1,25 @@
 package org.sherwoodhs.CardsOfFate.Combos;
 
-import org.sherwoodhs.CardsOfFate.Card.*;
+import org.sherwoodhs.CardsOfFate.Battle;
+import org.sherwoodhs.CardsOfFate.Cards.*;
+import org.sherwoodhs.CardsOfFate.Entities.Deck;
+
 public abstract class Combo{
     protected Card[] cost;
     protected String name;
     public Combo (Card[] cost) {
         this.cost = cost;
     }
-    private void useCost(Deck deck){
+    protected void useCost(Deck deck, Battle battle){
         for(Card element: cost){
-            deck.useCard(element);
+            deck.useCard(element, battle);
         }
     }
     public String costDescription(){
         String string = "Cost: ";
         for(Card element: cost){
             string += element;
-            if (element.equals(cost[cost.length() - 1])){
+            if (element.equals(cost[cost.length - 1])){
                 string += ", ";
             } else{
                 string += ".";
@@ -24,7 +27,7 @@ public abstract class Combo{
         }
         return(string);
     }
-    abstract void use();
+    abstract void use(Deck deck, Battle battle);
     abstract String effectDescription();
     public String getName(){
         return(name);

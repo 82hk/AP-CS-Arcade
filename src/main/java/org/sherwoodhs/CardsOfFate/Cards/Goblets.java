@@ -2,6 +2,7 @@ package org.sherwoodhs.CardsOfFate.Cards;
 
 import org.sherwoodhs.CardsOfFate.Entities.Deck;
 import org.sherwoodhs.CardsOfFate.Battle;
+import org.sherwoodhs.CardsOfFate.Entities.Player;
 
 public class Goblets extends Cards{
     public Goblets(int number) {

@@ -7,10 +7,9 @@ import org.sherwoodhs.CardsOfFate.Entities.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Objects;
 
 public class Window implements ActionListener, ItemListener{
-    private Battle battle;
+    private static Battle battle;
     private Player player = Player.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
@@ -20,7 +19,7 @@ public class Window implements ActionListener, ItemListener{
     private JPanel text = new JPanel();
     private static JLabel words = new JLabel("Welcome to Cards of Fate!");
     //
-    private JPanel battle = new JPanel();
+    private JPanel battles = new JPanel();
     private static JLabel battleText = new JLabel("text");
     private static JLabel battleText2 = new JLabel("text");
     private static JLabel battleText3 = new JLabel("text");
@@ -41,9 +40,6 @@ public class Window implements ActionListener, ItemListener{
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
     private JMenu pauseMenu = new JMenu("⚙");
 
-    private static Battle fight;
-
-    private int box = 0;
     public Window() {
         //tutorial box
         int n = JOptionPane.showConfirmDialog(frame, "Do you want to skip the Tutorial?", " Starting Game", JOptionPane.YES_NO_OPTION);
@@ -75,35 +71,35 @@ public class Window implements ActionListener, ItemListener{
                     options.addItemListener(this);
                     options.setEditable(false);
 
-                battle.setLayout(null);
+                battles.setLayout(null);
                     battleText.setBounds(10,10,400,15);
-                battle.add(battleText);
+                battles.add(battleText);
                     battleText2.setBounds(10,25,400,15);
-                battle.add(battleText2);
+                battles.add(battleText2);
                     battleText3.setBounds(10,40,400,15);
-                battle.add(battleText3);
+                battles.add(battleText3);
                     battleText4.setBounds(10,70,400,15);
-                battle.add(battleText4);
+                battles.add(battleText4);
                      battleText5.setBounds(10,85,400,15);
-                battle.add(battleText5);
+                battles.add(battleText5);
                     battleText6.setBounds(10,115,400,15);
-                battle.add(battleText6);
+                battles.add(battleText6);
                     battleChoices.setBounds(10,145,150,20);
-                battle.add(battleChoices);
+                battles.add(battleChoices);
                     options.setBounds(180,145,150,20);
-                battle.add(options);
+                battles.add(options);
                     use.setBounds(350, 145,60,20);
                     use.setFont(new Font("Arial", Font.BOLD,15));
                     use.setBackground(Color.RED);
                     use.addActionListener(this);
-                battle.add(use);
+                battles.add(use);
                     description.setBounds(10,180,400,15);
-                battle.add(description);
+                battles.add(description);
                     description2.setBounds(10,195,400,15);
-                battle.add(description2);
+                battles.add(description2);
 
             superPanel.add("TEXT",text);
-            superPanel.add("BATTLE",battle);
+            superPanel.add("BATTLE",battles);
 
         frame.add(superPanel);
         frame.addKeyListener(new enterKey());
@@ -121,19 +117,39 @@ public class Window implements ActionListener, ItemListener{
             String choice = (String) battleChoices.getSelectedItem();
             if (choice == "Use Card"){
                 int a = options.getSelectedIndex();
-                Card cards = player.getHand().get(a);
-                player.useCard(cards);
+                if (a != -1) {
+                    Card cards = player.getHand().get(a);
+                    player.useCard(cards, battle);
+                    updateOptions();
+                }
+            } else if (choice == "End Turn"){
+                System.out.println(2);
+                battle.endTurn();
+                battleChoices.setSelectedIndex(0);
+                updateOptions();
+                options.setSelectedIndex(0);
             }
         }
+    }
+    private void updateOptions(){
+        options.removeAllItems();
+        Card[] a = player.getHand2();
+        for (Card element : a) {
+            options.addItem(element);
+        }
+
     }
     public void itemStateChanged (ItemEvent e){
         String choice = (String) battleChoices.getSelectedItem();
         if (choice == "Use Card"){
             options.setVisible(true);
             int a = options.getSelectedIndex();
-            Card cards = player.getHand().get(a);
-            description.setText(cards.entry());
-            description2.setText(" ");
+            if(a != -1) {
+                Card cards = player.getHand().get(a);
+                description.setText(cards.entry());
+                description2.setText(" ");
+            }
+
         } else if (choice == "Use Combo"){
             options.setVisible(false);
         }
@@ -154,7 +170,7 @@ public class Window implements ActionListener, ItemListener{
     }
     public static void setBattle(Enemy enemy) {
         battle = new Battle(enemy);
-        battle.endTurn();
+        battle.start();
         changeCard("BATTLE");
 
     }
