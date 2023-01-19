@@ -13,9 +13,8 @@ public class Window implements ActionListener, ItemListener{
     private Player player = Player.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
-    private static CardLayout crd2 = new CardLayout();
-    //
     private static JPanel superPanel = new JPanel(crd);
+    //
     private JPanel text = new JPanel();
     private static JLabel words = new JLabel("Welcome to Cards of Fate!");
     //
@@ -31,10 +30,17 @@ public class Window implements ActionListener, ItemListener{
     private JComboBox options = new JComboBox(player.getHand2());
     private JButton use = new JButton("GO");
 
+    private JList discard = new JList(player.getDiscard2());
+    private JLabel discardTitle = new JLabel("Discard Pile");
     Card c = player.getHand().get(0);
     private JLabel description = new JLabel(c.entry());
     private JLabel description2 = new JLabel(" ");
 
+    //
+    private JPanel victory = new JPanel();
+    private static JLabel vicLabel = new JLabel("");
+    //
+    private JPanel loss = new JPanel();
     //
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
@@ -98,9 +104,21 @@ public class Window implements ActionListener, ItemListener{
                 battles.add(description);
                     description2.setBounds(10,195,400,15);
                 battles.add(description2);
+                    discardTitle.setBounds(430,10,110,20);
+                battles.add(discardTitle);
+                    discard.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                    discard.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+                    discard.setBounds(430,40,110,300);
+                battles.add(discard);
+                    //JScrollPane listScroller = new JScrollPane(discard);
+                    //listScroller.setPreferredSize(new Dimension(250, 80));
 
+                    //vicLabel.setVerticalAlignment();
+                victory.add(vicLabel);
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battles);
+            superPanel.add("VICTORY", victory);
+            superPanel.add("LOSS", loss);
             Color back = new Color(220, 212, 191);
             text.setBackground(back);
             battles.setBackground(back);
@@ -158,6 +176,9 @@ public class Window implements ActionListener, ItemListener{
 
         } else if (choice == "Use Combo"){
             options.setVisible(false);
+        } else if (choice == "End Turn"){
+            description.setText("");
+            description.setText("");
         }
     }
     public static void setLabel(String string){
@@ -179,6 +200,13 @@ public class Window implements ActionListener, ItemListener{
         battle.start();
         changeCard("BATTLE");
 
+    }
+    public static void setVictory(Enemy enemy){
+        changeCard("VICTORY");
+        vicLabel.setText("You beat a " + enemy.getName() + ". Good job");
+    }
+    public static void setLoss(Enemy enemy){
+        changeCard("LOSS");
     }
     class enterKey implements KeyListener{
         public void keyTyped(KeyEvent e){

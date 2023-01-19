@@ -33,6 +33,7 @@ public class Battle{
         }
         player.drawCard(1);
         start();
+        checkDead();
     }
     public void start(){
         enemyMove();
@@ -55,5 +56,12 @@ public class Battle{
         playerMove[1] += change;
     }
 
+    public void checkDead(){
+        if (player.getHp() == 0){
+            Window.setLoss(enemy);
+        } if (enemy.getHp() == 0){
+            Window.setVictory(enemy);
+        }
+    }
 }
 

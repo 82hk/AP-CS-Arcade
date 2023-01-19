@@ -95,6 +95,13 @@ public abstract class Deck extends Person{
         public ArrayList<Card> getDiscard() {
             return(discard);
         }
+        public Card[] getDiscard2() {
+            Card[] array = new Card[discard.size()];
+            for (int i = 0; i < discard.size(); i++) {
+                array[i] = discard.get(i);
+            }
+            return (array);
+        }
 
         //Moves a specific Card from hand to discard
         public void discardCard(Card card){
