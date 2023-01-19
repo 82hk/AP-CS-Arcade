@@ -59,7 +59,7 @@ public class TicTacToe implements ActionListener {
         exitButton.setForeground(Color.WHITE);
         exitButton.setIcon(exitIcon);
 
-        currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
+        currentPlayerText.setFont(new Font("Lato", Font.BOLD, 70));
         currentPlayerText.setEditable(false);
         currentPlayerText.setBackground(Color.BLACK);
         currentPlayerText.setForeground(Color.PINK);
