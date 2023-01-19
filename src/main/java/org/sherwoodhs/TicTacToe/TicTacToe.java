@@ -62,7 +62,7 @@ public class TicTacToe implements ActionListener {
         currentPlayerText.setFont(new Font("Lato", Font.BOLD, 80));
         currentPlayerText.setEditable(false);
         currentPlayerText.setBackground(Color.BLACK);
-        currentPlayerText.setForeground(Color.RED);
+        currentPlayerText.setForeground(Color.PINK);
         currentPlayerText.setHorizontalAlignment(currentPlayerText.CENTER);
 
         headerField.setLayout(new BorderLayout());
@@ -126,10 +126,12 @@ public class TicTacToe implements ActionListener {
             if ( (gridSquare[winComboList[i][0]].getText() == otherPlayer) && (gridSquare[winComboList[i][1]].getText() == otherPlayer) && (gridSquare[winComboList[i][2]].getText() == otherPlayer) ) {
                 bingo = true;
                 if (otherPlayer == "X") {
+                    currentPlayerText.setForeground(Color.RED);
                     gridSquare[winComboList[i][0]].setForeground(Color.RED);
                     gridSquare[winComboList[i][1]].setForeground(Color.RED);
                     gridSquare[winComboList[i][2]].setForeground(Color.RED);
                 } else if (otherPlayer == "O") {
+                    currentPlayerText.setForeground(Color.BLUE);
                     gridSquare[winComboList[i][0]].setForeground(Color.BLUE);
                     gridSquare[winComboList[i][1]].setForeground(Color.BLUE);
                     gridSquare[winComboList[i][2]].setForeground(Color.BLUE);
@@ -143,9 +145,9 @@ public class TicTacToe implements ActionListener {
             currentPlayerText.setText(otherPlayer + " wins!");
         } else {
             if (currentPlayer == "X") {
-                currentPlayerText.setForeground(Color.RED);
+                currentPlayerText.setForeground(Color.PINK);
             } else if (currentPlayer == "O") {
-                currentPlayerText.setForeground(Color.BLUE);
+                currentPlayerText.setForeground(Color.CYAN);
             }
             currentPlayerText.setText(currentPlayer + " turn");
         }
