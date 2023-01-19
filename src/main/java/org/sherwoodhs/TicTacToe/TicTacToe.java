@@ -1,11 +1,14 @@
 package org.sherwoodhs.TicTacToe;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
 public class TicTacToe implements ActionListener {
     JFrame window = new JFrame();
+    Border border = new LineBorder(Color.BLACK);
     JPanel grid = new JPanel();
     JButton[] gridSquare = new JButton[9]; // tic tic toe grid squares
     JPanel headerField = new JPanel();
@@ -51,6 +54,7 @@ public class TicTacToe implements ActionListener {
         grid.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         grid.setBackground(Color.BLACK);
         grid.setOpaque(false);
+        grid.setBorder(border);
 
         playAgainButton.setFont(new Font("Lato", Font.BOLD,30));
         playAgainButton.addActionListener(this::actionPerformed);
