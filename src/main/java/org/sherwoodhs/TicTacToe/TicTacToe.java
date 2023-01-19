@@ -7,16 +7,17 @@ import java.awt.event.*;
 public class TicTacToe implements ActionListener {
     JFrame window = new JFrame();
     JPanel grid = new JPanel();
-    JButton[] gridSquare = new JButton[9];
+    JButton[] gridSquare = new JButton[9]; // tic tic toe grid squares
     JPanel headerField = new JPanel();
     JTextField currentPlayerText = new JTextField();
     JPanel optionField = new JPanel();
     JButton playAgainButton = new JButton();
     JButton exitButton = new JButton();
     String currentPlayer, otherPlayer, temp;
-    boolean bingo;
-    int j; // important. do not touch.
-    final int[][] winComboList = new int[][] {
+    boolean bingo; // is win?
+    int j; // for highlighting the winning buttons
+    int squaresClaimed; // for ties
+    final int[][] winComboList = new int[][] { // every possible winning combination of squares
 
             {0, 1, 2}, // 0
             {3, 4, 5}, // 1
@@ -30,12 +31,14 @@ public class TicTacToe implements ActionListener {
             {2, 4, 6}  // 7
     };
 
-    private void DrawWindow(Main main) {
+    private void DrawWindow(Main main) { // initial configuration. only run once per launch
 
+        // get image icons for buttons
         ImageIcon hashIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Octothorpe.png");
         ImageIcon exitIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Exit Icon.png");
         ImageIcon replayIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Replay Icon.png");
 
+        // JComponent configuration
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
         window.setResizable(false);
@@ -85,23 +88,20 @@ public class TicTacToe implements ActionListener {
         window.add(grid);
 
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) { // create buttons
             gridSquare[i] = new JButton();
             gridSquare[i].setFont(new Font("Lato", Font.BOLD, 120));
             gridSquare[i].addActionListener(this::actionPerformed);
+            gridSquare[i].setBackground(Color.BLACK);
+            gridSquare[i].setText(""); // empty until claimed. squares are claimed when their text is changed to X or O
             grid.add(gridSquare[i]);
         }
 
         bingo = false;
-        currentPlayer = "X";
-        otherPlayer = "O";
+        currentPlayer = "X"; // X is red
+        otherPlayer = "O"; // O is blue
 
-        for (int i = 0; i < 9; i++) {
-            gridSquare[i].setBackground(Color.BLACK);
-            gridSquare[i].setText("");
-        }
-        currentPlayerText.setText(currentPlayer + " turn");
-
+        UpdateTitle();
 
     }
 
@@ -110,16 +110,19 @@ public class TicTacToe implements ActionListener {
     }
 
     private void ClaimSquare(int i) {
-        gridSquare[i].setText(currentPlayer);
-        temp = currentPlayer;
+        gridSquare[i].setText(currentPlayer); // update text
+
+        if (currentPlayer == "O") { // update color
+            gridSquare[i].setForeground(Color.CYAN);
+        } else if (currentPlayer == "X") {
+            gridSquare[i].setForeground(Color.PINK);
+        }
+
+        temp = currentPlayer; // switch players
         currentPlayer = otherPlayer;
         otherPlayer = temp;
 
-        if (otherPlayer == "O") {
-            gridSquare[i].setForeground(Color.CYAN);
-        } else if (otherPlayer == "X") {
-            gridSquare[i].setForeground(Color.PINK);
-        }
+        squaresClaimed++; // claim counter for tie checking
     }
 
     private void CheckForWin() {
@@ -132,7 +135,7 @@ public class TicTacToe implements ActionListener {
                     gridSquare[winComboList[i][1]].setForeground(Color.RED);
                     gridSquare[winComboList[i][2]].setForeground(Color.RED);
                 } else if (otherPlayer == "O") {
-
+                    j = i;
                     gridSquare[winComboList[i][0]].setForeground(Color.BLUE);
                     gridSquare[winComboList[i][1]].setForeground(Color.BLUE);
                     gridSquare[winComboList[i][2]].setForeground(Color.BLUE);
@@ -141,30 +144,46 @@ public class TicTacToe implements ActionListener {
         }
     }
 
+    private void DeclareTie() { // disables buttons, custom title update
+        System.out.println("It's a tie");
+        for (int i = 0; i < 9; i++) { // disable buttons on win
+            gridSquare[i].setEnabled(false);
+        }
+        currentPlayerText.setForeground(Color.WHITE);
+        currentPlayerText.setText("Tie :(");
+    }
+
     private void UpdateTitle() { // update whose turn it is
         if (bingo == true) { // if someone has won, declare it
 
-            if (otherPlayer == "X") {
+            if (otherPlayer == "X") { // update title color to winner's color
               currentPlayerText.setForeground(Color.RED);
             } else if (otherPlayer == "O") {
               currentPlayerText.setForeground(Color.BLUE);
             }
+
             currentPlayerText.setText(otherPlayer + " wins!");
+
             for (int i = 0; i < 9; i++) { // disable buttons on win
                 gridSquare[i].setEnabled(false);
             }
             gridSquare[winComboList[j][0]].setEnabled(true);
             gridSquare[winComboList[j][1]].setEnabled(true);
             gridSquare[winComboList[j][2]].setEnabled(true);
+
         } else { // if no one has won, next player's turn. works because it comes after the check for win
 
-            if (currentPlayer == "X") {
+            if (currentPlayer == "X") { // update title color to currentPlayer's color
                 currentPlayerText.setForeground(Color.PINK);
             } else if (currentPlayer == "O") {
                 currentPlayerText.setForeground(Color.CYAN);
             }
+
             currentPlayerText.setText(currentPlayer + " turn");
 
+        }
+        if (squaresClaimed == 9 && bingo == false) {
+            DeclareTie();
         }
     }
 
@@ -172,7 +191,8 @@ public class TicTacToe implements ActionListener {
         bingo = false;
         currentPlayer = "X";
         otherPlayer = "O";
-        for (int i = 0; i < 9; i++) {
+        squaresClaimed = 0;
+        for (int i = 0; i < 9; i++) { // reset gridSquares
             gridSquare[i].setBackground(Color.BLACK);
             gridSquare[i].setText("");
             gridSquare[i].setEnabled(true);
@@ -184,7 +204,7 @@ public class TicTacToe implements ActionListener {
 
     public TicTacToe() { // MAIN METHOD
         Main main = new Main();
-        SwingUtilities.invokeLater(new Runnable() { public void run() { DrawWindow(main); } } );
+        SwingUtilities.invokeLater(new Runnable() { public void run() { DrawWindow(main); } } ); // thank you, Trenton
     }
 
 
@@ -193,13 +213,15 @@ public class TicTacToe implements ActionListener {
 
         SmallPause();
 
-        if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) { // if click exit button
             System.exit(0);
-        } else if (e.getSource() == playAgainButton) {
-            ResetGame();
-        } else if (bingo == false) {
 
-            for (int i = 0; i < 9; i++) {
+        } else if (e.getSource() == playAgainButton) { // if click replay button
+            ResetGame();
+
+        } else if (bingo == false) { // if click anywhere else (probably on grid square)
+
+            for (int i = 0; i < 9; i++) { // iterate through gridSquares, checks if clicked & if unclaimed
                 if (e.getSource() == gridSquare[i] && gridSquare[i].getText() != "X" && gridSquare[i].getText() != "O") {
                     SmallPause();
                     ClaimSquare(i);
