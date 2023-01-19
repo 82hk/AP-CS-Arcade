@@ -14,6 +14,8 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
     Board chessBoard;
     Tile selectedTile;
     int turn;
+    Color selectedColor = new Color(86, 44, 44);
+    Color highlightedColor = new Color(50, 150, 93);
 
     ArrayList<String> fens;
 
@@ -38,13 +40,14 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
         }
 
         setupPieces();
-        turn = 1;
 
         fens = new ArrayList<String>();
         fens.add(chessBoard.computeFen(turn));
     }
 
     public void setupPieces() {
+        Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/startgame.wav");
+
         //setup black pieces
         chessBoard.getTile(0).setPiece(new Rook(0));
         chessBoard.getTile(7).setPiece(new Rook(0));
@@ -78,7 +81,7 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
             Tile tile = (Tile) chessBoard.getComponent(i);
             tile.setPiece(new Pawn(1));
         }
-        System.out.println(chessBoard.computeFen(1));
+        turn = 1;
     }
 
     @Override
@@ -97,10 +100,10 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
         if (piece != null) {
             if (piece.getColor() == turn) {
                 selectedTile = tile;
-                tile.setBackground(Color.green);
+                tile.setBackground(selectedColor);
                 Tile[] legalMoves = tile.getPlayableMoves(chessBoard);
                 for (Tile legalTile : legalMoves) {
-                    legalTile.setBackground(Color.BLUE);
+                    legalTile.setBackground(highlightedColor);
                 }
                 return;
             }
@@ -108,11 +111,27 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
         int location = tile.getLocationOnBoard();
         if (selectedTile != null && selectedTile.isPlayableMove(location, chessBoard, true)) {
             //process move
+            if (selectedTile.getPiece() instanceof Pawn){
+                if (chessBoard.getTile(location + ((turn * 16)- 8)).getPiece() instanceof Pawn){
+                    if (((Pawn) chessBoard.getTile(location + ((turn * 16)- 8)).getPiece()).moved2 == 1){
+                        chessBoard.getTile(location + ((turn * 16)- 8)).setPiece(null);
+                    }
+                }
+            }
+
             tile.setPiece(selectedTile.getPiece());
             selectedTile.setPiece(null);
             selectedTile.setBackground(selectedTile.getColor());
             selectedTile = null;
+            Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/move-self.wav");
             turn = 1 - turn;
+            for (int check = 0; check < 64; check++){
+                Piece checked = chessBoard.getTile(check).getPiece();
+                if (checked instanceof Pawn){
+                    Pawn p = (Pawn) checked;
+                    if (p.moved2 > 0) {p.moved2 -=1;}
+                }
+            }
 
             //compute fen
             String fen = chessBoard.computeFen(turn);
@@ -134,10 +153,12 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
             if (!canMove)
             {
                 if (king.isInCheck(chessBoard)) {
+                    Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/win.wav");
                     checkmate();
                 }
                 else
                 {
+                    Game.AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/stalemate.wav");
                     stalemate();
                 }
             }
@@ -161,18 +182,20 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
 
     void checkmate()
     {
+        System.out.println("Checkmate! Here's the FEN for the final position!");
+        System.out.println(fens.get(fens.size() - 1));
         int option;
         String buttons[] = {"Replay", "Quit"};
         if (turn == 1) {
-            option = JOptionPane.showOptionDialog(null, "White wins! Play again or quit?", "Checkmate", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, "default");
-        } else {
             option = JOptionPane.showOptionDialog(null, "Black wins! Play again or quit?", "Checkmate", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, "default");
+        } else {
+            option = JOptionPane.showOptionDialog(null, "White wins! Play again or quit?", "Checkmate", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, "default");
         }
-
         if (option == 0) {
             for (int i = 0; i < 64; i++) {
                 chessBoard.getTile(i).setPiece(null);
             }
+            fens.clear();
             setupPieces();
         } else {
             System.exit(0);
@@ -181,14 +204,16 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
 
     void stalemate()
     {
+        System.out.println("Stalemate! Here's the FEN for the final position!");
+        System.out.println(fens.get(fens.size() - 1));
         int option;
         String buttons[] = {"Replay", "Quit"};
         option = JOptionPane.showOptionDialog(null, "Stalemate! Play again or quit?", "Stalemate", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, "default");
-
         if (option == 0) {
             for (int i = 0; i < 64; i++) {
                 chessBoard.getTile(i).setPiece(null);
             }
+            fens.clear();
             setupPieces();
         } else {
             System.exit(0);
