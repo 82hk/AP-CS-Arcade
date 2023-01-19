@@ -58,6 +58,7 @@ public class Window implements ActionListener, ItemListener{
                     menuItem1.addActionListener(this);
                     pauseMenu.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
                 menuBar.add(pauseMenu);
+                menuBar.setBackground(new Color(213, 203, 203));
                 menuBar.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
                 text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
@@ -90,7 +91,7 @@ public class Window implements ActionListener, ItemListener{
                 battles.add(options);
                     use.setBounds(350, 145,60,20);
                     use.setFont(new Font("Arial", Font.BOLD,15));
-                    use.setBackground(Color.RED);
+                    use.setBackground(new Color(224, 135, 135));
                     use.addActionListener(this);
                 battles.add(use);
                     description.setBounds(10,180,400,15);
@@ -100,7 +101,9 @@ public class Window implements ActionListener, ItemListener{
 
             superPanel.add("TEXT",text);
             superPanel.add("BATTLE",battles);
-
+            Color back = new Color(220, 212, 191);
+            text.setBackground(back);
+            battles.setBackground(back);
         frame.add(superPanel);
         frame.addKeyListener(new enterKey());
         frame.setJMenuBar(menuBar);
@@ -147,6 +150,9 @@ public class Window implements ActionListener, ItemListener{
             if(a != -1) {
                 Card cards = player.getHand().get(a);
                 description.setText(cards.entry());
+                description2.setText(" ");
+            } else {
+                description.setText("You have no cards to use.");
                 description2.setText(" ");
             }
 

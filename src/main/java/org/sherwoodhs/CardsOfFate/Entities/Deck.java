@@ -105,7 +105,7 @@ public abstract class Deck extends Person{
         public void useCard(Card card, Battle battle){
             card.effect(this, battle);
             discardCard(card);
-            updateText(card.entry());
+            updateText(card.used());
         }
 
         //Moves a specific card from discard to hand
