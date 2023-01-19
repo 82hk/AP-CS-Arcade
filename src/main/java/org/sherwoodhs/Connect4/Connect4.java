@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class Connect4 extends JFrame { // window
     private JFrame frame;
-    private JPanel panel;
+    private JPanel panel; // grid for buttons
     private JButton[] button;
-    private int[][] board;
+    private int[][] board; // 2D array
     private int currentPlayer;
 
     public Connect4() {
@@ -57,20 +57,20 @@ public class Connect4 extends JFrame { // window
                     }
                 }
             });
-            panel.add(button[i]);
+            panel.add(button[i]); // ADD BUTTON TO BOARD GRID (PANEL). Iterates for each 42 buttons
         }
 
-        add(panel);
+        add(panel); // after 42 iterations, add button grid JPanel to JFrame window
     }
 
-    private boolean checkWin(int row, int column) {
+    private boolean checkWin(int row, int column) { // returns boolean value. find out why row/column are needed
         // check horizontal
         int count = 1;
         for (int i = column - 1; i >= 0; i--) {
             if (board[row][i] == currentPlayer) {
                 count++;
             } else {
-                break;
+                break; // iterations done until [     ??     ]
             }
         }
         for (int i = column + 1; i < 7; i++) {
@@ -119,7 +119,7 @@ public class Connect4 extends JFrame { // window
         if (count >= 4) {
             return true;
         }
-        return false;
+        return false; // checkWin false if no win conditions met
     }
 
     public static void main(String[] args) {
