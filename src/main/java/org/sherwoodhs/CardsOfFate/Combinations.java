@@ -20,10 +20,12 @@ public class Combinations{
             }
         }
     }
-    public ArrayList<Combo> getCombos(){
+    public ArrayList<Combo> getCombos(ArrayList<Card> hand){
+        checkCombos(hand);
         return (avaliable);
     }
-    public Combo[] getCombos2(){
+    public Combo[] getCombos2(ArrayList<Card> hand){
+        checkCombos(hand);
         Combo[] array = new Combo[avaliable.size()];
         for (int i = 0; i < avaliable.size(); i++) {
             array[i] = avaliable.get(i);

@@ -26,6 +26,8 @@ public class Battle{
             player.changeHealth(-1 * a);
         }
         player.drawCard(1);
+        playerMove[0] = 0;
+        playerMove[1] = 0;
         start();
         checkDead();
     }
