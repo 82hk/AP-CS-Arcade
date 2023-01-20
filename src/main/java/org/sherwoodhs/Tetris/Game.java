@@ -1,7 +1,5 @@
 package org.sherwoodhs.Tetris;
 
-import org.sherwoodhs.Tetris.Piece.Tetromino;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -27,8 +25,8 @@ public class Game extends JPanel {
     };
     private JLabel status, hold;
     private Piece cpiece, hpiece;
-    private Tetromino[] board;
-    public static ArrayList<Tetromino> pieces = new ArrayList<Tetromino>();
+    private Piece.Tetromino[] board;
+    public static ArrayList<Piece.Tetromino> pieces = new ArrayList<Piece.Tetromino>();
     public Game(Main m) {
         setBackground(new Color(20, 20, 30));
         createBoard(m);
@@ -53,18 +51,18 @@ public class Game extends JPanel {
     private int getGridUnitHeight() {
         return (int) getSize().getHeight() / HEIGHT;
     }
-    private void drawGridUnit(Graphics g, int x, int y, Tetromino piece) {
+    private void drawGridUnit(Graphics g, int x, int y, Piece.Tetromino piece) {
         Color color = colors[piece.ordinal()];
         g.setColor(color);
         g.fillRect(x + 1, y + 1, getGridUnitWidth() - 2, getGridUnitHeight() - 2);
     }
-    private Tetromino getPieceAt(int x, int y) {
+    private Piece.Tetromino getPieceAt(int x, int y) {
         return board[(y * WIDTH) + x];
     }
     public void start() {
         cpiece = new Piece();
         hpiece = new Piece();
-        board = new Tetromino[WIDTH * HEIGHT];
+        board = new Piece.Tetromino[WIDTH * HEIGHT];
         clearBoard();
         newPiece();
         TIMER = new Timer(INTERVAL, new Cycle());
@@ -95,13 +93,13 @@ public class Game extends JPanel {
         int top = (int) size.getHeight() - HEIGHT * getGridUnitHeight();
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
-                Tetromino piece = getPieceAt(j, HEIGHT - i - 1);
-                if (piece != Tetromino.NONE) {
+                Piece.Tetromino piece = getPieceAt(j, HEIGHT - i - 1);
+                if (piece != Piece.Tetromino.NONE) {
                     drawGridUnit(g, j * getGridUnitWidth(), top + i * getGridUnitHeight(), piece);
                 }
             }
         }
-        if (cpiece.getPiece() != Tetromino.NONE) {
+        if (cpiece.getPiece() != Piece.Tetromino.NONE) {
             for (int i = 0; i < 4; i++) {
                 int x = cx + cpiece.getX(i);
                 int y = cy - cpiece.getY(i);
@@ -111,7 +109,7 @@ public class Game extends JPanel {
     }
     private void clearBoard() {
         for (int i = 0; i < HEIGHT * WIDTH; i++) {
-            board[i] = Tetromino.NONE;
+            board[i] = Piece.Tetromino.NONE;
         }
     }
     private void dropPiece() {
@@ -131,17 +129,17 @@ public class Game extends JPanel {
         cx = WIDTH / 2 + 1;
         cy = HEIGHT - 1 + cpiece.minY();
         if (!move(cpiece, cx, cy)) {
-            cpiece.setPiece(Tetromino.NONE);
+            cpiece.setPiece(Piece.Tetromino.NONE);
             TIMER.stop();
             status.setText(String.format("Game over! Lines: %d", linesCleared));
         }
     }
-    private void newPiece(Tetromino piece) {
+    private void newPiece(Piece.Tetromino piece) {
         cpiece.setPiece(piece);
         cx = WIDTH / 2 + 1;
         cy = HEIGHT - 1 + cpiece.minY();
         if (!move(cpiece, cx, cy)) {
-            cpiece.setPiece(Tetromino.NONE);
+            cpiece.setPiece(Piece.Tetromino.NONE);
             TIMER.stop();
             status.setText(String.format("Game over! Lines: %d", linesCleared));
         }
@@ -150,11 +148,11 @@ public class Game extends JPanel {
         if (isHeld) {
             return;
         }
-        if (hpiece.getPiece() == Tetromino.NONE) {
+        if (hpiece.getPiece() == Piece.Tetromino.NONE) {
             hpiece.setPiece(cpiece.getPiece());
             newPiece();
         } else {
-            Tetromino temp = hpiece.getPiece();
+            Piece.Tetromino temp = hpiece.getPiece();
             hpiece.setPiece(cpiece.getPiece());
             newPiece(temp);
         }
@@ -185,7 +183,7 @@ public class Game extends JPanel {
             if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT) {
                 return false;
             }
-            if (getPieceAt(x, y) != Tetromino.NONE) {
+            if (getPieceAt(x, y) != Piece.Tetromino.NONE) {
                 return false;
             }
         }
@@ -200,7 +198,7 @@ public class Game extends JPanel {
         for (int i = HEIGHT - 1; i >= 0; i--) {
             boolean isComplete = true;
             for (int j = 0; j < WIDTH; j++) {
-                if (getPieceAt(j, i) == Tetromino.NONE) {
+                if (getPieceAt(j, i) == Piece.Tetromino.NONE) {
                     isComplete = false;
                     break;
                 }
@@ -218,7 +216,7 @@ public class Game extends JPanel {
             linesCleared += completeLines;
             status.setText(String.format("Lines: %d", linesCleared));
             isFalling = false;
-            cpiece.setPiece(Tetromino.NONE);
+            cpiece.setPiece(Piece.Tetromino.NONE);
         }
     }
     private class Adapter extends KeyAdapter {
@@ -226,7 +224,7 @@ public class Game extends JPanel {
         private boolean hasRotated = false, hasDropped = false, hasPaused = false;
         @Override
         public void keyPressed(KeyEvent e) {
-            if (cpiece.getPiece() == Tetromino.NONE) {
+            if (cpiece.getPiece() == Piece.Tetromino.NONE) {
                 return;
             }
             if (isPaused && e.getKeyCode() != KeyEvent.VK_P) {

@@ -22,9 +22,6 @@ public abstract class Deck extends Person{
             }
             // Makes the stack of cards a deck
             this.deck = stack;
-
-            shuffleDeck();
-            initalDraw();
         }
 
         // Returns value of card on top of the deck
@@ -49,7 +46,16 @@ public abstract class Deck extends Person{
                 restock();
             }
         }
-
+        // Starts a Battle. Shuffles everything back in deck and draws new hand.
+        public void startBattle(){
+            int a = discard.size();
+            for(int i = 0; i < a; i++){
+                discardCard(discard.get(0));
+            }
+            restock();
+            shuffleDeck();
+            initalDraw();
+        }
         // This is the inital draw of 5 cards everytime a game initiates.
         public void initalDraw() {
             drawCard(3);

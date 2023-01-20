@@ -1,7 +1,6 @@
 package org.sherwoodhs.Chesscapades.Game;
 
 import org.sherwoodhs.Chesscapades.pieces.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -67,6 +66,24 @@ public class Tile extends JPanel {
         //check for pawn being on the top or bottom rows
         if (Board.getYFromLocation(getLocationOnBoard()) % 7 == 0 && getPiece() instanceof Pawn) {
             promPawn();
+        }
+        revalidate();
+        repaint();
+    }
+
+    public void forceSetPiece(Piece piece)
+    {
+        this.piece = piece;
+        setCastleable(false);
+        for(int i = 0; i < getComponentCount(); i++)
+        {
+            remove(i);
+        }
+        if(piece != null)
+        {
+            ImageIcon imageIcon = new ImageIcon(piece.getImageIcon().getImage().getScaledInstance(size * 7 / 8, size * 7 / 8, Image.SCALE_DEFAULT));
+            JLabel image = new JLabel(imageIcon);
+            add(image);
         }
         revalidate();
         repaint();
@@ -159,7 +176,7 @@ public class Tile extends JPanel {
     public void promPawn() {
         int input;
 
-        AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/promote.wav");
+        AudioPlayer.play("src/resources/audio/promote.wav");
 
         String[] possibilities = {"Queen", "Rook", "Knight", "Bishop"};
         JPanel jPanel = new JPanel(new GridBagLayout());

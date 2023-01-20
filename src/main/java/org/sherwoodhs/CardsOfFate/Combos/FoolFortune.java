@@ -9,12 +9,12 @@ import org.sherwoodhs.CardsOfFate.Entities.Deck;
 import java.util.Random;
 
 public class FoolFortune extends Combo{
-    private FoolFortune combo = new FoolFortune(Fool.getInstance(),Fortune.getInstance());
+    private static FoolFortune combo = new FoolFortune(Fool.getInstance(),Fortune.getInstance());
     private FoolFortune(Card... cost){
         super(cost);
         name = "A Fool's Gamble.";
     }
-    public FoolFortune getInstance(){
+    public static FoolFortune getInstance(){
         return(combo);
     }
     public void use(Deck deck, Battle battle){

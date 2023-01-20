@@ -33,6 +33,8 @@ public class Board extends JPanel {
         return y * 8 + x;
     }
 
+
+
     public Tile[] getTiles()
     {
         Component[] components = getComponents();
@@ -99,6 +101,7 @@ public class Board extends JPanel {
     {
         StringBuilder fen = new StringBuilder();
         int empty = 0;
+        int passantLoc = 0;
         for (int i = 0; i < 64; i++)
         {
             Piece piece = getTile(i).getPiece();
@@ -179,6 +182,13 @@ public class Board extends JPanel {
                 }
                 else if (piece instanceof Pawn)
                 {
+                    Pawn pawn = (Pawn) piece;
+                    if (piece.moved2 == 1)
+                    {
+                        int y = Board.getYFromLocation(i) - pawn.getForwardDirection();
+                        int location = getLocationFromCords(Board.getXFromLocation(i), y);
+                        passantLoc = location;
+                    }
                     if (piece.getColor() == 1)
                     {
                         fen.append('P');
@@ -224,6 +234,86 @@ public class Board extends JPanel {
         {
             fen.append('-');
         }
+        if (passantLoc != 0)
+        {
+            fen.append(' ' + convertLocationToCode(passantLoc));
+        }
         return fen.toString();
     }
+    public static String convertLocationToCode(int location)
+    {
+        int x = getXFromLocation(location);
+        int y = getYFromLocation(location);
+        Integer codeN = 8 - y;
+        char codeA;
+        switch (x)
+        {
+            case 7:
+                codeA = 'h';
+                break;
+            case 6:
+                codeA = 'g';
+                break;
+            case 5:
+                codeA = 'f';
+                break;
+            case 4:
+                codeA = 'e';
+                break;
+            case 3:
+                codeA = 'd';
+                break;
+            case 2:
+                codeA = 'c';
+                break;
+            case 1:
+                codeA = 'b';
+                break;
+            case 0:
+                codeA = 'a';
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+        return (codeN.toString() + codeA);
+    }
+
+    public static int convertCodeToLocation(String code)
+    {
+        char codeA = code.charAt(0);
+        int codeN = Integer.parseInt(Character.toString(code.charAt(1)));
+        int y = 8 - codeN;
+        int x;
+        switch (codeA)
+        {
+            case 'h':
+                x = 7;
+                break;
+            case 'g':
+                x = 6;
+                break;
+            case 'f':
+                x = 5;
+                break;
+            case 'e':
+                x = 4;
+                break;
+            case 'd':
+                x = 3;
+                break;
+            case 'c':
+                x = 2;
+                break;
+            case 'b':
+                x = 1;
+                break;
+            case 'a':
+                x = 0;
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+        return getLocationFromCords(x, y);
+    }
+
 }

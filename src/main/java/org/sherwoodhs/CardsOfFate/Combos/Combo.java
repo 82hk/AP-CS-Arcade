@@ -32,4 +32,7 @@ public abstract class Combo{
     public String getName(){
         return(name);
     }
+    public String toString() {
+        return(name);
+    }
 }

@@ -14,18 +14,6 @@ public class Player extends Deck {
         return (player);
     }
     public void resetPlayer(){
-        deck.clear();
-        discard.clear();
-        hand.clear();
-        Stack<Card> stack = new Stack<>();
-        for(int i = 0; i < decks.length; i++) {
-            stack.push(decks[i]);
-        }
-        // Makes the stack of cards a deck
-        deck = stack;
-        health = 1;
-
-        shuffleDeck();
-        initalDraw();
+        player = new Player("Player", decks);
     }
 }
