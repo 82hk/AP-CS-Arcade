@@ -200,6 +200,15 @@ public class WordleGame {
         int match = 0;
         char[] phrase = word.toCharArray();
         for (int i = 0; i < 6; i++) {
+            if ((guess[i]).equals(String.valueOf(phrase[i]))) {
+                input[i+6*guesses].setBackground(green);
+                setLetterPaneColor(s[i], green);
+                guess[i] = "";
+                phrase[i] = Character.MIN_VALUE;
+                match++;
+            }
+        }
+        for (int i = 0; i < 6; i++) {
             for(int j = 0; j < 6; j++) {
                 if ((guess[i]).equals(String.valueOf(phrase[j]))) {
                     input[i+6*guesses].setBackground(yellow);
@@ -207,15 +216,6 @@ public class WordleGame {
                     guess[i] = "";
                     phrase[j] = Character.MIN_VALUE;
                 }
-            }
-        }
-        for (int i = 0; i < 6; i++) {
-            if ((guess[i]).equals(String.valueOf(phrase[i]))) {
-                input[i+6*guesses].setBackground(green);
-                setLetterPaneColor(s[i], green);
-                guess[i] = "";
-                phrase[i] = Character.MIN_VALUE;
-                match++;
             }
         }
         if (match == 6) {
