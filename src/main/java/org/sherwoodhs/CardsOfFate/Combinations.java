@@ -10,7 +10,7 @@ public class Combinations{
     private Combinations () {
     }
     private void checkCombos(ArrayList<Card> hand){
-        avaliable.empty
+        avaliable.isEmpty();
         if (hand.contains(Fool.getInstance())){
             if(hand.contains(Fortune.getInstance())){
                 avaliable.add(FoolFortune.getInstance());
