@@ -1,14 +1,18 @@
-package org.sherwoodhs.Connect4;
+package org.sherwoodhs.Wordle;
 
 import org.sherwoodhs.Game;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public class Main implements Game {
     public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(Main::runGUI);
+    }
 
-        new TestConnect4();
-
+    public static void runGUI() {
+        JFrame.setDefaultLookAndFeelDecorated(false);
+        new WordleGame();
     }
 
     @Override
@@ -23,7 +27,7 @@ public class Main implements Game {
 
     @Override
     public String getName() {
-        return "Connect 4";
+        return "Wordle";
     }
 
     @Override
@@ -33,7 +37,7 @@ public class Main implements Game {
 
     @Override
     public BufferedImage getThumbnail() {
-        final String path = "/connect4.png";
+        final String path = "/wordle.png";
         return checkThumbnail(path);
     }
 }
