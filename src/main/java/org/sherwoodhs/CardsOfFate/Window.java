@@ -12,7 +12,8 @@ public class Window implements ActionListener, ItemListener{
     private static Battle battle;
 
     private static int currentCard = 0;
-    private Player player = Player.getInstance();
+    private Player player;
+    private Combinations combinations = Combinations.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
     private static JPanel superPanel = new JPanel(crd);
@@ -29,13 +30,16 @@ public class Window implements ActionListener, ItemListener{
     private static JLabel battleText6 = new JLabel("text");
     private static String[] choices = {"Use Card", "Use Combo", "End Turn"};
     private JComboBox battleChoices = new JComboBox(choices);
-    private JComboBox options = new JComboBox(player.getHand2());
+
+    private JComboBox options;
+
+    private JComboBox combos = new JComboBox(combinations.getCombos2()); 
+
     private JButton use = new JButton("GO");
 
-    private JList discard = new JList(player.getDiscard2());
+    private JList discard;
     private JLabel discardTitle = new JLabel("Discard Pile");
-    Card c = player.getHand().get(0);
-    private JLabel description = new JLabel(c.entry());
+    private JLabel description;
     private JLabel description2 = new JLabel(" ");
 
     //
@@ -51,6 +55,11 @@ public class Window implements ActionListener, ItemListener{
     private JMenu pauseMenu = new JMenu("⚙");
     private CardsOfFate game;
     public Window(CardsOfFate game) {
+        player = Player.getInstance();
+        options = new JComboBox(player.getHand2());
+        discard = new JList(player.getDiscard2());
+        description = new JLabel(player.getHand().get(0).entry());
+
         this.game = game;
         //tutorial box
         int n = JOptionPane.showConfirmDialog(frame, "Do you want to skip the Tutorial?", " Starting Game", JOptionPane.YES_NO_OPTION);
@@ -100,6 +109,8 @@ public class Window implements ActionListener, ItemListener{
         battles.add(battleChoices);
         options.setBounds(180,145,150,20);
         battles.add(options);
+        combo.setBounds(180,145,150,20);
+        battles.add(combo);
         use.setBounds(350, 145,60,20);
         use.setFont(new Font("Arial", Font.BOLD,15));
         use.setBackground(new Color(224, 135, 135));
@@ -181,6 +192,10 @@ public class Window implements ActionListener, ItemListener{
         }
 
     }
+    private updateCombos(){
+        combos.removeAllItems();
+        Combo[] a = player.
+    }
     public void itemStateChanged (ItemEvent e){
         String choice = (String) battleChoices.getSelectedItem();
         if (choice == "Use Card"){
@@ -219,6 +234,7 @@ public class Window implements ActionListener, ItemListener{
     public static void setBattle(Enemy enemy) {
         battle = new Battle(enemy);
         battle.start();
+        player.startBattle();
         changeCard("BATTLE");
         currentCard = 1;
     }
