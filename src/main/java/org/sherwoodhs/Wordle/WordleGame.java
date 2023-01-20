@@ -155,8 +155,11 @@ public class WordleGame {
         for (int i = 0; i < key.length; ++i) {
             for (int j = 0; j < key[i].length; ++j) {
                 if (s.toUpperCase().equals(key[i][j])) {
-                    letterBoxes[(int)key[i][j].charAt(0)-65].setBackground(c);
-                    letterBoxes[(int)key[i][j].charAt(0)-65].setForeground(Color.white);
+                    if (letterBoxes[(int)key[i][j].charAt(0)-65].getBackground() == green) {
+                    } else {
+                        letterBoxes[(int)key[i][j].charAt(0)-65].setBackground(c);
+                        letterBoxes[(int)key[i][j].charAt(0)-65].setForeground(Color.white);
+                    }
                 }
             }
         }
