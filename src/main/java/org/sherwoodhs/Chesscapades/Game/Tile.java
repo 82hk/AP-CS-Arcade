@@ -159,7 +159,7 @@ public class Tile extends JPanel {
     public void promPawn() {
         int input;
 
-        AudioPlayer.play("src/resources/audio/promote.wav");
+        AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/promote.wav");
 
         String[] possibilities = {"Queen", "Rook", "Knight", "Bishop"};
         JPanel jPanel = new JPanel(new GridBagLayout());
