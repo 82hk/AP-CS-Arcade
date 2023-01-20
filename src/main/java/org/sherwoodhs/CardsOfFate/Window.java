@@ -12,7 +12,7 @@ public class Window implements ActionListener, ItemListener{
     private static Battle battle;
 
     private static int currentCard = 0;
-    private Player player;
+    private static Player player;
     private Combinations combinations = Combinations.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
@@ -109,8 +109,8 @@ public class Window implements ActionListener, ItemListener{
         battles.add(battleChoices);
         options.setBounds(180,145,150,20);
         battles.add(options);
-        combo.setBounds(180,145,150,20);
-        battles.add(combo);
+        combos.setBounds(180,145,150,20);
+        battles.add(combos);
         use.setBounds(350, 145,60,20);
         use.setFont(new Font("Arial", Font.BOLD,15));
         use.setBackground(new Color(224, 135, 135));
@@ -192,9 +192,9 @@ public class Window implements ActionListener, ItemListener{
         }
 
     }
-    private updateCombos(){
+    private void updateCombos(){
         combos.removeAllItems();
-        Combo[] a = player.
+        //Combo[] a = player.
     }
     public void itemStateChanged (ItemEvent e){
         String choice = (String) battleChoices.getSelectedItem();

@@ -52,7 +52,6 @@ public abstract class Deck extends Person{
             for(int i = 0; i < a; i++){
                 discardCard(discard.get(0));
             }
-            discardCard();
             restock();
             shuffleDeck();
             initalDraw();

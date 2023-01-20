@@ -5,12 +5,12 @@ import org.sherwoodhs.CardsOfFate.Combos.*;
 import java.util.ArrayList;
 
 public class Combinations{
-    private Combinations combos = new Combinations();
+    private static Combinations combos = new Combinations();
     private ArrayList<Combo> avaliable = new ArrayList<Combo>();
     private Combinations () {
     }
     private void checkCombos(ArrayList<Card> hand){
-        avaliable.empty
+        avaliable.clear();
         if (hand.contains(Fool.getInstance())){
             if(hand.contains(Fortune.getInstance())){
                 avaliable.add(FoolFortune.getInstance());
@@ -24,13 +24,13 @@ public class Combinations{
         return (avaliable);
     }
     public Combo[] getCombos2(){
-        Card[] array = new Card[avaliable.size()];
+        Combo[] array = new Combo[avaliable.size()];
         for (int i = 0; i < avaliable.size(); i++) {
             array[i] = avaliable.get(i);
         }
         return(array);
     }
-    public Combinations getInstance(){
+    public static Combinations getInstance(){
         return(combos);
     }
 }

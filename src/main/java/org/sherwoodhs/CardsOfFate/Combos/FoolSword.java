@@ -10,12 +10,12 @@ import org.sherwoodhs.CardsOfFate.Entities.Player;
 import java.util.Random;
 
 public class FoolSword extends Combo{
-    private FoolSword combo = new FoolSword(Fool.getInstance(),new Swords(1));
+    private static FoolSword combo = new FoolSword(Fool.getInstance(),new Swords(1));
     private FoolSword(Card... cost){
         super(cost);
         name = "A Fool With a Sword.";
     }
-    public FoolSword getInstance(){
+    public static FoolSword getInstance(){
         return(combo);
     }
     public void use(Deck deck, Battle battle){

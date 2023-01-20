@@ -14,6 +14,6 @@ public class Player extends Deck {
         return (player);
     }
     public void resetPlayer(){
-        player = new Player("Player, decks");
+        player = new Player("Player", decks);
     }
 }
