@@ -1,12 +1,23 @@
 package org.sherwoodhs.Chesscapades;
 
 import org.sherwoodhs.Chesscapades.Game.ChessGame;
+import org.sherwoodhs.Game;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Main {
+public class Chess extends Game {
     public static void main(String args[]) {
+
+    }
+
+    @Override
+    protected void initializeGame() {
+
+    }
+
+    @Override
+    protected void startGame() {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int)size.getHeight();
 
@@ -18,5 +29,20 @@ public class Main {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    @Override
+    protected void endGame() {
+
+    }
+
+    @Override
+    protected String getName() {
+        return "Chesscapades";
+    }
+
+    @Override
+    protected String getDescription() {
+        return "A chess implementation";
     }
 }
