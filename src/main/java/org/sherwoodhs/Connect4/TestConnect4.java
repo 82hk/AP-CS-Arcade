@@ -94,6 +94,11 @@ public class TestConnect4 implements ActionListener {
             button[i].setBackground(new JButton().getBackground());
             button[i].setEnabled(true);
         }
+        for (int x = 5; x >= 0; x--){
+            for (int y = 6; y >= 0; y--){
+                board[x][y] = 0;
+            }
+        }
         isWin = false;
     }
 
