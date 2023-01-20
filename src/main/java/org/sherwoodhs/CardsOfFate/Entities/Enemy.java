@@ -20,14 +20,14 @@ public abstract class Enemy extends Person{
 
     public int getAtk(){
         if (atkRange > 0) {
-            return (r.nextInt(atkRange) + minAtk);
+            return (r.nextInt(atkRange + 1) + minAtk);
         }
         return(minAtk);
     }
 
     public int getDfn(){
         if (dfnRange > 0) {
-            return (r.nextInt(dfnRange) + minDfn);
+            return (r.nextInt(dfnRange + 1) + minDfn);
         }
         return minDfn;
     }
