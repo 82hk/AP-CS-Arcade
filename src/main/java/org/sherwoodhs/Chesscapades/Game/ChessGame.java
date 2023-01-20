@@ -119,19 +119,29 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
         int location = tile.getLocationOnBoard();
         if (selectedTile != null && selectedTile.isPlayableMove(location, chessBoard, true)) {
             //process move
+            boolean sound = true;
             if (selectedTile.getPiece() instanceof Pawn){
                 if (chessBoard.getTile(location + ((turn * 16)- 8)).getPiece() instanceof Pawn){
                     if (((Pawn) chessBoard.getTile(location + ((turn * 16)- 8)).getPiece()).moved2 == 1){
                         chessBoard.getTile(location + ((turn * 16)- 8)).setPiece(null);
+                        AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/capture.wav");
+                        sound = false;
                     }
                 }
             }
-
+            if (tile.isOccupied())
+            {
+                AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/capture.wav");
+            }
+            else if (sound)
+            {
+                AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/move-self.wav");
+            }
             tile.setPiece(selectedTile.getPiece());
             selectedTile.setPiece(null);
             selectedTile.setBackground(selectedTile.getColor());
             selectedTile = null;
-            AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/move-self.wav");
+
             turn = 1 - turn;
             for (int check = 0; check < 64; check++){
                 Piece checked = chessBoard.getTile(check).getPiece();
