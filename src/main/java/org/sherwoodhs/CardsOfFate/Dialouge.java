@@ -7,7 +7,7 @@ import org.sherwoodhs.CardsOfFate.Entities.Enemy;
 public class Dialouge{
     public static boolean paused = false;
     public static Dialouge dialouge = new Dialouge();
-    static int num = 0;
+    private static int num = 0;
     private Dialouge (){
 
     }
@@ -35,6 +35,7 @@ public class Dialouge{
     }
     private static String tutorialOne() {
         return("Welcome to the tutorial. At any time, use the top-right gear to access the options menu. Press enter or anything else to advance through text.");
+        num = 1;
     };
     private static String tutorialTwo() {
         return("The options menu contains the encyclopedia of all card effects. You can also quit the game from there.");

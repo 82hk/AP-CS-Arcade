@@ -15,7 +15,6 @@ public class Battle{
 
     public Battle (Enemy enemy){
         this.enemy = enemy;
-
     }
     public void endTurn(){
         int a = playerMove[0] - enemyMove[1];
