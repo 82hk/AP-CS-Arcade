@@ -18,10 +18,9 @@ public class CardsOfFate extends Game {
     public void initializeGame(){
     }
     public void startGame() {
-        new Run();
         window = new Window(this);
         player.resetPlayer();
-
+        new Run();
     }
     public void endGame() {
         window.closeFrame();
