@@ -78,7 +78,7 @@ public class WordleGame {
     public String getWord(){
         int random_int = (int)Math.floor(Math.random() * (450+1));
         try {
-            return Files.readAllLines(Paths.get("RandomWords")).get(random_int);
+            return Files.readAllLines(Paths.get("src/main/java/org/sherwoodhs/WordleGame/RandomWords")).get(random_int);
         }
         catch(IOException e){
             System.out.println("Problem reading file.");
@@ -87,7 +87,7 @@ public class WordleGame {
         return "";
     }
     public boolean checkWord(String[] g){
-        File file = new File("6letters.txt");
+        File file = new File("src/main/java/org/sherwoodhs/WordleGame/6letters.txt");
         FileReader in;
         BufferedReader readFile;
         String word;
