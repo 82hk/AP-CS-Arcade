@@ -54,8 +54,8 @@ public class Window implements ActionListener, ItemListener{
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
     private JMenu pauseMenu = new JMenu("⚙");
-    private CardsOfFate game;
-    public Window(CardsOfFate game) {
+    private Main game;
+    public Window(Main game) {
         player = Player.getInstance();
         options = new JComboBox(player.getHand2());
         discard = new JList(player.getDiscard2());

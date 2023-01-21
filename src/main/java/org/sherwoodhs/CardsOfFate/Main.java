@@ -1,41 +1,27 @@
 package org.sherwoodhs.CardsOfFate;
 
-
+import org.sherwoodhs.CardsOfFate.Entities.Player;
 import org.sherwoodhs.Game;
 
-import java.awt.image.BufferedImage;
-
 public class Main implements Game {
-    public static void main(String[] args) {
-        startUp();
+    private Window window;
+    private Player player = Player.getInstance();
+    public void CardsOfFate(){
     }
-    public static void startUp(){
-        CardsOfFate c = new CardsOfFate();
-        //c.startGame();
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
     public String getName() {
-        return "Cards of Fate";
+        return ("Cards Of Fate");
     }
-
-    @Override
     public String getDescription() {
-        return "A card rogue-like based off of tarot cards.";
+        return ("A Card Rougelike game based off of Tarot Cards.");
     }
 
-    @Override
-    public BufferedImage getThumbnail() {
-        return Game.super.getThumbnail();
+    public void start() {
+        window = new Window(this);
+        player.resetPlayer();
+        new Run();
+    }
+    public void stop() {
+        window.closeFrame();
+        // Return to main menu
     }
 }
