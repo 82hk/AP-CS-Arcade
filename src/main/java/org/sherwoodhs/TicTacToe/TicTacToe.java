@@ -42,7 +42,7 @@ public class TicTacToe implements ActionListener {
         ImageIcon replayIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Replay Icon.png");
 
         // JComponent configuration
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
         window.setResizable(false);
         window.setVisible(true);
@@ -217,7 +217,7 @@ public class TicTacToe implements ActionListener {
         SmallPause();
 
         if (e.getSource() == exitButton) { // if click exit button
-            System.exit(0);
+            window.dispose();
 
         } else if (e.getSource() == playAgainButton) { // if click replay button
             ResetGame();

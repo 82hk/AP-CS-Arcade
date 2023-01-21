@@ -65,7 +65,7 @@ public class Wordle {
         setLetterPane();
         layerPanel.add(letterPane, c);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
         frame.pack();
         frame.setContentPane(layerPanel);
