@@ -16,7 +16,7 @@ public class Main implements Game {
     }
 
     public void start() {
-        window = new Window(this);
+        window = new Window();
         player.resetPlayer();
         new Run();
     }

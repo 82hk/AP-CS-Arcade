@@ -42,8 +42,10 @@ public abstract class Deck extends Person{
         // Adds the top card from the deck to the hand n# of times
         public static void drawCard (int n) {
             for(int i = 0; i < n; i++){
-                hand.add(deck.pop());
-                restock();
+                if (!deck.isEmpty()) {
+                    hand.add(deck.pop());
+                    restock();
+                }
             }
         }
         // Starts a Battle. Shuffles everything back in deck and draws new hand.
@@ -110,8 +112,12 @@ public abstract class Deck extends Person{
         }
 
         //Moves a specific Card from hand to discard
-        public void discardCard(Card card){
-            hand.remove(card);
+        public static void discardCard(Card card){
+            for (int i = 0; i < hand.size(); i++) {
+                if (hand.get(i).toString().equalsIgnoreCase(card.toString())){
+                    hand.remove(i);
+                }
+            }
             discard.add(card);
         }
 
