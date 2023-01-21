@@ -5,19 +5,15 @@ import org.sherwoodhs.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class Chess extends Game {
+public class Main implements Game {
     public static void main(String args[]) {
 
     }
 
     @Override
-    protected void initializeGame() {
-
-    }
-
-    @Override
-    protected void startGame() {
+    public void start() {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int)size.getHeight();
 
@@ -32,17 +28,23 @@ public class Chess extends Game {
     }
 
     @Override
-    protected void endGame() {
+    public void stop() {
 
     }
 
     @Override
-    protected String getName() {
+    public BufferedImage getThumbnail() {
+        final String path = "/Chesscapades.png";
+        return checkThumbnail(path);
+    }
+
+    @Override
+    public String getName() {
         return "Chesscapades";
     }
 
     @Override
-    protected String getDescription() {
-        return "A chess implementation";
+    public String getDescription() {
+        return "A chess implementation.";
     }
 }
