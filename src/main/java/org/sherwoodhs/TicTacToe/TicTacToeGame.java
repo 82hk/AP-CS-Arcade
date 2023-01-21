@@ -3,9 +3,8 @@ package org.sherwoodhs.TicTacToe;
 import org.sherwoodhs.Game;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-public class Main implements Game {
+public class TicTacToeGame implements Game {
 
     @Override
     public void start() {

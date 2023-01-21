@@ -1,16 +1,14 @@
 package org.sherwoodhs.Tetris;
 
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Main extends JFrame implements org.sherwoodhs.Game {
+public class TetrisGame extends JFrame implements org.sherwoodhs.Game {
     private JLabel status;
     private JLabel hold;
-    public Main() {
+    public TetrisGame() {
         createUI();
     }
     public void createUI() {
@@ -37,7 +35,7 @@ public class Main extends JFrame implements org.sherwoodhs.Game {
     @Override
     public void start() {
         EventQueue.invokeLater(() -> {
-            Main tetris = new Main();
+            TetrisGame tetris = new TetrisGame();
             tetris.setVisible(true);
         });
     }

@@ -27,11 +27,11 @@ public class Game extends JPanel {
     private Piece cpiece, hpiece;
     private Piece.Tetromino[] board;
     public static ArrayList<Piece.Tetromino> pieces = new ArrayList<Piece.Tetromino>();
-    public Game(Main m) {
+    public Game(TetrisGame m) {
         setBackground(new Color(20, 20, 30));
         createBoard(m);
     }
-    private void createBoard(Main m) {
+    private void createBoard(TetrisGame m) {
         setFocusable(true);
         status = m.getStatus();
         hold = m.getHold();

@@ -3,7 +3,7 @@ package org.sherwoodhs.CardsOfFate;
 import org.sherwoodhs.CardsOfFate.Entities.Player;
 import org.sherwoodhs.Game;
 
-public class Main implements Game {
+public class CardsOfFateGame implements Game {
     private Window window;
     private Player player = Player.getInstance();
     public void CardsOfFate(){
