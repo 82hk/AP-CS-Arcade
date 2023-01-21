@@ -1,6 +1,11 @@
 package org.sherwoodhs;
 
-import com.google.common.reflect.ClassPath;
+import org.sherwoodhs.CardsOfFate.CardsOfFateGame;
+import org.sherwoodhs.Chesscapades.ChessGame;
+import org.sherwoodhs.Connect4.ConnectFourGame;
+import org.sherwoodhs.Tetris.TetrisGame;
+import org.sherwoodhs.TicTacToe.TicTacToeGame;
+import org.sherwoodhs.Wordle.WordleGame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -27,36 +32,21 @@ public class Menu extends JFrame {
     }
     public void initialize() {
         Container cp = getContentPane();
-        ArrayList<Class> packages = new ArrayList<>();
-        try {
-            packages = getPackages();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // grab just the Main classes in every org.sherwoodhs package
-        for (int i = 0; i < packages.size(); i++) {
-            Class c = packages.get(i);
-            String[] parts = c.getName().split("\\.");
-            if (parts.length == 4 && parts[3].equals("Main")) {
-                main.add(c);
-            }
-        }
-        NUM_GAMES = main.size();
+
+        ArrayList<Game> games = new ArrayList<>();
+
+        games.add(new CardsOfFateGame());
+        games.add(new ChessGame());
+        games.add(new ConnectFourGame());
+        games.add(new TetrisGame());
+        games.add(new TicTacToeGame());
+        games.add(new WordleGame());
+
+        NUM_GAMES = games.size();
         gameGrid.setPreferredSize(new Dimension(640, 720));
         gamePartition.setPreferredSize(new Dimension(440, 720));
         for (int i = 0; i < NUM_GAMES; i++) {
-            Class c = main.get(i);
-            try {
-                Method getName = c.getMethod("getName");
-                Method getThumbnail = c.getMethod("getThumbnail");
-                Object o = c.newInstance();
-                String name = (String) getName.invoke(o);
-                System.out.println(name);
-                BufferedImage thumbnail = (BufferedImage) getThumbnail.invoke(o);
-                gameGrid.add(gameCard(name, thumbnail));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            gameGrid.add(gameCard(games.get(i)));
         }
         cp.add(gameGrid, BorderLayout.WEST);
         cp.add(gamePartition, BorderLayout.EAST);
@@ -72,7 +62,10 @@ public class Menu extends JFrame {
             setLayout(new GridBagLayout());
             add(new JLabel("Please select a game to begin."));
         }
-        public void adjustContents(String name, BufferedImage thumbnail, String description) {
+        public void adjustContents(Game game) {
+            String name = game.getName();
+            BufferedImage thumbnail = game.getThumbnail();
+            String description = game.getDescription();
             removeAll();
             revalidate();
             setBorder(new EmptyBorder(20, 40, 20, 40));
@@ -92,47 +85,16 @@ public class Menu extends JFrame {
             box[2].add(descriptionLabel);
             JButton start = new JButton("Start");
             start.addActionListener(e -> {
-                boolean isStart = true;
-                if (start.getText().equals("Start")) {
-                    start.setText("Stop");
-                } else {
-                    isStart = false;
-                    start.setText("Start");
-                }
-                // grab necessary class
-                Class a = null;
-                for (Class c : main) {
-                    String[] parts = c.getName().split("\\.");
-                    String name_wdspaces = name.replaceAll("\\s", "");
-                    if (parts[2].equalsIgnoreCase(name_wdspaces)) {
-                        a = c;
-                        break;
-                    }
-                }
-                if (isStart) {
-                    try {
-                        Method startGame = a.getMethod("start");
-                        Object o = a.newInstance();
-                        startGame.invoke(o);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                } else {
-                    try {
-                        Method stopGame = a.getMethod("stop");
-                        Object o = a.newInstance();
-                        stopGame.invoke(o);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
+                game.start();
             });
             box[3].setBorder(new EmptyBorder(25, 0, 0, 0));
             box[3].add(start);
             repaint();
         }
     }
-    public JButton gameCard(String name, BufferedImage thumbnail) {
+    public JButton gameCard(Game game) {
+        BufferedImage thumbnail = game.getThumbnail();
+        String name = game.getName();
         Icon icon = new ImageIcon();
         try {
             icon = new ImageIcon(thumbnail.getScaledInstance(170, 120, Image.SCALE_DEFAULT));
@@ -157,26 +119,12 @@ public class Menu extends JFrame {
             }
             // grab description in class
             try {
-                Method getDescription = a.getMethod("getDescription");
-                Object o = a.newInstance();
-                String description = (String) getDescription.invoke(o);
-                gamePartition.adjustContents(name, thumbnail, description);
+                String description = game.getDescription();
+                gamePartition.adjustContents(game);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
         return b;
-    }
-    private ArrayList<Class> getPackages() throws IOException {
-
-        ArrayList<Class> classes = new ArrayList<Class>();
-        final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        for (final ClassPath.ClassInfo info : ClassPath.from(loader).getTopLevelClasses()) {
-            if (info.getName().startsWith("org.sherwoodhs.")) {
-                final Class<?> c = info.load();
-                classes.add(c);
-            }
-        }
-        return classes;
     }
 }
