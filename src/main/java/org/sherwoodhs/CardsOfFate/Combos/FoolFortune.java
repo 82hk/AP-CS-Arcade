@@ -25,8 +25,12 @@ public class FoolFortune extends Combo{
         if (f == 0 && z >= 1){
             int s = r.nextInt(z);
             deck.discardCard(deck.getHand().get(s));
+            battle.updateText("You discard one card.");
+        } else if (z == 0){
+            battle.updateText("You would draw some cards, but your deck is empty.");
         } else {
             deck.drawCard(3);
+            battle.updateText("You drew a max of 3 cards.");
         }
     }
     public String effectDescription(){

@@ -15,8 +15,11 @@ public class Combinations{
             if(hand.contains(Fortune.getInstance())){
                 avaliable.add(FoolFortune.getInstance());
             }
-            if(hand.contains(new Swords(1))){
-                avaliable.add(FoolSword.getInstance());
+            for (int i = 0; i < hand.size(); i++) { //checks every card in hand for match
+                String h =  hand.get(i).toString();
+                if (h.equalsIgnoreCase("The 1 of Swords")){
+                    avaliable.add(FoolSword.getInstance());
+                }
             }
         }
     }

@@ -27,7 +27,7 @@ public abstract class Combo{
         }
         return(string);
     }
-    public void use(Deck deck, Battle battle){};
+    public void use(Deck deck, Battle battle){}
     public String effectDescription(){
         return ("");
     }

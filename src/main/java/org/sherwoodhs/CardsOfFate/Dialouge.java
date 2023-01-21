@@ -1,6 +1,5 @@
 package org.sherwoodhs.CardsOfFate;
 
-import org.sherwoodhs.CardsOfFate.Cards.Emperor;
 import org.sherwoodhs.CardsOfFate.Entities.Dummy;
 import org.sherwoodhs.CardsOfFate.Entities.Enemy;
 

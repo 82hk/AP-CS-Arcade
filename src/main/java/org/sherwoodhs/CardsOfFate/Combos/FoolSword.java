@@ -24,8 +24,10 @@ public class FoolSword extends Combo{
         int f = r.nextInt(4);
         if (f == 0){
             Player.getInstance().changeHealth(-1);
+            battle.updateText("You hurt yourself for 1 damage");
         } else {
             battle.changePlayerAtk(5);
+            battle.updateText("You will attack for 5.");
         }
     }
     public String effectDescription(){
