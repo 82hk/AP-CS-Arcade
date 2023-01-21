@@ -6,14 +6,10 @@ import java.awt.image.BufferedImage;
 
 public class Main implements Game {
     public static void main(String[] args) {
-
-        new TestConnect4();
-
     }
 
     @Override
     public void start() {
-
     }
 
     @Override

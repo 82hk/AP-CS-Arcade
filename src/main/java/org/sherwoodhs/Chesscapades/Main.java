@@ -44,6 +44,11 @@ public class Main implements Game {
 
     @Override
     public String getDescription() {
-        return "A chess implementation.";
+        return(convertToMultiline("A Java chess implementation with stockfish integration. Press space make stockfish the play the best move. Note that stockfish ONLY works on machines with Windows and it needs a second to think; so spamming the spacebar will break it. \n\nBy: Andrew Ard, Conner McKeone, and Dean Leon"));
+    }
+
+    public static String convertToMultiline(String orig)
+    {
+        return "<html>" + orig.replaceAll("\n", "<br>");
     }
 }

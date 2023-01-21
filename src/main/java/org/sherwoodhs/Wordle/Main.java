@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 public class Main implements Game {
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(Main::runGUI);
     }
 
     public static void runGUI() {
@@ -17,7 +16,7 @@ public class Main implements Game {
 
     @Override
     public void start() {
-
+        javax.swing.SwingUtilities.invokeLater(Main::runGUI);
     }
 
     @Override
