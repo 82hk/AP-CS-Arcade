@@ -278,7 +278,6 @@ public class Wordle {
         p.addActionListener(e -> {
             d.setVisible(false);
             frame.dispose();
-            System.exit(0);
         });
         p.setPreferredSize(new Dimension(800, 300));
         p.setFont(new Font("SansSerif", Font.BOLD, sz.width/50));
