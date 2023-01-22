@@ -34,7 +34,7 @@ NOTE: Buttons visually clear, but remain claimed even after pressing reset.
 
  */
 
-public class TestConnect4 implements ActionListener {
+public class ConnectFour implements ActionListener {
 
     private JFrame frame;
     private JPanel panel;
@@ -169,7 +169,7 @@ public class TestConnect4 implements ActionListener {
 
     }
     
-    public TestConnect4() {
+    public ConnectFour() {
         ConfigureGame();
     }
 
