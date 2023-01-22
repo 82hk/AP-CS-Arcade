@@ -103,7 +103,7 @@ public class ConnectFour implements ActionListener {
     }
 
     private void ExitGame() {
-        System.exit(0);
+        frame.dispose();
     }
     
     private boolean CheckWin(int row, int column) {
