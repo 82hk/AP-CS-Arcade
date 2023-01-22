@@ -210,7 +210,7 @@ public class TestConnect4 implements ActionListener {
                 }
             }
         }
-
+        // below is purely for debugging purposes; prints out the 'board' 2D array
         System.out.println("\n\n\n");
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
