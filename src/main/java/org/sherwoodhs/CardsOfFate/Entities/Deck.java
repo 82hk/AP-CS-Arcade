@@ -9,9 +9,9 @@ import static org.sherwoodhs.CardsOfFate.Battle.updateText;
 
 // Well, this is more aptly described as deck, hand, and discard 
 public abstract class Deck extends Person{
-        protected Stack<Card> deck;
-        protected ArrayList<Card> hand = new ArrayList<Card>();
-        protected ArrayList<Card> discard = new ArrayList<Card>();
+        protected static Stack<Card> deck;
+        protected static ArrayList<Card> hand = new ArrayList<Card>();
+        protected static ArrayList<Card> discard = new ArrayList<Card>();
         
         public Deck (String name, int hp, Card[] deck) {
             super(name,hp);
@@ -40,17 +40,19 @@ public abstract class Deck extends Person{
         }
 
         // Adds the top card from the deck to the hand n# of times
-        public void drawCard (int n) {
+        public static void drawCard (int n) {
             for(int i = 0; i < n; i++){
-                addHandCard(deck.pop());
-                restock();
+                if (!deck.isEmpty()) {
+                    hand.add(deck.pop());
+                    restock();
+                }
             }
         }
         // Starts a Battle. Shuffles everything back in deck and draws new hand.
         public void startBattle(){
-            int a = discard.size();
+            int a = hand.size();
             for(int i = 0; i < a; i++){
-                discardCard(discard.get(0));
+                discardCard(hand.get(0));
             }
             restock();
             shuffleDeck();
@@ -62,7 +64,7 @@ public abstract class Deck extends Person{
         }
 
         // Shuffles the deck
-        public void shuffleDeck() {
+        public static void shuffleDeck() {
             Collections.shuffle(deck);
         }
 /*
@@ -110,8 +112,12 @@ public abstract class Deck extends Person{
         }
 
         //Moves a specific Card from hand to discard
-        public void discardCard(Card card){
-            hand.remove(card);
+        public static void discardCard(Card card){
+            for (int i = 0; i < hand.size(); i++) {
+                if (hand.get(i).toString().equalsIgnoreCase(card.toString())){
+                    hand.remove(i);
+                }
+            }
             discard.add(card);
         }
 
@@ -128,7 +134,7 @@ public abstract class Deck extends Person{
         }
 
         // Moves cards in discard to deck and shuffles deck
-        private void restock(){
+        private static void restock(){
             if (deck.size() == 0) {
                 int a = discard.size();
                 for (int i = 0; i < a; i++) {

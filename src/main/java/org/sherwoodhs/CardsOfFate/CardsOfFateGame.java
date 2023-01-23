@@ -3,11 +3,10 @@ package org.sherwoodhs.CardsOfFate;
 import org.sherwoodhs.CardsOfFate.Entities.Player;
 import org.sherwoodhs.Game;
 
-public class CardsOfFate extends Game {
+public class CardsOfFateGame implements Game {
     private Window window;
     private Player player = Player.getInstance();
-    public CardsOfFate(){
-
+    public void CardsOfFate(){
     }
     public String getName() {
         return ("Cards Of Fate");
@@ -15,16 +14,13 @@ public class CardsOfFate extends Game {
     public String getDescription() {
         return ("A Card Rougelike game based off of Tarot Cards.");
     }
-    public void initializeGame(){
-    }
-    public void startGame() {
-        player.startBattle();
-        new Run();
-        window = new Window(this);
-        player.resetPlayer();
 
+    public void start() {
+        window = new Window();
+        player.resetPlayer();
+        new Run();
     }
-    public void endGame() {
+    public void stop() {
         window.closeFrame();
         // Return to main menu
     }

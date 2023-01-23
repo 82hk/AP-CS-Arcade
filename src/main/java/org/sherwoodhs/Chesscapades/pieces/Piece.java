@@ -2,6 +2,7 @@ package org.sherwoodhs.Chesscapades.pieces;
 
 import javax.swing.*;
 
+import org.sherwoodhs.Chesscapades.Game.AudioPlayer;
 import org.sherwoodhs.Chesscapades.Game.Board;
 import org.sherwoodhs.Chesscapades.Game.Tile;
 

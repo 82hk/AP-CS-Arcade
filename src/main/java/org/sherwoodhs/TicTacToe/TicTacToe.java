@@ -34,7 +34,7 @@ public class TicTacToe implements ActionListener {
             {2, 4, 6}  // 7
     };
 
-    private void DrawWindow(Main main) { // initial configuration. only run once per launch
+    private void DrawWindow() { // initial configuration. only run once per launch
 
         // get image icons for buttons
         ImageIcon hashIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Octothorpe.png");
@@ -42,7 +42,7 @@ public class TicTacToe implements ActionListener {
         ImageIcon replayIcon = new ImageIcon("src/main/java/org/sherwoodhs/TicTacToe/images/Replay Icon.png");
 
         // JComponent configuration
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setTitle("Tic Tac Toe");
         window.setResizable(false);
         window.setVisible(true);
@@ -158,7 +158,7 @@ public class TicTacToe implements ActionListener {
     }
 
     private void UpdateTitle() { // update whose turn it is
-        if (bingo == true) { // if someone has won, declare it
+        if (bingo) { // if someone has won, declare it
 
             if (otherPlayer == "X") { // update title color to winner's color
               currentPlayerText.setForeground(Color.RED);
@@ -186,7 +186,7 @@ public class TicTacToe implements ActionListener {
             currentPlayerText.setText(currentPlayer + " turn");
 
         }
-        if (squaresClaimed == 9 && bingo == false) {
+        if (squaresClaimed == 9 && !bingo) {
             DeclareTie();
         }
     }
@@ -207,8 +207,7 @@ public class TicTacToe implements ActionListener {
     }
 
     public TicTacToe() { // MAIN METHOD
-        Main main = new Main();
-        SwingUtilities.invokeLater(new Runnable() { public void run() { DrawWindow(main); } } ); // thank you, Trenton
+        SwingUtilities.invokeLater(new Runnable() { public void run() { DrawWindow(); } } ); // thank you, Trenton
     }
 
 
@@ -218,12 +217,12 @@ public class TicTacToe implements ActionListener {
         SmallPause();
 
         if (e.getSource() == exitButton) { // if click exit button
-            System.exit(0);
+            window.dispose();
 
         } else if (e.getSource() == playAgainButton) { // if click replay button
             ResetGame();
 
-        } else if (bingo == false) { // if click anywhere else (probably on grid square)
+        } else if (!bingo) { // if click anywhere else (probably on grid square)
 
             for (int i = 0; i < 9; i++) { // iterate through gridSquares, checks if clicked & if unclaimed
                 if (e.getSource() == gridSquare[i] && gridSquare[i].getText() != "X" && gridSquare[i].getText() != "O") {

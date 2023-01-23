@@ -15,15 +15,20 @@ public class Combinations{
             if(hand.contains(Fortune.getInstance())){
                 avaliable.add(FoolFortune.getInstance());
             }
-            if(hand.contains(new Swords(1))){
-                avaliable.add(FoolSword.getInstance());
+            for (int i = 0; i < hand.size(); i++) { //checks every card in hand for match
+                String h =  hand.get(i).toString();
+                if (h.equalsIgnoreCase("The 1 of Swords")){
+                    avaliable.add(FoolSword.getInstance());
+                }
             }
         }
     }
-    public ArrayList<Combo> getCombos(){
+    public ArrayList<Combo> getCombos(ArrayList<Card> hand){
+        checkCombos(hand);
         return (avaliable);
     }
-    public Combo[] getCombos2(){
+    public Combo[] getCombos2(ArrayList<Card> hand){
+        checkCombos(hand);
         Combo[] array = new Combo[avaliable.size()];
         for (int i = 0; i < avaliable.size(); i++) {
             array[i] = avaliable.get(i);

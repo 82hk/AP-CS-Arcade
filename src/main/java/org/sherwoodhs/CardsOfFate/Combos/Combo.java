@@ -27,8 +27,10 @@ public abstract class Combo{
         }
         return(string);
     }
-    abstract void use(Deck deck, Battle battle);
-    abstract String effectDescription();
+    public void use(Deck deck, Battle battle){}
+    public String effectDescription(){
+        return ("");
+    }
     public String getName(){
         return(name);
     }

@@ -196,6 +196,7 @@ public class Tile extends JPanel {
             } else if (s == "Bishop") {
                 setPiece(new Bishop(piece.getColor()));
             }
+            AudioPlayer.play("src/main/java/org/sherwoodhs/Chesscapades/resources/audio/move-self.wav");
         }
     }
 }

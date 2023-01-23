@@ -1,6 +1,7 @@
 package org.sherwoodhs.CardsOfFate;
 
 import org.sherwoodhs.CardsOfFate.Cards.Card;
+import org.sherwoodhs.CardsOfFate.Combos.Combo;
 import org.sherwoodhs.CardsOfFate.Entities.Enemy;
 import org.sherwoodhs.CardsOfFate.Entities.Player;
 
@@ -8,12 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Window implements ActionListener, ItemListener{
+public class Window implements ActionListener{
     private static Battle battle;
 
     private static int currentCard = 0;
     private static Player player;
-    private Combinations combinations = Combinations.getInstance();
+    private static Combinations combinations = Combinations.getInstance();
     private static JFrame frame = new JFrame("Cards Of Fate");
     private static CardLayout crd =  new CardLayout();
     private static JPanel superPanel = new JPanel(crd);
@@ -21,7 +22,7 @@ public class Window implements ActionListener, ItemListener{
     private JPanel text = new JPanel();
     private static JLabel words = new JLabel("You've reached an area with no new content.");
     //
-    private JPanel battles = new JPanel();
+    private static JPanel battles = new JPanel();
     private static JLabel battleText = new JLabel("text");
     private static JLabel battleText2 = new JLabel("text");
     private static JLabel battleText3 = new JLabel("text");
@@ -31,16 +32,17 @@ public class Window implements ActionListener, ItemListener{
     private static String[] choices = {"Use Card", "Use Combo", "End Turn"};
     private JComboBox battleChoices = new JComboBox(choices);
 
-    private JComboBox options;
+    private static JComboBox options;
 
-    private JComboBox combos = new JComboBox(combinations.getCombos2()); 
+    private static JComboBox combos;
 
     private JButton use = new JButton("GO");
+    private static DefaultListModel listModel = new DefaultListModel();
 
-    private JList discard;
+    private static JList discard = new JList(listModel);
     private JLabel discardTitle = new JLabel("Discard Pile");
-    private JLabel description;
-    private JLabel description2 = new JLabel(" ");
+    private static JLabel description;
+    private static JLabel description2 = new JLabel(" ");
 
     //
     private JPanel victory = new JPanel();
@@ -53,14 +55,14 @@ public class Window implements ActionListener, ItemListener{
     private JMenuBar menuBar = new JMenuBar();
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
     private JMenu pauseMenu = new JMenu("⚙");
-    private CardsOfFate game;
-    public Window(CardsOfFate game) {
+    public Window() {
         player = Player.getInstance();
         options = new JComboBox(player.getHand2());
-        discard = new JList(player.getDiscard2());
-        description = new JLabel(player.getHand().get(0).entry());
+        updateDiscards();
+        description = new JLabel(" ");
+        //description = new JLabel(player.getHand().get(0).entry());
+        combos = new JComboBox(combinations.getCombos2(player.getHand()));
 
-        this.game = game;
         //tutorial box
         int n = JOptionPane.showConfirmDialog(frame, "Do you want to skip the Tutorial?", " Starting Game", JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.NO_OPTION){
@@ -86,10 +88,9 @@ public class Window implements ActionListener, ItemListener{
         text.add(words);
 
         battleChoices.setSelectedIndex(0);
-        battleChoices.addItemListener(this);
+        battleChoices.addActionListener(this);
         battleChoices.setEditable(false);
-        options.setSelectedIndex(0);
-        options.addItemListener(this);
+        options.addActionListener(this);
         options.setEditable(false);
 
         battles.setLayout(null);
@@ -110,6 +111,7 @@ public class Window implements ActionListener, ItemListener{
         options.setBounds(180,145,150,20);
         battles.add(options);
         combos.setBounds(180,145,150,20);
+        combos.setVisible(false);
         battles.add(combos);
         use.setBounds(350, 145,60,20);
         use.setFont(new Font("Arial", Font.BOLD,15));
@@ -123,8 +125,9 @@ public class Window implements ActionListener, ItemListener{
         discardTitle.setBounds(430,10,110,20);
         battles.add(discardTitle);
         discard.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        discard.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        discard.setLayoutOrientation(JList.VERTICAL);
         discard.setBounds(430,40,110,300);
+        discard.setVisibleRowCount(-1);
         battles.add(discard);
         //JScrollPane listScroller = new JScrollPane(discard);
         //listScroller.setPreferredSize(new Dimension(250, 80));
@@ -169,52 +172,102 @@ public class Window implements ActionListener, ItemListener{
                 if (a != -1) {
                     Card cards = player.getHand().get(a);
                     player.useCard(cards, battle);
+                    updateCombos();
                     updateOptions();
+                    updateDiscards();
                 }
-            } else if (choice == "End Turn"){
+
+            } else if(choice == "Use Combo"){
+                int a = combos.getSelectedIndex();
+                if (a!=-1){
+                    Combo c = combinations.getCombos(player.getHand()).get(a);
+                    c.use(player,battle);
+                    updateOptions();
+                    updateCombos();
+                    updateDiscards();
+                }
+
+            }else if (choice == "End Turn"){
                 battle.endTurn();
                 battleChoices.setSelectedIndex(0);
+                updateCombos();
                 updateOptions();
-                options.setSelectedIndex(0);
+                updateDiscards();
             }
             battle.checkDead();
         } else if (e.getSource() == tryAgain){
             //game.endGame();
             //game.startGame(); // temp
-        }
+        } else if (e.getSource() == battleChoices){
+            String choice = (String) battleChoices.getSelectedItem();
+            if (choice == "Use Card"){
+                updateOptions();
 
+            } else if (choice == "Use Combo"){
+                updateCombos();
+
+            } else if (choice == "End Turn"){
+                combos.setVisible(false);
+                options.setVisible(false);
+                description.setText("");
+                description2.setText("");
+            }
+        } else if (e.getSource() == options){
+            upOptions();
+        } else if (e.getSource() == combos){
+            upCombos();
+        }
     }
-    private void updateOptions(){
+    private static void upOptions(){
+        if(options.getItemCount() != 0) {
+            int a = options.getSelectedIndex();
+            Card cards = player.getHand().get(a);
+            description.setText(cards.entry());
+            description2.setText(" ");
+            options.setVisible(true);
+        } else {
+            description.setText("You have no cards to use.");
+            description2.setText(" ");
+            options.setVisible(false);
+        }
+    }
+    private static void upCombos(){
+        if (combos.getItemCount() != 0){
+            int a = combos.getSelectedIndex();
+            Combo c = combinations.getCombos(player.getHand()).get(a);
+            description.setText(c.costDescription());
+            description2.setText(c.effectDescription());
+            combos.setVisible(true);
+        } else {
+            description.setText("There are no combos to use.");
+            description2.setText(" ");
+            combos.setVisible(false);
+        }
+    }
+    private static void updateOptions(){
+        combos.setVisible(false);
         options.removeAllItems();
         Card[] a = player.getHand2();
         for (Card element : a) {
             options.addItem(element);
         }
-
+        upOptions();
     }
-    private void updateCombos(){
+    private static void updateCombos(){
+        options.setVisible(false);
         combos.removeAllItems();
-        //Combo[] a = player.
+        Combo[] a = combinations.getCombos2(player.getHand());
+        for (Combo element : a) {
+            combos.addItem(element);
+        }
+        upCombos();
     }
-    public void itemStateChanged (ItemEvent e){
-        String choice = (String) battleChoices.getSelectedItem();
-        if (choice == "Use Card"){
-            options.setVisible(true);
-            int a = options.getSelectedIndex();
-            if(a != -1) {
-                Card cards = player.getHand().get(a);
-                description.setText(cards.entry());
-                description2.setText(" ");
-            } else {
-                description.setText("You have no cards to use.");
-                description2.setText(" ");
-            }
-
-        } else if (choice == "Use Combo"){
-            options.setVisible(false);
-        } else if (choice == "End Turn"){
-            description.setText("");
-            description.setText("");
+    private static void updateDiscards(){
+        listModel.removeAllElements();
+        Card[] a = player.getDiscard2();
+        String[] b = new String[a.length];
+        for (int i = 0; i < a.length; i++) {
+            listModel.addElement(a[i].toString());
         }
     }
     public static void setLabel(String string){
@@ -235,6 +288,8 @@ public class Window implements ActionListener, ItemListener{
         battle = new Battle(enemy);
         battle.start();
         player.startBattle();
+        updateCombos();
+        updateOptions();
         changeCard("BATTLE");
         currentCard = 1;
     }
