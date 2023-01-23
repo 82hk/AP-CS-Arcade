@@ -8,11 +8,12 @@ public class Coins extends Cards{
         super(number, "Coins");
     }
     public void effect(Deck deck, Battle battle){
+        battle.enemy.changeHealth(-number);
     }
     public String entry(){
-        return("Get something " + number +".");
+        return("Pay some assassins to directly attack for " + number + ".");
     }
     public String used(){
-        return(" ");
+        return("You directly attacked for " + number + ".");
     }
 }

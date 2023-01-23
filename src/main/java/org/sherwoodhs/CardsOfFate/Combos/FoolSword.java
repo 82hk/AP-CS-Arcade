@@ -31,6 +31,9 @@ public class FoolSword extends Combo{
         }
     }
     public String effectDescription(){
-        return("Has a 25% chance of self-harm for 1 damage. Has a 75% chance of attacking for 5 damage.");
+        return("Has a 25% chance of self-harm for 1 damage.");
+    }
+    public String effectDescription2(){
+        return("Has a 75% chance of attacking for 5 damage.");
     }
 }

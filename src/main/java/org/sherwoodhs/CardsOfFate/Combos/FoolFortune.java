@@ -34,6 +34,11 @@ public class FoolFortune extends Combo{
         }
     }
     public String effectDescription(){
-        return("Has a 33% chance of discarding 1 card from hand. Has a 66% chance of drawing 3 cards.");
+        return("Has a 33% chance of discarding 1 card from hand.");
+    }
+
+    @Override
+    public String effectDescription2() {
+        return ("Has a 66% chance of drawing 3 cards.");
     }
 }

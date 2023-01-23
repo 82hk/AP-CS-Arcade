@@ -9,10 +9,10 @@ public class CardsOfFateGame implements Game {
     public void CardsOfFate(){
     }
     public String getName() {
-        return ("Cards Of Fate");
+        return ("Cards Of Fate (Version Alpha Demo)");
     }
     public String getDescription() {
-        return ("A Card Rougelike game based off of Tarot Cards.");
+        return ("<html>A Card Rougelike game based off of Tarot Cards.<br><br> Made by Derek ;) </html>");
     }
 
     public void start() {

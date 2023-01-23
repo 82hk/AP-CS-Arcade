@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Battle{
     private static Player player = Player.getInstance();
-    private static Enemy enemy;
+    public static Enemy enemy;
 
     // Atk / Dfn per turn
     private static int[] enemyMove = {0,0};

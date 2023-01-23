@@ -37,4 +37,8 @@ public abstract class Combo{
     public String toString() {
         return(name);
     }
+
+    public String effectDescription2() {
+        return ("");
+    }
 }

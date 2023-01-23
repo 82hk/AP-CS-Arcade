@@ -15,7 +15,7 @@ public class Window implements ActionListener{
     private static int currentCard = 0;
     private static Player player;
     private static Combinations combinations = Combinations.getInstance();
-    private static JFrame frame = new JFrame("Cards Of Fate");
+    private static JFrame frame;
     private static CardLayout crd =  new CardLayout();
     private static JPanel superPanel = new JPanel(crd);
     //
@@ -41,8 +41,9 @@ public class Window implements ActionListener{
 
     private static JList discard = new JList(listModel);
     private JLabel discardTitle = new JLabel("Discard Pile");
-    private static JLabel description;
+    private static JLabel description = new JLabel(" ");
     private static JLabel description2 = new JLabel(" ");
+    private static JLabel description3 = new JLabel(" ");
 
     //
     private JPanel victory = new JPanel();
@@ -56,11 +57,10 @@ public class Window implements ActionListener{
     private JMenuItem menuItem1 = new JMenuItem("Quit?");
     private JMenu pauseMenu = new JMenu("⚙");
     public Window() {
+        frame = new JFrame("Cards of Fate");
         player = Player.getInstance();
         options = new JComboBox(player.getHand2());
         updateDiscards();
-        description = new JLabel(" ");
-        //description = new JLabel(player.getHand().get(0).entry());
         combos = new JComboBox(combinations.getCombos2(player.getHand()));
 
         //tutorial box
@@ -122,6 +122,8 @@ public class Window implements ActionListener{
         battles.add(description);
         description2.setBounds(10,195,400,15);
         battles.add(description2);
+        description3.setBounds(10,210,400,15);
+        battles.add(description3);
         discardTitle.setBounds(430,10,110,20);
         battles.add(discardTitle);
         discard.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -160,11 +162,12 @@ public class Window implements ActionListener{
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setFocusable(true);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         updateOptions();
     }
     public void actionPerformed (ActionEvent e){
         if (e.getSource() == menuItem1){
-            // Quit Game
+            closeFrame();
         } else if (e.getSource() == use){
             String choice = (String) battleChoices.getSelectedItem();
             if (choice == "Use Card"){
@@ -211,6 +214,7 @@ public class Window implements ActionListener{
                 options.setVisible(false);
                 description.setText("");
                 description2.setText("");
+                description3.setText("");
             }
         } else if (e.getSource() == options){
             upOptions();
@@ -224,10 +228,12 @@ public class Window implements ActionListener{
             Card cards = player.getHand().get(a);
             description.setText(cards.entry());
             description2.setText(" ");
+            description3.setText(" ");
             options.setVisible(true);
         } else {
             description.setText("You have no cards to use.");
             description2.setText(" ");
+            description3.setText(" ");
             options.setVisible(false);
         }
     }
@@ -237,10 +243,12 @@ public class Window implements ActionListener{
             Combo c = combinations.getCombos(player.getHand()).get(a);
             description.setText(c.costDescription());
             description2.setText(c.effectDescription());
+            description3.setText(c.effectDescription2());
             combos.setVisible(true);
         } else {
             description.setText("There are no combos to use.");
             description2.setText(" ");
+            description3.setText(" ");
             combos.setVisible(false);
         }
     }
@@ -295,7 +303,7 @@ public class Window implements ActionListener{
     }
     public static void setVictory(Enemy enemy){
         changeCard("VICTORY");
-        vicLabel.setText("You beat a " + enemy.getName() + ". Good job.");
+        vicLabel.setText("You beat a " + enemy.getName() + ". Good job. You've reached the end of the Demo.");
         currentCard = 2;
     }
     public static void setLoss(Enemy enemy){
