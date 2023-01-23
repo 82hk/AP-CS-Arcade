@@ -10,11 +10,11 @@ public class ConnectFourGame implements Game {
 
     @Override
     public void start() {
+        new ConnectFour();
     }
 
     @Override
     public void stop() {
-
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ConnectFourGame implements Game {
 
     @Override
     public String getDescription() {
-        return "Enter your description here.";
+        return "Enter description here.";
     }
 
     @Override

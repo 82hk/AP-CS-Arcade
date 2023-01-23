@@ -80,7 +80,7 @@ public class ConnectFour implements ActionListener {
         }
         for (int i = 7; i < 42; i++) {
             button[i].setEnabled(false);
-            // Makes all of the buttons open to be clicked
+            // Makes all the buttons open to be clicked
         }
 
         frame.add(title, BorderLayout.NORTH);
@@ -108,6 +108,8 @@ public class ConnectFour implements ActionListener {
     }
 
     private boolean CheckWin(int row, int column) {
+        System.out.println("\n\nRow " + row);
+        System.out.println("Column "+  column);
 // check horizontal - WORKS
         //LEFT SIDE HORIZONTAL
         int count = 1; //variable to keep track of the number of pieces in a row
@@ -129,9 +131,10 @@ public class ConnectFour implements ActionListener {
         if (count >= 4) { // If its 4 in a row then the player wins
             return true;
         }
-        // check vertical - DOES NOT WORK
-        count = 1;
-        for (int i = row - 1; i >= 0; i--) { //go through the rows above the current row
+
+        // check vertical - WORKS NOW
+        count = 0;
+        for (int i = row; i <= 5; i++) { //go through the rows below current row
             if (board[i][column] == currentPlayer) { //if the current piece is of the same player then increase count
                 count++; //increment the count
             } else {
@@ -153,16 +156,46 @@ public class ConnectFour implements ActionListener {
                 break; //break if piece isnt the same as players
             }
         }
-        // check diagonal (top-left to bottom right)
+
+        count = 1;
+        // check diagonal (top-right to bottom left)
         for (int i = 1; i < 7; i++) { //iterate through the diagonal positions of the board
-            int r = row - i; //the row of the diagonal position
+            int r = row + i; //the row of the diagonal position
             int c = column - i; //the column of the diagonal position
-            if (r >= 0 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
+            if (r < 6 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
                 count++; //increment the count
             } else {
                 break; //break if piece isnt the same as players
             }
         }
+
+        count = 1;
+        // check diagonal (bottom left to top-right)
+        for (int i = 1; i < 7; i++) { //iterate through the diagonal positions of the board
+            int r = row - i; //the row of the diagonal position
+            int c = column + i; //the column of the diagonal position
+            if (r < 6 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
+                count++; //increment the count
+            } else {
+                break; //break if piece isnt the same as players
+            }
+        }
+
+        count = 1;
+        // check diagonal (bottom right to top-left)
+        for (int i = 1; i < 7; i++) { //iterate through the diagonal positions of the board
+            int r = row - i; //the row of the diagonal position
+            int c = column - i; //the column of the diagonal position
+            System.out.println("r " + r);
+            System.out.println("c " + c);
+            if (r < 6 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
+                System.out.println("here");
+                count++; //increment the count
+            } else {
+                break; //break if piece isnt the same as players
+            }
+        }
+
         if (count >= 4) {
             return true;
         }
@@ -222,7 +255,6 @@ public class ConnectFour implements ActionListener {
 
             if (column != -1) {
                 // Check if the column variable is not equal to -1.
-                System.out.println("\n\n\nhere");
                 for (int row = 5; row >= 0; row--) {
                     // Iterate through the rows starting from the bottom row and going to the top
                     if (board[row][column] == 0) {
