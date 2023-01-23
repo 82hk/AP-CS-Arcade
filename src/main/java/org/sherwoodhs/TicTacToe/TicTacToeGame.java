@@ -23,7 +23,7 @@ public class TicTacToeGame implements Game {
 
     @Override
     public String getDescription() {
-        return "Enter your description here.";
+        return "The original Tic Tac Toe, now in Java. \n\nBy: Chris Portinga";
     }
 
     @Override
