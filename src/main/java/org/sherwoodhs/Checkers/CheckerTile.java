@@ -44,8 +44,8 @@ public class CheckerTile extends JButton {
     public void setPiece(Color color) {
         pieceColor = color;
         image = color == Color.BLACK ?
-                new ImageIcon("black_piece.png") :
-                new ImageIcon("red_piece.png");
+                new ImageIcon("src/main/java/org/sherwoodhs/Checkers/Pieces/black_piece.png") :
+                new ImageIcon("src/main/java/org/sherwoodhs/Checkers/Pieces/red_piece.png");
         image = resizeImage(image);
         setIcon(image);
     }
@@ -54,8 +54,8 @@ public class CheckerTile extends JButton {
         hasKing = true;
         pieceColor = color;
         image = color == Color.BLACK ?
-                new ImageIcon("black_king.png") :
-                new ImageIcon("red_king.png");
+                new ImageIcon("src/main/java/org/sherwoodhs/Checkers/Pieces/black_king.png") :
+                new ImageIcon("src/main/java/org/sherwoodhs/Checkers/Pieces/red_king.png");
         image = resizeImage(image);
         setIcon(image);
     }

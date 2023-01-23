@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class CheckersBoard extends JPanel implements ActionListener {
 
     private int pieceSize;
-    protected ArrayList<CheckerTile> tiles;
+    private ArrayList<CheckerTile> tiles;
     private final int[] blackStartingPos = {1, 3, 5, 7,
                                             8, 10, 12, 14,
                                             17, 19, 21, 23};
@@ -26,6 +26,8 @@ public class CheckersBoard extends JPanel implements ActionListener {
     public boolean isTurnOver;
     private CheckerTile moveNext;
     private ArrayList<CheckerTile> highlightedTiles;
+
+    public boolean isOver;
 
     public CheckersBoard(int boardSize) {
         tiles = new ArrayList<>();
@@ -49,6 +51,7 @@ public class CheckersBoard extends JPanel implements ActionListener {
         currentTurn = Color.BLACK;
         pieceSize = frameSize/10;
         isTurnOver = false;
+        isOver = false;
         this.currentTurn = currentTurn;
 
         setSize(frameSize, frameSize);
@@ -73,7 +76,6 @@ public class CheckersBoard extends JPanel implements ActionListener {
             tiles.get(blackStartingPos[i]).setPiece(Color.BLACK);
             tiles.get(redStartingPos[i]).setPiece(Color.red);
         }
-
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -172,6 +174,19 @@ public class CheckersBoard extends JPanel implements ActionListener {
     public void endTurn() {
         isTurnOver = true;
         currentTurn = currentTurn == Color.BLACK ? Color.red : Color.BLACK;
+
+        boolean hasBlackPiece = false;
+        boolean hasRedPiece = false;
+        for (CheckerTile tile : tiles) {
+            if (tile.hasPiece() && tile.getPieceColor() == Color.BLACK) {
+                hasBlackPiece = true;
+            } else if (tile.hasPiece() && tile.getPieceColor() == Color.red) {
+                hasRedPiece = true;
+            }
+        }
+        if (!hasBlackPiece || !hasRedPiece) {
+            isOver = true;
+        }
     }
 
     public boolean hasJumpMove(CheckerTile tile) {
@@ -179,16 +194,14 @@ public class CheckersBoard extends JPanel implements ActionListener {
             int[] offsets = getValidIndexOffsets(tile);
             Color oppositeColor = tile.getPieceColor() == Color.BLACK ? Color.RED : Color.BLACK;
 
-            try {
-                for (int offset : offsets) {
+            for (int offset : offsets) {
+                try {
                     if (tiles.get(tiles.indexOf(tile) + offset).getPieceColor() == oppositeColor &&
                             !(tiles.get(tiles.indexOf(tile) + (offset * 2)).hasPiece()) &&
                             tiles.get(tiles.indexOf(tile) + (offset * 2)).getColor() == Color.BLACK) {
                         return true;
                     }
-                }
-            } catch (IndexOutOfBoundsException e) {
-                return false;
+                } catch (Exception e) {}
             }
         }
        return false;
@@ -242,11 +255,13 @@ public class CheckersBoard extends JPanel implements ActionListener {
     public void highlightJumpMoves(CheckerTile tile) {
         if (hasJumpMove(tile)) {
             for (int offset : getValidIndexOffsets(tile)) {
-                if (isJumpMove(tile, tiles.get(tiles.indexOf(tile) + (offset * 2))) &&
-                        !tiles.get(tiles.indexOf(tile) + (offset * 2)).hasPiece()) {
-                    tiles.get(tiles.indexOf(tile) + offset).setBackground(Color.green);
-                    highlightedTiles.add(tiles.get(tiles.indexOf(tile) + offset));
-                }
+                try {
+                    if (isJumpMove(tile, tiles.get(tiles.indexOf(tile) + (offset * 2))) &&
+                            !tiles.get(tiles.indexOf(tile) + (offset * 2)).hasPiece()) {
+                        tiles.get(tiles.indexOf(tile) + offset).setBackground(Color.green);
+                        highlightedTiles.add(tiles.get(tiles.indexOf(tile) + offset));
+                    }
+                } catch (Exception e) {}
             }
         }
     }
