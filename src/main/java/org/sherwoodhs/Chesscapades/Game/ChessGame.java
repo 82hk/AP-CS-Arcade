@@ -257,6 +257,7 @@ public class ChessGame extends JFrame implements MouseListener, MouseMotionListe
     }
 
     private void playBestMove() {
+        selectedTile = null;
         String bestMove = stockfish.getBestMoveCode(fens.get(fens.size() - 1), 1000);
         int currentLocation = Board.convertCodeToLocation(new String(new char[]{bestMove.charAt(0), bestMove.charAt(1)}));
         int newLocation = Board.convertCodeToLocation(new String(new char[]{bestMove.charAt(2), bestMove.charAt(3)}));
