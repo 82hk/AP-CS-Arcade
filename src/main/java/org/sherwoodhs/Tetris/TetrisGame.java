@@ -52,11 +52,7 @@ public class TetrisGame extends JFrame implements org.sherwoodhs.Game {
 
     @Override
     public String getDescription() {
-        return convertEscapeSeq("The classic game of Tetris, in Java.\nBy Hangil");
-    }
-    
-    private String convertEscapeSeq(String s) {
-        return ("<html>" + s.replaceAll("\n", "<br>") + "</html>");
+        return "<html>The classic game of Tetris, in Java.<br><br>By Hangil</html>";
     }
 
     @Override
