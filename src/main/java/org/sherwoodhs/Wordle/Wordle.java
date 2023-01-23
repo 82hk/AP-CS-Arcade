@@ -311,8 +311,8 @@ public class Wordle {
                             if(input[outerBound].isFocusOwner()) {
                             } else {
                                 manager.focusNextComponent(); //automatically moves to the next box
-                                return;
                             }
+                            return;
                         }
                         if (Character.isLowerCase(keyChar)) {
                             e.setKeyChar(Character.toUpperCase(keyChar)); //makes text uppercase
