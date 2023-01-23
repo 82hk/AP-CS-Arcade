@@ -31,7 +31,7 @@ public class CheckersBoard extends JPanel implements ActionListener {
 
     public CheckersBoard(int boardSize) {
         tiles = new ArrayList<>();
-        final Main main = new Main();
+        final Checkers main = new Checkers();
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
                 initComponents(main, boardSize, currentTurn);
@@ -46,7 +46,7 @@ public class CheckersBoard extends JPanel implements ActionListener {
         return Color.RED;
     }
 
-    private void initComponents(Main main, int frameSize, Color currentTurn) {
+    private void initComponents(Checkers main, int frameSize, Color currentTurn) {
         highlightedTiles = new ArrayList<>();
         currentTurn = Color.BLACK;
         pieceSize = frameSize/10;

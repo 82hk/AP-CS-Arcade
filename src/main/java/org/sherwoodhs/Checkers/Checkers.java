@@ -4,16 +4,13 @@ import org.sherwoodhs.Game;
 
 import java.awt.image.BufferedImage;
 
-public class Main implements Game {
+public class Checkers implements Game {
 
-    public static void main(String args[]) {
-        CheckersGame game = new CheckersGame();
-        game.start();
-    }
+    public static void main(String args[]) {}
 
     @Override
     public void start() {
-
+        new CheckersGame();
     }
 
     @Override
@@ -28,7 +25,7 @@ public class Main implements Game {
 
     @Override
     public String getDescription() {
-        return "Enter your description here.";
+        return "Java implementation of Checkers by Trenton";
     }
 
     @Override
