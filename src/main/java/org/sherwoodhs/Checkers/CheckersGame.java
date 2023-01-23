@@ -1,8 +1,10 @@
 package org.sherwoodhs.Checkers;
 
+import org.sherwoodhs.Game;
+
 import javax.swing.*;
 
-public class CheckersGame {
+public class CheckersGame implements Game {
 
     private JFrame frame;
     private final int frameSize = 800;
@@ -17,15 +19,22 @@ public class CheckersGame {
         frame.add(board);
     }
 
-    public void startGame() {
-        CheckersGame game = new CheckersGame();
+    @Override
+    public void start() {
+        initializeGame();
+        new CheckersGame();
     }
 
-    public void endGame() {}
+    @Override
+    public void stop() {}
 
-    public void play() {
-        initializeGame();
-        startGame();
-        endGame();
+    @Override
+    public String getName() {
+        return "Checkers";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Checkers, also known as draughts, is a group of strategy board games for two players which involve diagonal moves of uniform game pieces and mandatory captures by jumping over opponent pieces.";
     }
 }
