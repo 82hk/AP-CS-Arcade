@@ -24,7 +24,12 @@ public class ConnectFourGame implements Game {
 
     @Override
     public String getDescription() {
-        return "Enter description here.";
+        return convertToMultiline("A Java implementation of Connect 4. \n\n By: Ken Hardesty");
+    }
+
+    public static String convertToMultiline(String orig)
+    {
+        return "<html>" + orig.replaceAll("\n", "<br>");
     }
 
     @Override
