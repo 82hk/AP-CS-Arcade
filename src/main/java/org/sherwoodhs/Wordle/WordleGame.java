@@ -31,7 +31,7 @@ public class WordleGame implements Game {
 
     @Override
     public String getDescription() {
-        return "Guess the 6 letter word in 6 tries.";
+        return "<html>Guess the 6 letter word in 6 tries.<br><br>By: Tyler Nguyen, Landon Malan, & Cyrus Ho</html>";
     }
 
     @Override
