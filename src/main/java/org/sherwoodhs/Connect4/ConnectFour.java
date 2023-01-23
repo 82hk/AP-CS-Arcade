@@ -62,7 +62,7 @@ public class ConnectFour implements ActionListener {
 
         frame.setTitle("Connect 4"); // set window properties
         frame.setSize(800, 700);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setLayout(new BorderLayout());
