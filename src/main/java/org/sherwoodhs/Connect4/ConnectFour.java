@@ -80,6 +80,7 @@ public class ConnectFour implements ActionListener {
         }
         for (int i = 7; i < 42; i++) {
             button[i].setEnabled(false);
+            // Makes all of the buttons open to be clicked
         }
 
         frame.add(title, BorderLayout.NORTH);
@@ -191,30 +192,30 @@ public class ConnectFour implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == resetButton) {
-            ResetGame();
+            ResetGame(); //if pressed call the ResetGame method
 
         } else if (e.getSource() == exitButton) {
-            ExitGame();
+            ExitGame(); //if pressed call the ExitGame method
 
         } else if (isWin == false) {
 
             JButton b = (JButton) e.getSource();
-            column = -1;
+            column = -1; //if game not over initialize the column as -1
 
             k = 0;
-            for (int j = 0; j < 42; j++) { // column break
-                if (b == button[j]) {
-                    k = j;
-                    column = j % 7;
+            for (int j = 0; j < 42; j++) { //go through the buttons on the board
+                if (b == button[j]) { //if the button pressed is equal to the current button in the iteration
+                    k = j; //set the value of k to the current button index
+                    column = j % 7; //find the column of the button
                     break;
                 }
             }
 
-            for (int row = 0; row < 5; row++) { // can only drop from top row
-                if (board[row + 1][column] == 0) {
-                    k += 7; // K isn't stopping below 42.
+            for (int row = 0; row < 5; row++) { //go through the rows top to bottom
+                if (board[row + 1][column] == 0) { //if the next row in the current column is empty increase k by 7 to mover to next column
+                    k += 7;
                 } else {
-                    break;
+                    break; //if the next row is not empty break
                 }
             }
             b = button[k]; // ERROR IS HAPPENING HERE. K TOO BIG.
