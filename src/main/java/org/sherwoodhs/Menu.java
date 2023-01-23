@@ -1,6 +1,7 @@
 package org.sherwoodhs;
 
 import org.sherwoodhs.CardsOfFate.CardsOfFateGame;
+import org.sherwoodhs.Checkers.Checkers;
 import org.sherwoodhs.Chesscapades.ChessGame;
 import org.sherwoodhs.Connect4.ConnectFourGame;
 import org.sherwoodhs.Tetris.TetrisGame;
@@ -41,6 +42,7 @@ public class Menu extends JFrame {
         games.add(new TetrisGame());
         games.add(new TicTacToeGame());
         games.add(new WordleGame());
+        games.add(new Checkers());
 
         NUM_GAMES = games.size();
         gameGrid.setPreferredSize(new Dimension(640, 720));

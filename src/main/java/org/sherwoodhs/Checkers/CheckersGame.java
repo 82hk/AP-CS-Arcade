@@ -1,5 +1,7 @@
 package org.sherwoodhs.Checkers;
 
+import org.sherwoodhs.Game;
+
 import javax.swing.*;
 
 public class CheckersGame {
@@ -9,23 +11,11 @@ public class CheckersGame {
 
     public CheckersBoard board;
 
-    public void initializeGame() {
+    public CheckersGame() {
         frame = new JFrame("Checkers");
         frame.setSize(frameSize, frameSize);
         frame.setVisible(true);
         board = new CheckersBoard(frameSize);
         frame.add(board);
-    }
-
-    public void startGame() {
-        CheckersGame game = new CheckersGame();
-    }
-
-    public void endGame() {}
-
-    public void play() {
-        initializeGame();
-        startGame();
-        endGame();
     }
 }

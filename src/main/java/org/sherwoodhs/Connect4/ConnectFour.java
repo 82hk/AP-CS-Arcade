@@ -28,6 +28,7 @@ public class ConnectFour implements ActionListener {
     private JFrame frame;
     private JPanel panel;
     private JPanel title;
+    private JButton playerTurn;
     private JButton resetButton;
     private JButton exitButton;
     private JButton[] button;
@@ -37,6 +38,16 @@ public class ConnectFour implements ActionListener {
     private int[][] board; // 2D array
     private int currentPlayer;
 
+    private void SetColor() {
+        if (currentPlayer == 1) {
+            playerTurn.setBackground(Color.RED);
+            playerTurn.setText("Red's turn");
+        } else if (currentPlayer == 2) {
+            playerTurn.setBackground(Color.YELLOW);
+            playerTurn.setText("Yellow's turn");
+        }
+    }
+
     private void ConfigureGame() {
 
         frame = new JFrame();
@@ -45,6 +56,7 @@ public class ConnectFour implements ActionListener {
         resetButton = new JButton();
         exitButton = new JButton();
         button = new JButton[42];
+        playerTurn = new JButton();
         board = new int[6][7];
         currentPlayer = 1;
         isWin = false;
@@ -53,12 +65,14 @@ public class ConnectFour implements ActionListener {
         resetButton.setText("Reset");
         resetButton.addActionListener(this::actionPerformed);
 
-        exitButton.setBackground(Color.RED);
+        exitButton.setBackground(Color.PINK);
         exitButton.setText("Exit");
         exitButton.addActionListener(this::actionPerformed);
 
+        title.add(playerTurn);
         title.add(resetButton);
         title.add(exitButton);
+
 
         frame.setTitle("Connect 4"); // set window properties
         frame.setSize(800, 700);
@@ -83,11 +97,13 @@ public class ConnectFour implements ActionListener {
             // Makes all the buttons open to be clicked
         }
 
+        SetColor();
         frame.add(title, BorderLayout.NORTH);
         frame.add(panel);
     }
 
     private void ResetGame() {
+        SetColor();
         for (int i = 0; i < 42; i++) {
             button[i].setBackground(new JButton().getBackground());
             button[i].setEnabled(true);
@@ -101,6 +117,7 @@ public class ConnectFour implements ActionListener {
             }
         }
         isWin = false;
+        SetColor();
     }
 
     private void ExitGame() {
@@ -167,19 +184,23 @@ public class ConnectFour implements ActionListener {
             } else {
                 break; //break if piece isnt the same as players
             }
+
         }
 
         count = 1;
         // check diagonal (bottom left to top-right)
-        for (int i = 1; i < 7; i++) { //iterate through the diagonal positions of the board
-            int r = row - i; //the row of the diagonal position
-            int c = column + i; //the column of the diagonal position
-            if (r < 6 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
-                count++; //increment the count
-            } else {
-                break; //break if piece isnt the same as players
+        if (column < 6) {
+            for (int i = 1; i < 7; i++) { //iterate through the diagonal positions of the board
+                int r = row - i; //the row of the diagonal position
+                int c = column + i; //the column of the diagonal position
+                if (r < 6 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
+                    count++; //increment the count
+                } else {
+                    break; //break if piece isnt the same as players
+                }
             }
         }
+
 
         count = 1;
         // check diagonal (bottom right to top-left)
@@ -225,6 +246,7 @@ public class ConnectFour implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == resetButton) {
+            SetColor();
             ResetGame(); //if pressed call the ResetGame method
 
         } else if (e.getSource() == exitButton) {
@@ -262,6 +284,7 @@ public class ConnectFour implements ActionListener {
                         board[row][column] = currentPlayer;
                         // Assign the current player's value (1 or 2) to the current space on the board
                         b.setBackground(currentPlayer == 1 ? Color.RED : Color.YELLOW);
+                        SetColor();
                         // Set the background color of the button that was clicked to match the current player's color
                         b.setEnabled(false);
                         // Disable the button that was clicked
@@ -276,6 +299,7 @@ public class ConnectFour implements ActionListener {
                         break;
                     }
                 }
+                SetColor();
             }
         }
 
