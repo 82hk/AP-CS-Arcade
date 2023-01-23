@@ -45,7 +45,7 @@ public class ConnectFour implements ActionListener {
         resetButton = new JButton();
         exitButton = new JButton();
         button = new JButton[42];
-        board = new int [6][7];
+        board = new int[6][7];
         currentPlayer = 1;
         isWin = false;
 
@@ -67,35 +67,35 @@ public class ConnectFour implements ActionListener {
         frame.setVisible(true);
         frame.setLayout(new BorderLayout());
 
-        panel.setLayout(new GridLayout(6,7));
+        panel.setLayout(new GridLayout(6, 7));
         panel.setVisible(true);
 
         for (int i = 0; i < 42; i++) {
             button[i] = new JButton();
             button[i].addActionListener(this::actionPerformed);
             button[i].setVisible(true);
-          
+            //creates Jbutton Array
             // separated the ActionListener code (at bottom) from the button iterator
             panel.add(button[i]);
         }
         for (int i = 7; i < 42; i++) {
-          button[i].setEnabled(false);
+            button[i].setEnabled(false);
         }
 
         frame.add(title, BorderLayout.NORTH);
         frame.add(panel);
     }
-    
+
     private void ResetGame() {
         for (int i = 0; i < 42; i++) {
             button[i].setBackground(new JButton().getBackground());
             button[i].setEnabled(true);
         }
         for (int i = 7; i < 42; i++) {
-          button[i].setEnabled(false);
+            button[i].setEnabled(false);
         }
-        for (int x = 5; x >= 0; x--){
-            for (int y = 6; y >= 0; y--){
+        for (int x = 5; x >= 0; x--) {
+            for (int y = 6; y >= 0; y--) {
                 board[x][y] = 0;
             }
         }
@@ -105,34 +105,36 @@ public class ConnectFour implements ActionListener {
     private void ExitGame() {
         frame.dispose();
     }
-    
+
     private boolean CheckWin(int row, int column) {
 // check horizontal - WORKS
-        int count = 1;
-        for (int i = column - 1; i >= 0; i--) {
-            if (board[row][i] == currentPlayer) {
-                count++;
+        //LEFT SIDE HORIZONTAL
+        int count = 1; //variable to keep track of the number of pieces in a row
+        for (int i = column - 1; i >= 0; i--) { //go through the columns to the left of the current column
+            if (board[row][i] == currentPlayer) { //if the current piece is of the same player then increase count
+                count++; //increment the count
             } else {
-                break; // iterations done until [     ??     ]
+                break; //break if piece isnt the same as players
             }
         }
-        for (int i = column + 1; i < 7; i++) {
-            if (board[row][i] == currentPlayer) {
-                count++;
+        //RIGHT SIDE HORIZONTAL
+        for (int i = column + 1; i < 7; i++) { //go through the columns to the right of the current column
+            if (board[row][i] == currentPlayer) { //if the current piece is of the same player then increase count
+                count++; //increment the count
             } else {
-                break;
+                break; //break if piece isnt the same as players
             }
         }
-        if (count >= 4) {
+        if (count >= 4) { // If its 4 in a row then the player wins
             return true;
         }
         // check vertical - DOES NOT WORK
         count = 1;
-        for (int i = row - 1; i >= 0; i--) {
-            if (board[i][column] == currentPlayer) {
-                count++;
+        for (int i = row - 1; i >= 0; i--) { //go through the rows above the current row
+            if (board[i][column] == currentPlayer) { //if the current piece is of the same player then increase count
+                count++; //increment the count
             } else {
-                break;
+                break; //break if piece isnt the same as players
             }
         }
         if (count >= 4) {
@@ -141,22 +143,23 @@ public class ConnectFour implements ActionListener {
 
         // check diagonal (top-left to bottom-right) - DOES NOT WORK
         count = 1;
-        for (int i = 1; i < 7; i++) {
-            int r = row + i;
-            int c = column + i;
-            if (r < 6 && c < 7 && board[r][c] == currentPlayer) {
-                count++;
+        for (int i = 1; i < 7; i++) { //go through the diagonal positions of the board
+            int r = row + i; //the row of the diagonal position
+            int c = column + i; //the column of the diagonal position
+            if (r < 6 && c < 7 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
+                count++; //increment the count
             } else {
-                break;
+                break; //break if piece isnt the same as players
             }
         }
-        for (int i = 1; i < 7; i++) {
-            int r = row - i;
-            int c = column - i;
-            if (r >= 0 && c >= 0 && board[r][c] == currentPlayer) {
-                count++;
+        // check diagonal (top-left to bottom right)
+        for (int i = 1; i < 7; i++) { //iterate through the diagonal positions of the board
+            int r = row - i; //the row of the diagonal position
+            int c = column - i; //the column of the diagonal position
+            if (r >= 0 && c >= 0 && board[r][c] == currentPlayer) { //if the current position is of the same player then increase count
+                count++; //increment the count
             } else {
-                break;
+                break; //break if piece isnt the same as players
             }
         }
         if (count >= 4) {
@@ -164,23 +167,23 @@ public class ConnectFour implements ActionListener {
         }
         return false; // checkWin false if no win conditions met
     }
-    
+
     private void ClaimSpot() {
     }
 
     private void UpdateBoard() {
-      for (int row = 0; row < 5; row++) {
-        for (int column = 0; column < 7; column ++) {
+        for (int row = 0; row < 5; row++) {
+            for (int column = 0; column < 7; column++) {
 
-          if (board[row+1][column] == 0 && board[row][column] == currentPlayer) {
-            board[row+1][column] = currentPlayer;
-            board[row][column] = 0;
-          }
-          
-        }         
-      }
+                if (board[row + 1][column] == 0 && board[row][column] == currentPlayer) {
+                    board[row + 1][column] = currentPlayer;
+                    board[row][column] = 0;
+                }
+
+            }
+        }
     }
-    
+
     public ConnectFour() {
         ConfigureGame();
     }
@@ -206,25 +209,33 @@ public class ConnectFour implements ActionListener {
                     break;
                 }
             }
-          
+
             for (int row = 0; row < 5; row++) { // can only drop from top row
-              if (board[row+1][column] == 0) {
-                k+=7; // K isn't stopping below 42.
-              } else {
-                break;
-              }
+                if (board[row + 1][column] == 0) {
+                    k += 7; // K isn't stopping below 42.
+                } else {
+                    break;
+                }
             }
             b = button[k]; // ERROR IS HAPPENING HERE. K TOO BIG.
-          
+
             if (column != -1) {
-              System.out.println("\n\n\nhere");
+                // Check if the column variable is not equal to -1.
+                System.out.println("\n\n\nhere");
                 for (int row = 5; row >= 0; row--) {
+                    // Iterate through the rows starting from the bottom row and going to the top
                     if (board[row][column] == 0) {
+                        // Check if the space on the board array at the current row and column is empty
                         board[row][column] = currentPlayer;
+                        // Assign the current player's value (1 or 2) to the current space on the board
                         b.setBackground(currentPlayer == 1 ? Color.RED : Color.YELLOW);
+                        // Set the background color of the button that was clicked to match the current player's color
                         b.setEnabled(false);
+                        // Disable the button that was clicked
                         if (CheckWin(row, column)) {
+                            // Check if the current player has won the game
                             JOptionPane.showMessageDialog(null, "Player " + currentPlayer + " wins!");
+                            // If they win display a message dialog box saying they won
                             isWin = true;
                         } else {
                             currentPlayer = currentPlayer == 1 ? 2 : 1;
@@ -235,7 +246,7 @@ public class ConnectFour implements ActionListener {
             }
         }
 
-      //UpdateBoard();
+        //UpdateBoard();
         // below is purely for debugging purposes; prints out the 'board' 2D array
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
