@@ -32,9 +32,9 @@ public class Window implements ActionListener{
     private static String[] choices = {"Use Card", "Use Combo", "End Turn"};
     private JComboBox battleChoices = new JComboBox(choices);
 
-    private static JComboBox options;
+    private static JComboBox options = new JComboBox();
 
-    private static JComboBox combos;
+    private static JComboBox combos = new JComboBox();
 
     private JButton use = new JButton("GO");
     private static DefaultListModel listModel = new DefaultListModel();
@@ -59,9 +59,9 @@ public class Window implements ActionListener{
     public Window() {
         frame = new JFrame("Cards of Fate");
         player = Player.getInstance();
-        options = new JComboBox(player.getHand2());
+        updateOptions();
         updateDiscards();
-        combos = new JComboBox(combinations.getCombos2(player.getHand()));
+        updateCombos();
 
         //tutorial box
         int n = JOptionPane.showConfirmDialog(frame, "Do you want to skip the Tutorial?", " Starting Game", JOptionPane.YES_NO_OPTION);

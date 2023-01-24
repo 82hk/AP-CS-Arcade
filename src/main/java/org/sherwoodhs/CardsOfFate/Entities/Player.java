@@ -14,6 +14,12 @@ public class Player extends Deck {
         return (player);
     }
     public void resetPlayer(){
-        player = new Player("Player", decks);
+        health = 30;
+        Stack<Card> stack = new Stack<>();
+        for(int i = 0; i < decks.length; i++) {
+            stack.push(decks[i]);
+        }
+        // Makes the stack of cards a deck
+        this.deck = stack;
     }
 }
